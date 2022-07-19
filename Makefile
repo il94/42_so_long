@@ -16,8 +16,8 @@ OBJ = $(SRC:.c=.o)
 all : $(NAME)
 
 $(NAME): $(OBJ)
-	$(MAKE) -C libft
-	$(CC) $(OBJ) $(LIBFT) $(LIBX) $(LIBXFLAGS) -o $(NAME)
+	@$(MAKE) --no-print-directory additional -C libft
+	@$(CC) $(OBJ) $(LIBFT) $(LIBX) $(LIBXFLAGS) -o $(NAME)
 
 %.o: %.c
 	$(CC) -c $^
