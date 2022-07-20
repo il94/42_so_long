@@ -4,7 +4,6 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
 LIBFT = -L libft -lft
-
 LIBX = -L mlx_linux -lmlx_Linux
 LIBXFLAGS = -lmlx -lXext -lX11
 
@@ -16,20 +15,26 @@ OBJ = $(SRC:.c=.o)
 all : $(NAME)
 
 $(NAME): $(OBJ)
-	@$(MAKE) --no-print-directory additional -C libft
+	@$(MAKE) --no-print-directory -C libft
+	@echo "\033[36mMaking So Long\033[0m"
 	@$(CC) $(OBJ) $(LIBFT) $(LIBX) $(LIBXFLAGS) -o $(NAME)
+	@echo "\033[32mDone\033[0m"
 
-%.o: %.c
-	$(CC) -c $^
+%.o : $(SRCPATH)%.c
+	@$(CC) -c $^
 
 clean :
-	$(MAKE) clean -C libft
-	rm -f $(OBJ)
+	@$(MAKE) --no-print-directory fclean -C libft
+	@echo "\033[35mCleaning So Long's objects...\033[0m"
+	@rm -f $(OBJ)
+	@echo "\033[32mDone\033[0m"
 
 fclean : clean
-	rm libft/libft.a
-	rm -f $(NAME)
+	@echo "\033[35mCleaning So_Long...\033[0m"
+	@rm -f $(NAME)
+	@echo "\033[32mDone\033[0m"
 
-re : fclean all
+re : fclean
+	make all
 
-.PHONY : all clean fclean re
+.PHONY : all clean fclean re bonus
