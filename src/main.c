@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 14:32:24 by ilandols          #+#    #+#             */
-/*   Updated: 2022/07/20 18:07:33 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/07/21 17:59:01 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,39 @@ int	close_win(int keycode, t_game *game)
 
 int	print_image(t_game *game)
 {
-	test_pixel_put(game->mlx, game->img);
+	int	back_x;
+	int	back_y;
+	int	i;
+	int	j;
+
+	back_x = 0;
+	back_y = 0;
+	i = 0;
+	j = 0;
+	while (back_y < HEIGHT / 4)
+	{
+		back_x = 0;
+		while (back_x < WIDTH / 4)
+		{
+			i = 0;
+			while (i < game->img.height)
+			{
+				j = 0;
+				while (j < game->img.width)
+				{
+					my_mlx_pixel_put(&game->img, j, i, get_color(&game->img, j, i));
+					j++;
+				}
+				i++;
+			}
+			back_x++;
+		}
+		back_y++;
+	}
+
+	// test_pixel_put(game->mlx, game->img);
 	// game->img.img = mlx_xpm_file_to_image(game->mlx, "./grass.xpm", &game->img.width, &game->img.height);
-	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 500, 500);
+	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 	return (0);
 }
 
@@ -107,14 +137,13 @@ int	main(void)
 	if (!game.mlx)
 		exit (0);
 	game.win = mlx_new_window(game.mlx, WIDTH, HEIGHT, "So Longuent");
-	game.img.img = mlx_new_image(game.mlx, WIDTH, HEIGHT);
+	// game.img.img = mlx_new_image(game.mlx, WIDTH, HEIGHT);
+	game.img.img = mlx_xpm_file_to_image(game.mlx, "src/grass.xpm", &game.img.width, &game.img.height);
 	
 /*============================================================================*/
 	
 	game.img.addr = mlx_get_data_addr(game.img.img, &game.img.bits_per_pixel, &game.img.line_length, &game.img.endian);
-	
 /*============================================================================*/
-
 	mlx_hook(game.win, 2, 1L<<0, close_win, &game);
 	mlx_loop_hook(game.mlx, print_image, &game);
 	

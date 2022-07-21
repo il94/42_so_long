@@ -1,9 +1,7 @@
 make --dry-run --always-make --keep-going --print-directory
 make: Entering directory '/mnt/nfs/homes/ilandols/42/repo_perso/so_long'
- 
 gcc -c src/main.c
 make --no-print-directory -C libft
- 
 gcc -Wall -Wextra -Werror -c ft_atoi.c
 gcc -Wall -Wextra -Werror -c ft_bzero.c
 gcc -Wall -Wextra -Werror -c ft_calloc.c
@@ -61,7 +59,6 @@ echo "\033[33mMaking Libft_printf\033[0m"
 ar rcs libftprintf.a ft_printf.o convert_flag.o p_convert_flag.o flags.o 
 echo "\033[32mDone\033[0m"
 make --no-print-directory -C ft_get_next_line
- 
 gcc -Wall -Wextra -Werror -c ft_get_next_line.c
 gcc -Wall -Wextra -Werror -c get_next_line_utils.c
 echo "\033[33mMaking Libft_gnl\033[0m"
