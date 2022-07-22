@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 14:32:24 by ilandols          #+#    #+#             */
-/*   Updated: 2022/07/21 17:59:01 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/07/22 19:08:35 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,41 +93,46 @@ int	close_win(int keycode, t_game *game)
 
 int	print_image(t_game *game)
 {
-	int	back_x;
-	int	back_y;
 	int	i;
 	int	j;
 
-	back_x = 0;
-	back_y = 0;
 	i = 0;
 	j = 0;
-	while (back_y < HEIGHT / 4)
+	while (i < game->back.height)
 	{
-		back_x = 0;
-		while (back_x < WIDTH / 4)
+		j = 0;
+		while (j < game->back.width)
 		{
-			i = 0;
-			while (i < game->img.height)
-			{
-				j = 0;
-				while (j < game->img.width)
-				{
-					my_mlx_pixel_put(&game->img, j, i, get_color(&game->img, j, i));
-					j++;
-				}
-				i++;
-			}
-			back_x++;
+			my_mlx_pixel_put(&game->screen, j, i, get_color(&game->back, j, i));
+			j++;
 		}
-		back_y++;
+		i++;
 	}
-
-	// test_pixel_put(game->mlx, game->img);
-	// game->img.img = mlx_xpm_file_to_image(game->mlx, "./grass.xpm", &game->img.width, &game->img.height);
-	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 	return (0);
 }
+
+int	print_background(t_game *game)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (i < HEIGHT / game->back.height)
+	{
+		j = 0;
+		while (j < WIDTH / game->back.width)
+		{
+			if (i == 0)
+			mlx_put_image_to_window(game->mlx, game->win, game->back.img, j * game->back.width, i * game->back.height);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+
 
 int	main(void)
 {
@@ -137,22 +142,25 @@ int	main(void)
 	if (!game.mlx)
 		exit (0);
 	game.win = mlx_new_window(game.mlx, WIDTH, HEIGHT, "So Longuent");
-	// game.img.img = mlx_new_image(game.mlx, WIDTH, HEIGHT);
-	game.img.img = mlx_xpm_file_to_image(game.mlx, "src/grass.xpm", &game.img.width, &game.img.height);
+	game.screen.img = mlx_new_image(game.mlx, WIDTH, HEIGHT);
+	get_xpm(game);
+	game.back.img = mlx_xpm_file_to_image(game.mlx, "src/floor.xpm", &game.back.width, &game.back.height);
 	
 /*============================================================================*/
 	
-	game.img.addr = mlx_get_data_addr(game.img.img, &game.img.bits_per_pixel, &game.img.line_length, &game.img.endian);
+	game.screen.addr = mlx_get_data_addr(game.screen.img, &game.screen.bits_per_pixel, &game.screen.line_length, &game.screen.endian);
+	game.back.addr = mlx_get_data_addr(game.back.img, &game.back.bits_per_pixel, &game.back.line_length, &game.back.endian);
 /*============================================================================*/
-	mlx_hook(game.win, 2, 1L<<0, close_win, &game);
-	mlx_loop_hook(game.mlx, print_image, &game);
+	mlx_hook(game.win, 2, 17, close_win, &game);
+	mlx_loop_hook(game.mlx, print_background, &game);
 	
 /*============================================================================*/
 
 	mlx_loop(game.mlx);
 
 	
-	mlx_destroy_image(game.mlx, game.img.img);
+	mlx_destroy_image(game.mlx, game.screen.img);
+	mlx_destroy_image(game.mlx, game.back.img);
 	mlx_destroy_window(game.mlx, game.win);
 	mlx_destroy_display(game.mlx);
 	free(game.mlx);

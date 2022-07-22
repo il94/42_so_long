@@ -5,9 +5,8 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
- 
 
-# Make data base, printed on Thu Jul 21 15:56:51 2022
+# Make data base, printed on Fri Jul 22 19:07:28 2022
 
 # Variables
 
@@ -44,15 +43,13 @@ CURDIR := /mnt/nfs/homes/ilandols/42/repo_perso/so_long
 # makefile
 SHELL = /bin/sh
 # environment
-GDM_LANG = en
-# environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
 _ = /usr/share/code/code
 # makefile (from 'Makefile', line 4)
 CFLAGS = -Wall -Wextra -Werror
 # environment
-JOURNAL_STREAM = 9:1711620
+JOURNAL_STREAM = 9:307880
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # makefile (from 'Makefile', line 1)
@@ -74,15 +71,15 @@ VSCODE_VERBOSE_LOGGING = true
 # makefile (from 'Makefile', line 8)
 LIBXFLAGS = -lmlx -lXext -lX11
 # environment
-MANAGERPID = 356913
+MANAGERPID = 75330
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/101934/vscode-ipc-907202c6-3bfa-4939-98ff-f4e34bf4b8d2.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/101934/vscode-ipc-5230140c-f31f-4ea6-8c54-a5054fbabab5.sock
 # environment
 VSCODE_CWD = /mnt/nfs/homes/ilandols
 # environment
-XDG_SESSION_PATH = /org/freedesktop/DisplayManager/Session11
+XDG_SESSION_PATH = /org/freedesktop/DisplayManager/Session1
 # environment
-KRB5CCNAME = FILE:/tmp/krb5cc_101934_YIGW0T
+KRB5CCNAME = FILE:/tmp/krb5cc_101934_nMsZNq
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
@@ -92,7 +89,7 @@ GPG_AGENT_INFO = /run/user/101934/gnupg/S.gpg-agent:0:1
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
-SESSION_MANAGER = local/e2r5p4.clusters.42paris.fr:@/tmp/.ICE-unix/357467,unix/e2r5p4.clusters.42paris.fr:/tmp/.ICE-unix/357467
+SESSION_MANAGER = local/e1r9p2.clusters.42paris.fr:@/tmp/.ICE-unix/75846,unix/e1r9p2.clusters.42paris.fr:/tmp/.ICE-unix/75846
 # environment
 XDG_RUNTIME_DIR = /run/user/101934
 # environment
@@ -102,7 +99,7 @@ VSCODE_LOG_STACK = false
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 84b2b122f7f54bf9981cd96a76d85389
+INVOCATION_ID = 49719a65d3434246b23bd37c991fbff2
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -114,7 +111,7 @@ XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/101934/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 358012
+GIO_LAUNCHED_DESKTOP_FILE_PID = 76668
 # automatic
 %F = $(notdir $%)
 # environment
@@ -126,7 +123,7 @@ PWD = /mnt/nfs/homes/ilandols/42/repo_perso/so_long
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 357431
+SSH_AGENT_PID = 75810
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -190,8 +187,6 @@ OLDPWD = /mnt/nfs/homes/ilandols
 # automatic
 *F = $(notdir $*)
 # environment
-LANGUAGE = en
-# environment
 XDG_SEAT_PATH = /org/freedesktop/DisplayManager/Seat0
 # environment
 VSCODE_IPC_HOOK = /run/user/101934/vscode-245e1149-1.68.1-main.sock
@@ -242,9 +237,9 @@ LANG = C
 # environment
 DOCKER_HOST = unix:///run/user/101934/docker.sock
 # environment
-VSCODE_PID = 358012
+VSCODE_PID = 76668
 # variable set hash-table stats:
-# Load=116/1024=11%, Rehash=0, Collisions=17/146=12%
+# Load=114/1024=11%, Rehash=0, Collisions=17/148=11%
 
 # Pattern-specific Variable Values
 
@@ -252,10 +247,10 @@ VSCODE_PID = 358012
 
 # Directories
 
-# . (device 54, inode 305796631): 13 files, no impossibilities.
-# src (device 54, inode 42415110): 3 files, no impossibilities so far.
+# . (device 58, inode 305796631): 14 files, no impossibilities.
+# src (device 58, inode 42415110): 3 files, no impossibilities so far.
 
-# 16 files, no impossibilities in 2 directories.
+# 17 files, no impossibilities in 2 directories.
 
 # Implicit Rules
 
@@ -273,19 +268,21 @@ all: so_long
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/4=0%
 
 .PHONY: all clean fclean re bonus
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
- 
 
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
 #  Last modified 2022-07-20 10:45:13.882813986
 #  File has been updated.
+ 
 #  Successfully updated.
 
 bonus:
@@ -307,7 +304,7 @@ fclean: clean
 # Not a target:
 src/main.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-20 18:07:33.051747289
+#  Last modified 2022-07-22 19:00:09.662412783
 #  File has been updated.
 #  Successfully updated.
 
@@ -339,17 +336,37 @@ clean:
 main.o: src/main.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'main'
-#  Last modified 2022-07-20 18:07:33.85174689
+#  Last modified 2022-07-22 18:52:05.737063678
 #  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := main.o
+# automatic
+# % := 
+# automatic
+# * := main
+# automatic
+# + := src/main.c
+# automatic
+# | := 
+# automatic
+# < := src/main.c
+# automatic
+# ^ := src/main.c
+# automatic
+# ? := src/main.c
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=1/13=8%
 #  recipe to execute (from 'Makefile', line 24):
 	@$(CC) -c $^
 
 so_long: main.o
 #  Implicit rule search has not been done.
-#  Last modified 2022-07-20 18:07:33.910746861
+#  Last modified 2022-07-22 18:52:05.818064071
 #  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/4=0%
 #  recipe to execute (from 'Makefile', line 18):
 	@$(MAKE) --no-print-directory -C libft
 	@echo "\033[36mMaking So Long\033[0m"
@@ -364,12 +381,12 @@ so_long: main.o
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 28 / storage = 204 B / avg = 7 B
-# current buf: size = 8162 B / used = 204 B / count = 28 / avg = 7 B
+# strcache buffers: 1 (0) / strings = 29 / storage = 219 B / avg = 7 B
+# current buf: size = 8162 B / used = 219 B / count = 29 / avg = 7 B
 
-# strcache performance: lookups = 52 / hit rate = 46%
+# strcache performance: lookups = 53 / hit rate = 45%
 # hash-table stats:
-# Load=28/8192=0%, Rehash=0, Collisions=2/52=4%
-# Finished Make data base on Thu Jul 21 15:56:51 2022
+# Load=29/8192=0%, Rehash=0, Collisions=2/53=4%
+# Finished Make data base on Fri Jul 22 19:07:28 2022
 
  

@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:53:28 by ilandols          #+#    #+#             */
-/*   Updated: 2022/07/20 17:10:00 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/07/22 17:21:01 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ typedef struct	s_data {
 typedef struct	s_game {
 	void	*mlx;
 	void	*win;
-	t_data	img;
+	t_data	screen;
+	t_data	back;
 }				t_game;
 
 #endif
