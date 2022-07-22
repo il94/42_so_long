@@ -8,7 +8,8 @@ LIBX = -L mlx_linux -lmlx_Linux
 LIBXFLAGS = -lmlx -lXext -lX11
 
 SRCPATH = src/
-SRC = main.c
+SRC = main.c \
+		get_xpm.c
 
 OBJ = $(SRC:.c=.o)
 

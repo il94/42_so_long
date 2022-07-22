@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:53:28 by ilandols          #+#    #+#             */
-/*   Updated: 2022/07/22 17:21:01 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/07/23 01:44:38 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # define KEY_D 115
 # define KEY_S 97
 # define KEY_A 99
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 1920 / 2
+# define HEIGHT 1080 / 2
 # define CELL_SIZE 50
 
 # include "mlx_linux/mlx.h"
@@ -27,6 +27,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <limits.h>
+# include <fcntl.h>
 
 typedef struct	s_data {
 	void	*img;
@@ -41,8 +42,10 @@ typedef struct	s_data {
 typedef struct	s_game {
 	void	*mlx;
 	void	*win;
-	t_data	screen;
-	t_data	back;
+	t_data	floor;
+	t_data	wall;
 }				t_game;
+
+void	get_xpm(t_game *game);
 
 #endif

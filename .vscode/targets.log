@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Fri Jul 22 19:07:28 2022
+# Make data base, printed on Sat Jul 23 01:00:58 2022
 
 # Variables
 
@@ -15,135 +15,77 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # automatic
 ?F = $(notdir $?)
 # environment
-DESKTOP_SESSION = ubuntu
+WSLENV = VSCODE_WSL_EXT_LOCATION/up
 # default
 .SHELLFLAGS := -c
-# makefile (from 'Makefile', line 13)
+# makefile (from 'Makefile', line 14)
 OBJ = $(SRC:.c=.o)
-# environment
-XDG_SESSION_CLASS = user
 # makefile (from 'Makefile', line 11)
-SRC = main.c
-# environment
-XDG_SESSION_TYPE = x11
-# environment
-VSCODE_LOG_NATIVE = false
+SRC = main.c get_xpm.c
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
-# environment
-XAUTHORITY = /mnt/nfs/homes/ilandols/.Xauthority
-# environment
-GDMSESSION = ubuntu
-# environment
-XMODIFIERS = @im=ibus
+# automatic
+@F = $(notdir $@)
 # makefile
-CURDIR := /mnt/nfs/homes/ilandols/42/repo_perso/so_long
+CURDIR := /home/ilyes/42/so_long
 # makefile
 SHELL = /bin/sh
 # environment
-VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+VSCODE_NLS_CONFIG = {"locale":"fr","availableLanguages":{"*":"fr"},"_languagePackId":"8e1a08857df44efaeace20a1f4372f40.fr","_translationsConfigFile":"/home/ilyes/.vscode-server/data/clp/8e1a08857df44efaeace20a1f4372f40.fr/tcf.json","_cacheRoot":"/home/ilyes/.vscode-server/data/clp/8e1a08857df44efaeace20a1f4372f40.fr","_resolvedLanguagePackCoreLocation":"/home/ilyes/.vscode-server/data/clp/8e1a08857df44efaeace20a1f4372f40.fr/3b889b090b5ad5793f524b5d1d39fda662b96a2a","_corruptedFile":"/home/ilyes/.vscode-server/data/clp/8e1a08857df44efaeace20a1f4372f40.fr/corrupted.info","_languagePackSupport":true}
 # environment
-_ = /usr/share/code/code
+_ = /home/ilyes/.vscode-server/bin/3b889b090b5ad5793f524b5d1d39fda662b96a2a/node
 # makefile (from 'Makefile', line 4)
 CFLAGS = -Wall -Wextra -Werror
-# environment
-JOURNAL_STREAM = 9:307880
-# environment
-XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # makefile (from 'Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
-# automatic
-@F = $(notdir $@)
-# environment
-GIO_LAUNCHED_DESKTOP_FILE = /usr/share/applications/code.desktop
 # 'override' directive
 GNUMAKEFLAGS := 
-# environment
-MANDATORY_PATH = /usr/share/gconf/ubuntu.mandatory.path
-# environment
-XDG_DATA_DIRS = /usr/share/gnome:/usr/share/ubuntu:/mnt/nfs/homes/ilandols/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share:/var/lib/snapd/desktop
-# environment
-DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/101934/bus
-# environment
-VSCODE_VERBOSE_LOGGING = true
 # makefile (from 'Makefile', line 8)
 LIBXFLAGS = -lmlx -lXext -lX11
 # environment
-MANAGERPID = 75330
-# environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/101934/vscode-ipc-5230140c-f31f-4ea6-8c54-a5054fbabab5.sock
-# environment
-VSCODE_CWD = /mnt/nfs/homes/ilandols
-# environment
-XDG_SESSION_PATH = /org/freedesktop/DisplayManager/Session1
-# environment
-KRB5CCNAME = FILE:/tmp/krb5cc_101934_nMsZNq
+VSCODE_CWD = /mnt/c/Users/ilyes/AppData/Local/Programs/Microsoft VS Code
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /mnt/nfs/homes/ilandols/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
-# environment
-GPG_AGENT_INFO = /run/user/101934/gnupg/S.gpg-agent:0:1
+PATH = /home/ilyes/.vscode-server/bin/3b889b090b5ad5793f524b5d1d39fda662b96a2a/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files (x86)/VMware/VMware Player/bin/:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Users/ilyes/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/ilyes/AppData/Local/Programs/Microsoft VS Code/bin
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
-SESSION_MANAGER = local/e1r9p2.clusters.42paris.fr:@/tmp/.ICE-unix/75846,unix/e1r9p2.clusters.42paris.fr:/tmp/.ICE-unix/75846
-# environment
-XDG_RUNTIME_DIR = /run/user/101934
-# environment
-XDG_MENU_PREFIX = gnome-
-# environment
-VSCODE_LOG_STACK = false
+XDG_RUNTIME_DIR = /mnt/wslg/runtime-dir
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 49719a65d3434246b23bd37c991fbff2
+VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-9f417f1c-2de4-4bbb-ad53-c2e42606f824.sock
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
-XDG_GREETER_DATA_DIR = /var/lib/lightdm-data/ilandols
-# environment
-LS_COLORS = 
-# environment
-XDG_SESSION_DESKTOP = ubuntu
-# environment
-SSH_AUTH_SOCK = /run/user/101934/keyring/ssh
-# environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 76668
+LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
 # automatic
 %F = $(notdir $%)
 # environment
 DISPLAY = :0
 # environment
-VSCODE_PIPE_LOGGING = true
-# environment
-PWD = /mnt/nfs/homes/ilandols/42/repo_perso/so_long
+PWD = /home/ilyes/42/so_long
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 75810
+WSL_INTEROP = /run/WSL/29_interop
 # environment
-ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
-# environment
-GTK_MODULES = gail:atk-bridge
+PULSE_SERVER = /mnt/wslg/PulseServer
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
-HOME = /mnt/nfs/homes/ilandols
+HOME = /home/ilyes
 # environment
-VSCODE_CODE_CACHE_PATH = /mnt/nfs/homes/ilandols/.config/Code/CachedData/30d9c6cd9483b2cc586687151bcbcd635f373630
+LOGNAME = ilyes
 # environment
-LOGNAME = ilandols
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
-# environment
-ZSH = /mnt/nfs/homes/ilandols/.oh-my-zsh
+ZSH = /home/ilyes/.oh-my-zsh
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
-# environment
-GNOME_DESKTOP_SESSION_ID = this-is-deprecated
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
 # environment
@@ -153,43 +95,35 @@ MAKE = $(MAKE_COMMAND)
 # default
 MAKECMDGOALS := all
 # environment
-QT_IM_MODULE = ibus
-# environment
-SHLVL = 1
+SHLVL = 0
 # makefile (from 'Makefile', line 6)
 LIBFT = -L libft -lft
 # makefile (from 'Makefile', line 3)
 CC = gcc
-# environment
-IM_CONFIG_PHASE = 1
 # default
 MAKE_VERSION := 4.2.1
 # environment
-USER = ilandols
+USER = ilyes
 # makefile
 .DEFAULT_GOAL := all
-# environment
-XDG_CURRENT_DESKTOP = Unity
-# environment
-LIBVIRT_DEFAULT_URI = qemu:///system
+# makefile (from 'Makefile', line 1)
+NAME = so_long
 # makefile (from 'Makefile', line 10)
 SRCPATH = src/
 # environment
 LESS = -R
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
+# environment
+VSCODE_WSL_EXT_LOCATION = /mnt/c/Users/ilyes/.vscode/extensions/ms-vscode-remote.remote-wsl-0.66.3
 # default
 MAKE_COMMAND := make
 # environment
-OLDPWD = /mnt/nfs/homes/ilandols
+OLDPWD = /mnt/c/Users/ilyes/AppData/Local/Programs/Microsoft VS Code
 # default
 .VARIABLES := 
 # automatic
 *F = $(notdir $*)
-# environment
-XDG_SEAT_PATH = /org/freedesktop/DisplayManager/Seat0
-# environment
-VSCODE_IPC_HOOK = /run/user/101934/vscode-245e1149-1.68.1-main.sock
 # makefile
 MAKEFLAGS = pqrR
 # environment
@@ -198,14 +132,10 @@ MFLAGS = -pqrR
 *D = $(patsubst %/,%,$(dir $*))
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
-# environment
-GDK_BACKEND = x11
 # automatic
 +F = $(notdir $+)
 # environment
-QT_ACCESSIBILITY = 1
-# environment
-DEFAULTS_PATH = /usr/share/gconf/ubuntu.default.path
+VSCODE_HANDLES_SIGPIPE = true
 # default
 MAKEFILES := 
 # automatic
@@ -217,29 +147,25 @@ LC_ALL = C
 # makefile (from 'Makefile', line 7)
 LIBX = -L mlx_linux -lmlx_Linux
 # environment
-GJS_DEBUG_TOPICS = JS ERROR;JS LOG
+HOSTTYPE = x86_64
 # automatic
 ^F = $(notdir $^)
 # default
 SUFFIXES := 
 # environment
-CHROME_DESKTOP = code-url-handler.desktop
+WAYLAND_DISPLAY = wayland-0
 # default
 .INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
-# environment
-GJS_DEBUG_OUTPUT = stderr
-# makefile (from 'Makefile', line 1)
-NAME = so_long
 # default
 .RECIPEPREFIX := 
 # environment
 LANG = C
 # environment
-DOCKER_HOST = unix:///run/user/101934/docker.sock
+TERM = xterm-256color
 # environment
-VSCODE_PID = 76668
+WSL_DISTRO_NAME = Ubuntu-20.04
 # variable set hash-table stats:
-# Load=114/1024=11%, Rehash=0, Collisions=17/148=11%
+# Load=77/1024=8%, Rehash=0, Collisions=8/108=7%
 
 # Pattern-specific Variable Values
 
@@ -247,15 +173,15 @@ VSCODE_PID = 76668
 
 # Directories
 
-# . (device 58, inode 305796631): 14 files, no impossibilities.
-# src (device 58, inode 42415110): 3 files, no impossibilities so far.
+# . (device 2080, inode 46521): 16 files, no impossibilities.
+# src (device 2080, inode 108368): 6 files, no impossibilities so far.
 
-# 17 files, no impossibilities in 2 directories.
+# 22 files, no impossibilities in 2 directories.
 
 # Implicit Rules
 
 %.o: src/%.c
-#  recipe to execute (from 'Makefile', line 24):
+#  recipe to execute (from 'Makefile', line 25):
 	@$(CC) -c $^
 
 # 1 implicit rules, 0 (0.0%) terminal.
@@ -268,9 +194,7 @@ all: so_long
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/4=0%
+#  Successfully updated.
 
 .PHONY: all clean fclean re bonus
 #  Implicit rule search has not been done.
@@ -280,9 +204,15 @@ all: so_long
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-20 10:45:13.882813986
+#  Last modified 2022-07-23 00:08:29.2009909
 #  File has been updated.
- 
+#  Successfully updated.
+
+# Not a target:
+src/get_xpm.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-23 00:44:09.8009909
+#  File has been updated.
 #  Successfully updated.
 
 bonus:
@@ -296,7 +226,7 @@ fclean: clean
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 33):
+#  recipe to execute (from 'Makefile', line 34):
 	@echo "\033[35mCleaning So_Long...\033[0m"
 	@rm -f $(NAME)
 	@echo "\033[32mDone\033[0m"
@@ -304,7 +234,7 @@ fclean: clean
 # Not a target:
 src/main.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-22 19:00:09.662412783
+#  Last modified 2022-07-23 00:54:21.2009909
 #  File has been updated.
 #  Successfully updated.
 
@@ -319,7 +249,7 @@ re: fclean
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 38):
+#  recipe to execute (from 'Makefile', line 39):
 	make all
 
 clean:
@@ -327,66 +257,56 @@ clean:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 27):
+#  recipe to execute (from 'Makefile', line 28):
 	@$(MAKE) --no-print-directory fclean -C libft
 	@echo "\033[35mCleaning So Long's objects...\033[0m"
 	@rm -f $(OBJ)
 	@echo "\033[32mDone\033[0m"
 
+get_xpm.o: src/get_xpm.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'get_xpm'
+#  Last modified 2022-07-23 00:54:22.6209909
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 25):
+	@$(CC) -c $^
+
 main.o: src/main.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'main'
-#  Last modified 2022-07-22 18:52:05.737063678
+#  Last modified 2022-07-23 00:54:22.5309909
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := main.o
-# automatic
-# % := 
-# automatic
-# * := main
-# automatic
-# + := src/main.c
-# automatic
-# | := 
-# automatic
-# < := src/main.c
-# automatic
-# ^ := src/main.c
-# automatic
-# ? := src/main.c
-# variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=1/13=8%
-#  recipe to execute (from 'Makefile', line 24):
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 25):
 	@$(CC) -c $^
 
-so_long: main.o
+so_long: main.o get_xpm.o
 #  Implicit rule search has not been done.
-#  Last modified 2022-07-22 18:52:05.818064071
+#  Last modified 2022-07-23 00:54:23.9309909
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/4=0%
-#  recipe to execute (from 'Makefile', line 18):
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 19):
 	@$(MAKE) --no-print-directory -C libft
 	@echo "\033[36mMaking So Long\033[0m"
 	@$(CC) $(OBJ) $(LIBFT) $(LIBX) $(LIBXFLAGS) -o $(NAME)
 	@echo "\033[32mDone\033[0m"
 
 # files hash-table stats:
-# Load=12/1024=1%, Rehash=0, Collisions=0/36=0%
+# Load=14/1024=1%, Rehash=0, Collisions=0/42=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 29 / storage = 219 B / avg = 7 B
-# current buf: size = 8162 B / used = 219 B / count = 29 / avg = 7 B
+# strcache buffers: 1 (0) / strings = 36 / storage = 289 B / avg = 8 B
+# current buf: size = 8162 B / used = 289 B / count = 36 / avg = 8 B
 
-# strcache performance: lookups = 53 / hit rate = 45%
+# strcache performance: lookups = 62 / hit rate = 41%
 # hash-table stats:
-# Load=29/8192=0%, Rehash=0, Collisions=2/53=4%
-# Finished Make data base on Fri Jul 22 19:07:28 2022
+ 
+# Load=36/8192=0%, Rehash=0, Collisions=2/62=3%
+# Finished Make data base on Sat Jul 23 01:00:58 2022
 
  

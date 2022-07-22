@@ -1,12 +1,76 @@
-make --dry-run --keep-going --print-directory
-make: Entering directory '/mnt/nfs/homes/ilandols/42/repo_perso/so_long'
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/ilyes/42/so_long'
 gcc -c src/main.c
+gcc -c src/get_xpm.c
 make --no-print-directory -C libft
- 
-make[1]: Nothing to be done for 'all'.
- 
-echo "\033[36mMaking So Long\033[0m"
-gcc main.o -L libft -lft -L mlx_linux -lmlx_Linux -lmlx -lXext -lX11 -o so_long
+gcc -Wall -Wextra -Werror -c ft_atoi.c
+gcc -Wall -Wextra -Werror -c ft_bzero.c
+gcc -Wall -Wextra -Werror -c ft_calloc.c
+gcc -Wall -Wextra -Werror -c ft_isalnum.c
+gcc -Wall -Wextra -Werror -c ft_isalpha.c
+gcc -Wall -Wextra -Werror -c ft_isascii.c
+gcc -Wall -Wextra -Werror -c ft_isdigit.c
+gcc -Wall -Wextra -Werror -c ft_isprint.c
+gcc -Wall -Wextra -Werror -c ft_itoa.c
+gcc -Wall -Wextra -Werror -c ft_memchr.c
+gcc -Wall -Wextra -Werror -c ft_memcmp.c
+gcc -Wall -Wextra -Werror -c ft_memcpy.c
+gcc -Wall -Wextra -Werror -c ft_memmove.c
+gcc -Wall -Wextra -Werror -c ft_memset.c
+gcc -Wall -Wextra -Werror -c ft_putchar_fd.c
+gcc -Wall -Wextra -Werror -c ft_putendl_fd.c
+gcc -Wall -Wextra -Werror -c ft_putnbr_fd.c
+gcc -Wall -Wextra -Werror -c ft_putstr_fd.c
+gcc -Wall -Wextra -Werror -c ft_split.c
+gcc -Wall -Wextra -Werror -c ft_strchr.c
+gcc -Wall -Wextra -Werror -c ft_strdup.c
+gcc -Wall -Wextra -Werror -c ft_striteri.c
+gcc -Wall -Wextra -Werror -c ft_strjoin.c
+gcc -Wall -Wextra -Werror -c ft_strlcat.c
+gcc -Wall -Wextra -Werror -c ft_strlcpy.c
+gcc -Wall -Wextra -Werror -c ft_strlen.c
+gcc -Wall -Wextra -Werror -c ft_strmapi.c
+gcc -Wall -Wextra -Werror -c ft_strncmp.c
+gcc -Wall -Wextra -Werror -c ft_strnstr.c
+gcc -Wall -Wextra -Werror -c ft_strrchr.c
+gcc -Wall -Wextra -Werror -c ft_strtrim.c
+gcc -Wall -Wextra -Werror -c ft_substr.c
+gcc -Wall -Wextra -Werror -c ft_tolower.c
+gcc -Wall -Wextra -Werror -c ft_toupper.c
+gcc -Wall -Wextra -Werror -c ft_lstnew.c
+gcc -Wall -Wextra -Werror -c ft_lstadd_front.c
+gcc -Wall -Wextra -Werror -c ft_lstsize.c
+gcc -Wall -Wextra -Werror -c ft_lstlast.c
+gcc -Wall -Wextra -Werror -c ft_lstadd_back.c
+gcc -Wall -Wextra -Werror -c ft_lstdelone.c
+gcc -Wall -Wextra -Werror -c ft_lstclear.c
+gcc -Wall -Wextra -Werror -c ft_lstiter.c
+gcc -Wall -Wextra -Werror -c ft_lstmap.c
+gcc -Wall -Wextra -Werror -c ft_long_long_atoi.c
+gcc -Wall -Wextra -Werror -c ft_delete_content.c
+gcc -Wall -Wextra -Werror -c ft_free_array.c
+gcc -Wall -Wextra -Werror -c ft_print_bits.c
+gcc -Wall -Wextra -Werror -c ft_iswhitespace.c
+make --no-print-directory -C ft_printf
+gcc -Wall -Wextra -Werror -c ft_printf.c
+gcc -Wall -Wextra -Werror -c convert_flag.c
+gcc -Wall -Wextra -Werror -c p_convert_flag.c
+gcc -Wall -Wextra -Werror -c flags.c
+echo "\033[33mMaking Libft_printf\033[0m"
+ar rcs libftprintf.a ft_printf.o convert_flag.o p_convert_flag.o flags.o 
 echo "\033[32mDone\033[0m"
-make: Leaving directory '/mnt/nfs/homes/ilandols/42/repo_perso/so_long'
+make --no-print-directory -C ft_get_next_line
+gcc -Wall -Wextra -Werror -c ft_get_next_line.c
+gcc -Wall -Wextra -Werror -c get_next_line_utils.c
+echo "\033[33mMaking Libft_gnl\033[0m"
+ar rcs libftgnl.a ft_get_next_line.o get_next_line_utils.o 
+echo "\033[32mDone\033[0m"
+echo "\033[33mMaking Libft\033[0m"
+ar rc libft_base.a ft_atoi.o ft_bzero.o ft_calloc.o ft_isalnum.o ft_isalpha.o ft_isascii.o ft_isdigit.o ft_isprint.o ft_itoa.o ft_memchr.o ft_memcmp.o ft_memcpy.o ft_memmove.o ft_memset.o ft_putchar_fd.o ft_putendl_fd.o ft_putnbr_fd.o ft_putstr_fd.o ft_split.o ft_strchr.o ft_strdup.o ft_striteri.o ft_strjoin.o ft_strlcat.o ft_strlcpy.o ft_strlen.o ft_strmapi.o ft_strncmp.o ft_strnstr.o ft_strrchr.o ft_strtrim.o ft_substr.o ft_tolower.o ft_toupper.o ft_lstnew.o ft_lstadd_front.o ft_lstsize.o ft_lstlast.o ft_lstadd_back.o ft_lstdelone.o ft_lstclear.o ft_lstiter.o ft_lstmap.o ft_long_long_atoi.o ft_delete_content.o ft_free_array.o ft_print_bits.o ft_iswhitespace.o
+ar -rcT libft.a libft_base.a ft_printf/libftprintf.a ft_get_next_line/libftgnl.a
+echo "\033[32mDone\033[0m"
+echo "\033[36mMaking So Long\033[0m"
+gcc main.o get_xpm.o -L libft -lft -L mlx_linux -lmlx_Linux -lmlx -lXext -lX11 -o so_long
+echo "\033[32mDone\033[0m"
+make: Leaving directory '/home/ilyes/42/so_long'
  
