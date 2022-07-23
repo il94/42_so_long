@@ -9,7 +9,10 @@ LIBXFLAGS = -lmlx -lXext -lX11
 
 SRCPATH = src/
 SRC = main.c \
-		get_xpm.c
+		parsing.c \
+		images.c \
+		print.c \
+		so_long.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -23,6 +26,8 @@ $(NAME): $(OBJ)
 
 %.o : $(SRCPATH)%.c
 	@$(CC) -c $^
+
+bonus : all
 
 clean :
 	@$(MAKE) --no-print-directory fclean -C libft
