@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 00:08:03 by ilandols          #+#    #+#             */
-/*   Updated: 2022/07/24 00:55:57 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/07/24 23:59:53 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	get_images_mobs(t_game *game)
 	game->goomba_b.addr = mlx_get_data_addr(game->goomba_b.img, &game->goomba_b.bits_per_pixel, &game->goomba_b.line_length, &game->goomba_b.endian);
 	game->goomba_g.img = mlx_xpm_file_to_image(game->mlx, "sprites/goomba_g.xpm", &game->goomba_g.width, &game->goomba_g.height);
 	game->goomba_g.addr = mlx_get_data_addr(game->goomba_g.img, &game->goomba_g.bits_per_pixel, &game->goomba_g.line_length, &game->goomba_g.endian);
+	game->goomba_r.img = mlx_xpm_file_to_image(game->mlx, "sprites/goomba_r.xpm", &game->goomba_r.width, &game->goomba_r.height);
+	game->goomba_r.addr = mlx_get_data_addr(game->goomba_r.img, &game->goomba_r.bits_per_pixel, &game->goomba_r.line_length, &game->goomba_r.endian);
 }
 
 void	get_images_collectibles(t_game *game)

@@ -6,21 +6,23 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:53:28 by ilandols          #+#    #+#             */
-/*   Updated: 2022/07/24 01:10:56 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/07/24 23:59:01 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 # define KEY_ESC 65307
-# define KEY_W 100
-# define KEY_D 115
-# define KEY_S 97
-# define KEY_A 99
+# define KEY_W 122 /*100*/ /*up*/
+# define KEY_D 100 /*115*/ /*right*/
+# define KEY_S 115 /*97*/ /*down*/
+# define KEY_A 113 /*99*/ /*left*/
 # define WIDTH 1920 / 2
 # define HEIGHT 1080 / 2
 # define CELL 48
 # define CHAR_CONTENT "01CEPM"
+# define ENNEMIES "MURDL"
+# define ENNEMIES_M "urdl"
 
 # include "mlx_linux/mlx.h"
 # include "libft/libft.h"
@@ -31,6 +33,7 @@
 # include <fcntl.h>
 # include <string.h>
 # include <errno.h>
+# include <time.h>
 
 typedef struct	s_data {
 	void	*img;
@@ -40,6 +43,7 @@ typedef struct	s_data {
 	int		endian;
 	int		width;
 	int		height;
+	char	direction;
 }				t_data;
 
 typedef struct	s_game {
@@ -48,6 +52,9 @@ typedef struct	s_game {
 	char	**map;
 	int		x_map;
 	int		y_map;
+	int		x_player;
+	int		y_player;
+	int		moves;
 	t_data	floor;
 	t_data	wall_one;
 	t_data	wall_mid;
@@ -57,8 +64,11 @@ typedef struct	s_game {
 	t_data	goomba;
 	t_data	goomba_b;
 	t_data	goomba_g;
+	t_data	goomba_r;
 	t_data	mushroom;
 	t_data	star;
+	unsigned int	time_a;
+	unsigned int	time_b;
 }				t_game;
 
 /* parsing.c */
@@ -81,7 +91,7 @@ void	print_walls(t_game *game, int i, int j, int y_map);
 int		print_elements(t_game *game);
 
 /* so_long.c */
-int		close_win(int keycode, t_game *game);
+int		get_input_keyboard(int keycode, t_game *game);
 void	initialize_mlx(t_game *game);
 int		can_be_started(int ac, char **av, t_game *game);
 void	destroy_elements(t_game *game);

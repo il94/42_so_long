@@ -14,12 +14,12 @@
 
 void	print_ennemies(t_game *game, int i, int j)
 {
-	if (101 % j <= 3)
-		mlx_put_image_to_window(game->mlx, game->win, game->goomba.img, j * game->goomba.width, i * game->goomba.height);
-	else if (101 % j > 3 && (101 % j <= 8))
-		mlx_put_image_to_window(game->mlx, game->win, game->goomba_b.img, j * game->goomba_b.width, i * game->goomba_b.height);
+	if ((game->x_player == j + 1 && game->y_player == i) || (game->x_player == j - 1 && game->y_player == i) || (game->y_player == i + 1 && game->x_player == j) || (game->y_player == i - 1 && game->x_player == j))
+		mlx_put_image_to_window(game->mlx, game->win, game->goomba_r.img, j * CELL, i * CELL);
+	else if ((game->x_player == j + 2 && game->y_player == i) || (game->x_player == j - 2 && game->y_player == i) || (game->y_player == i + 2 && game->x_player == j) || (game->y_player == i - 2 && game->x_player == j) || (game->x_player == j + 1 && game->y_player == i + 1) || (game->x_player == j - 1 && game->y_player == i + 1) || (game->x_player == j + 1 && game->y_player == i - 1) || (game->x_player == j - 1 && game->y_player == i - 1))
+		mlx_put_image_to_window(game->mlx, game->win, game->goomba_b.img, j * CELL, i * CELL);
 	else
-		mlx_put_image_to_window(game->mlx, game->win, game->goomba_g.img, j * game->goomba_g.width, i * game->goomba_g.height);
+		mlx_put_image_to_window(game->mlx, game->win, game->goomba.img, j * CELL, i * CELL);
 }
 
 void	print_walls(t_game *game, int i, int j, int y_map)
@@ -28,14 +28,14 @@ void	print_walls(t_game *game, int i, int j, int y_map)
 		|| (i == y_map - 1 && game->map[i - 1][j] != '1')
 		|| (game->map[i + 1]
 		&& game->map[i + 1][j] != '1' && game->map[i - 1][j] != '1'))
-		mlx_put_image_to_window(game->mlx, game->win, game->wall_one.img, j * game->wall_one.width, i * game->wall_one.height);
+		mlx_put_image_to_window(game->mlx, game->win, game->wall_one.img, j * CELL, i * CELL);
 	else if ((i == y_map - 1 && game->map[i - 1][j] == '1')
 		|| (i != 0 && game->map[i + 1][j] != '1' && game->map[i - 1][j] == '1'))
-		mlx_put_image_to_window(game->mlx, game->win, game->wall_bot.img, j * game->wall_bot.width, i * game->wall_bot.height);
+		mlx_put_image_to_window(game->mlx, game->win, game->wall_bot.img, j * CELL, i * CELL);
 	else if (i > 0 && game->map[i - 1][j] == '1')
-		mlx_put_image_to_window(game->mlx, game->win, game->wall_mid.img, j * game->wall_mid.width, i * game->wall_mid.height);
+		mlx_put_image_to_window(game->mlx, game->win, game->wall_mid.img, j * CELL, i * CELL);
 	else
-		mlx_put_image_to_window(game->mlx, game->win, game->wall_top.img, j * game->wall_top.width, i * game->wall_top.height);}
+		mlx_put_image_to_window(game->mlx, game->win, game->wall_top.img, j *CELL, i * CELL);}
 
 int	print_elements(t_game *game)
 {
@@ -50,20 +50,26 @@ int	print_elements(t_game *game)
 		while (j < game->x_map)
 		{
 			if (game->map[i][j] == '0')
-				mlx_put_image_to_window(game->mlx, game->win, game->floor.img, j * game->floor.width, i * game->floor.height);
+				mlx_put_image_to_window(game->mlx, game->win, game->floor.img, j * CELL, i * CELL);
 			else if (game->map[i][j] == '1')
 				print_walls(game, i, j, game->y_map);
 			else if (game->map[i][j] == 'C')
-				mlx_put_image_to_window(game->mlx, game->win, game->mushroom.img, j * game->mushroom.width, i * game->mushroom.height);
+				mlx_put_image_to_window(game->mlx, game->win, game->mushroom.img, j * CELL, i * CELL);
 			else if (game->map[i][j] == 'E')
-				mlx_put_image_to_window(game->mlx, game->win, game->star.img, j * game->star.width, i * game->star.height);
+				mlx_put_image_to_window(game->mlx, game->win, game->star.img, j * CELL, i * CELL);
 			else if (game->map[i][j] == 'P')
-				mlx_put_image_to_window(game->mlx, game->win, game->mario.img, j * game->mario.width, i * game->mario.height);
-			else if (game->map[i][j] == 'M')
+				mlx_put_image_to_window(game->mlx, game->win, game->mario.img, j * CELL, i * CELL);
+			else if (is_ennemies(game->map[i][j]))
 				print_ennemies(game, i, j);
 			j++;
 		}
 		i++;
+	}
+
+	if ((unsigned int)time(NULL) > game->time_a)
+	{
+		move_ennemies(game);
+		game->time_a = (unsigned int)time(NULL);
 	}
 	return (0);
 }
