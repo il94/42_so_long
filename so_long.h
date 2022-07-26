@@ -6,17 +6,26 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:53:28 by ilandols          #+#    #+#             */
-/*   Updated: 2022/07/26 02:23:26 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/07/26 17:46:34 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 # define KEY_ESC 65307
-# define KEY_W 122 /*100*/ /*up*/
-# define KEY_D 100 /*115*/ /*right*/
-# define KEY_S 115 /*97*/ /*down*/
-# define KEY_A 113 /*99*/ /*left*/
+
+/* for QWERTY */
+# define KEY_W 119
+# define KEY_D 100
+# define KEY_S 115
+# define KEY_A 97
+
+/* for AZERTY */
+// # define KEY_W 122
+// # define KEY_D 100
+// # define KEY_S 115
+// # define KEY_A 113
+
 # define WIDTH 1920 / 2
 # define HEIGHT 1080 / 2
 # define CELL 48
@@ -40,6 +49,11 @@ typedef enum	e_end {
 	LOOSE,
 	WIN
 }				t_end;
+
+typedef struct	s_coordinates {
+	int	x;
+	int	y;
+}				t_coordinates;
 
 typedef struct	s_data {
 	void	*img;
@@ -96,14 +110,10 @@ int		is_char_content(char c, int *cep);
 int		is_collectibles(char c);
 
 /* moves.c */
-void		move_e(t_game *game, int i, int j, char code);
-int		move_up_e(t_game *game, int i, int j);
-int		move_right_e(t_game *game, int i, int j);
-int		move_down_e(t_game *game, int i, int j);
-int		move_left_e(t_game *game, int i, int j);
-int		get_new_direction(t_game *game, int i, int j);
-int		get_direction(t_game *game, int i, int j);
-int		move_ennemies(t_game *game);
+void	change_direction(t_game *game, t_coordinates pos, int y_bot, int x_bot);
+void	move_ennemies(t_game *game, t_coordinates pos, int y_bot, int x_bot);
+int		get_direction(t_game *game, t_coordinates pos);
+int		search_ennemies(t_game *game);
 void	move_player(t_game *game, int y, int x);
 
 /* parsing.c */

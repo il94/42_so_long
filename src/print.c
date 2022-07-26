@@ -80,6 +80,7 @@ int	print_elements(t_game *game)
 		}
 		y++;
 	}
-	move_ennemies(game);
+	if ((unsigned int)time(NULL) > game->time_a)
+		search_ennemies(game);
 	return (0);
 }

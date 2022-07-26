@@ -45,6 +45,7 @@ int	can_be_started(int ac, char **av, t_game *game)
 
 int	get_input_keyboard(int keycode, t_game *game)
 {
+
 	if (keycode == KEY_W)
 		move_player(game, game->y_pos - 1, game->x_pos);
 	else if (keycode == KEY_D)
