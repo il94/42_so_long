@@ -33,27 +33,6 @@ char	*get_data_map(char *file)
 	return (result);
 }
 
-int	is_char_content(char c, int *cep)
-{
-	int	i;
-
-	i = 0;
-	while (CHAR_CONTENT[i])
-	{
-		if (c == CHAR_CONTENT[i])
-		{
-			if (c == 'C')
-				cep[0]++;
-			else if (c == 'E')
-				cep[1]++;
-			else if (c == 'P')
-				cep[2]++;
-			return (1);
-		}
-		i++;
-	}
-	return (0);
-}
 
 int	is_valid_content(char **map)
 {
@@ -70,16 +49,14 @@ int	is_valid_content(char **map)
 		j = 1;
 		while (map[i][j])
 		{
-			if (!is_char_content(map[i][j], cep))
+			if (!is_char_content(map[i][j++], cep))
 				return (0);
-			j++;
 		}	
 		i++;
 	}
 	if (cep[0] > 0 && cep[1] > 0 && cep[2] == 1)
 		return (1);
-	else
-		return (0);
+	return (0);
 }
 
 int	is_valid_border(char **map, int x_map, int y_map)

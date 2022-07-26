@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:53:28 by ilandols          #+#    #+#             */
-/*   Updated: 2022/07/24 23:59:01 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/07/26 02:23:26 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define WIDTH 1920 / 2
 # define HEIGHT 1080 / 2
 # define CELL 48
+# define COLLECTIBLES "CE"
 # define CHAR_CONTENT "01CEPM"
 # define ENNEMIES "MURDL"
 # define ENNEMIES_M "urdl"
@@ -35,11 +36,16 @@
 # include <errno.h>
 # include <time.h>
 
+typedef enum	e_end {
+	LOOSE,
+	WIN
+}				t_end;
+
 typedef struct	s_data {
 	void	*img;
 	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
+	int		bpp;
+	int		line;
 	int		endian;
 	int		width;
 	int		height;
@@ -52,8 +58,8 @@ typedef struct	s_game {
 	char	**map;
 	int		x_map;
 	int		y_map;
-	int		x_player;
-	int		y_player;
+	int		x_pos;
+	int		y_pos;
 	int		moves;
 	t_data	floor;
 	t_data	wall_one;
@@ -71,9 +77,37 @@ typedef struct	s_game {
 	unsigned int	time_b;
 }				t_game;
 
+
+/* so_long.c */
+void	get_player_position(t_game *game);
+int		player_is_in_danger(t_game *game, int y, int x);
+
+/* run.c */
+int		close_win(int keycode, t_game *game);
+void	end_game(t_game *game, t_end condition);
+int		can_be_started(int ac, char **av, t_game *game);
+int		get_input_keyboard(int keycode, t_game *game);
+void	initialize_mlx(t_game *game);
+
+/* zoubir.c */
+int		is_ennemies(char c);
+int		is_ennemies_m(char c);
+int		is_char_content(char c, int *cep);
+int		is_collectibles(char c);
+
+/* moves.c */
+void		move_e(t_game *game, int i, int j, char code);
+int		move_up_e(t_game *game, int i, int j);
+int		move_right_e(t_game *game, int i, int j);
+int		move_down_e(t_game *game, int i, int j);
+int		move_left_e(t_game *game, int i, int j);
+int		get_new_direction(t_game *game, int i, int j);
+int		get_direction(t_game *game, int i, int j);
+int		move_ennemies(t_game *game);
+void	move_player(t_game *game, int y, int x);
+
 /* parsing.c */
 char	*get_data_map(char *file);
-int		is_char_content(char c, int *cep);
 int		is_valid_content(char **map);
 int		is_valid_border(char **map, int x_map, int y_map);
 int		is_rectangular(char **map, int y_map);
@@ -86,15 +120,15 @@ void	get_images_collectibles(t_game *game);
 void	get_images(t_game *game);
 
 /* print.c */
-void	print_ennemies(t_game *game, int i, int j);
-void	print_walls(t_game *game, int i, int j, int y_map);
+void	print_environnement(t_game *game, int i, int j, int y_map);
+void	print_mobs(t_game *game, int i, int j);
+void	print_collectibles(t_game *game, int i, int j);
 int		print_elements(t_game *game);
 
-/* so_long.c */
-int		get_input_keyboard(int keycode, t_game *game);
-void	initialize_mlx(t_game *game);
-int		can_be_started(int ac, char **av, t_game *game);
+/* destroy_elements.c */
+void	destroy_data_environnement(t_game *game);
+void	destroy_data_mobs(t_game *game);
+void	destroy_data_collectibles(t_game *game);
 void	destroy_elements(t_game *game);
-
 
 #endif

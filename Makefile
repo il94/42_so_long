@@ -12,7 +12,11 @@ SRC = main.c \
 		parsing.c \
 		images.c \
 		print.c \
-		so_long.c
+		so_long.c \
+		destroy_elements.c \
+		run.c \
+		moves.c \
+		zoubir.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -41,6 +45,6 @@ fclean : clean
 	@echo "\033[32mDone\033[0m"
 
 re : fclean
-	make all
+	@make all
 
 .PHONY : all clean fclean re bonus
