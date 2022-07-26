@@ -51,9 +51,6 @@ void	move_ennemies(t_game *game, t_coordinates pos, int y_bot, int x_bot)
 
 int	get_direction(t_game *game, t_coordinates pos)
 {
-	ft_print_array(game->map);
-	printf("\n=====\n");
-
 	if (game->map[pos.y][pos.x] == 'M')
 		game->map[pos.y][pos.x] = 'D';
 	if (game->map[pos.y][pos.x] == 'D')
@@ -83,6 +80,14 @@ int	search_ennemies(t_game *game)
 		}
 		pos.y += 1;
 	}
+	spawn_ennemies(game);
+	game->time_a = (unsigned int)time(NULL);
+}
+
+void	spawn_ennemies(t_game *game)
+{
+	t_coordinates	pos;
+
 	pos.y = 1;
 	while (pos.y < game->y_map - 1)
 	{
@@ -95,7 +100,6 @@ int	search_ennemies(t_game *game)
 		}
 		pos.y += 1;
 	}
-	game->time_a = (unsigned int)time(NULL);
 }
 
 void	move_player(t_game *game, int y, int x)

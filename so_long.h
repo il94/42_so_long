@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:53:28 by ilandols          #+#    #+#             */
-/*   Updated: 2022/07/26 17:46:34 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/07/26 17:56:11 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ void	change_direction(t_game *game, t_coordinates pos, int y_bot, int x_bot);
 void	move_ennemies(t_game *game, t_coordinates pos, int y_bot, int x_bot);
 int		get_direction(t_game *game, t_coordinates pos);
 int		search_ennemies(t_game *game);
+void	spawn_ennemies(t_game *game);
 void	move_player(t_game *game, int y, int x);
 
 /* parsing.c */
