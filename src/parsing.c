@@ -33,26 +33,24 @@ char	*get_data_map(char *file)
 	return (result);
 }
 
-
 int	is_valid_content(char **map)
 {
-	int	i;
-	int	j;
-	int	cep[3];
+	t_axe	pos;
+	int		cep[3];
 
-	i = 1;
+	pos.y = 1;
 	cep[0] = 0;
 	cep[1] = 0;
 	cep[2] = 0;
-	while (map[i])
+	while (map[pos.y])
 	{
-		j = 1;
-		while (map[i][j])
+		pos.x = 1;
+		while (map[pos.y][pos.x])
 		{
-			if (!is_char_content(map[i][j++], cep))
+			if (!is_valid_char(map[pos.y][pos.x++], cep))
 				return (0);
 		}	
-		i++;
+		pos.y++;
 	}
 	if (cep[0] > 0 && cep[1] > 0 && cep[2] == 1)
 		return (1);
@@ -61,22 +59,21 @@ int	is_valid_content(char **map)
 
 int	is_valid_border(char **map, int x_map, int y_map)
 {
-	int	i;
-	int	j;
+	t_axe	pos;
 
-	i = 0;
-	j = 0;
-	while (j != x_map)
+	pos.y = 0;
+	pos.x = 0;
+	while (pos.x != x_map)
 	{
-		if (map[i][j] != '1' || map[y_map - 1][j] != '1')
+		if (map[pos.y][pos.x] != '1' || map[y_map - 1][pos.x] != '1')
 			return (0);
-		j++;
+		pos.x++;
 	}
-	while (i != y_map)
+	while (pos.y != y_map)
 	{
-		if (map[i][0] != '1' || map[i][x_map - 1] != '1')
+		if (map[pos.y][0] != '1' || map[pos.y][x_map - 1] != '1')
 			return (0);
-		i++;
+		pos.y++;
 	}
 	return (1);
 }

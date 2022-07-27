@@ -12,13 +12,6 @@
 
 #include "../so_long.h"
 
-int	close_win(int keycode, t_game *game)
-{
-	// if (keycode == 1)
-	// 	mlx_loop_end(game->mlx);
-	printf("key = %d\n", keycode);
-}
-
 void	end_game(t_game *game, t_end condition)
 {
 	if (condition == WIN)
@@ -33,19 +26,18 @@ int	can_be_started(int ac, char **av, t_game *game)
 	if (ac != 2)
 	{
 		ft_printf("Bad input\n");
-		return (0);
+		exit (1);
 	}
 	if (!is_valid_map(&game->map, av[1]))
 	{
 		ft_printf("Invalid map\n");
-		exit (0);
+		exit (1);
 	}
 	return (1);
 }
 
 int	get_input_keyboard(int keycode, t_game *game)
 {
-
 	if (keycode == KEY_W)
 		move_player(game, game->y_pos - 1, game->x_pos);
 	else if (keycode == KEY_D)
@@ -59,10 +51,21 @@ int	get_input_keyboard(int keycode, t_game *game)
 	return (0);
 }
 
+int	run_game(t_game *game)
+{
+	print_elements(game);
+	if ((unsigned int)time(NULL) > game->time_a)
+		search_ennemy(game);
+	if (no_more_collectibles(game))
+		open_exit_door(game);
+	return (0);
+}
+
+/* ne pas oublier de free lors des inits*/
 void	initialize_mlx(t_game *game)
 {
 	game->mlx = mlx_init();
-	if (!game->mlx) //ne pas oublier de free
+	if (!game->mlx)
 		exit (0);
 	game->x_map = ft_strlen(game->map[0]);
 	game->y_map = ft_get_size_array(game->map);
@@ -71,12 +74,11 @@ void	initialize_mlx(t_game *game)
 	game->moves = 0;
 	game->win = mlx_new_window(game->mlx,
 			game->x_map * CELL, game->y_map * CELL, "Paper Mario");
-	if (!game->win) //ne pas oublier de free
+	if (!game->win)
 		exit (0);
 	get_images(game);
-	// mlx_hook(game->win, 2, 17, get_input_keyboard, game);
-	mlx_loop_hook(game->mlx, print_elements, game);
-	// mlx_loop_hook(game->mlx, move_ennemies, game);
-	mlx_mouse_hook(game->win, close_win, game);
 	mlx_key_hook(game->win, get_input_keyboard, game);
+	mlx_loop_hook(game->mlx, run_game, game);
+	mlx_hook(game->win, 17, 0, mlx_loop_end, game->mlx);
+	mlx_loop(game->mlx);
 }

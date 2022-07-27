@@ -16,6 +16,7 @@ SRC = main.c \
 		destroy_elements.c \
 		run.c \
 		moves.c \
+		read_map.c \
 		zoubir.c
 
 OBJ = $(SRC:.c=.o)
@@ -36,11 +37,15 @@ bonus : all
 
 clean :
 	@$(MAKE) --no-print-directory fclean -C libft
+	@echo "\033[35mCleaning Mlx's objects...\033[0m"
+	@$(MAKE) --no-print-directory clean -C mlx_linux
+	@echo "\033[32mDone\033[0m"
 	@echo "\033[35mCleaning So Long's objects...\033[0m"
 	@rm -f $(OBJ)
 	@echo "\033[32mDone\033[0m"
 
-fclean : clean
+fclean :
+	@make clean
 	@echo "\033[35mCleaning So_Long...\033[0m"
 	@rm -f $(NAME)
 	@echo "\033[32mDone\033[0m"

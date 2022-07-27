@@ -12,31 +12,37 @@
 
 #include "../so_long.h"
 
-void	get_player_position(t_game *game)
+void	spawn_ennemy(t_game *game)
 {
-	game->x_pos = 1;
-	game->y_pos = 1;
-	while (game->map[game->y_pos][game->x_pos]
-		&& game->map[game->y_pos][game->x_pos] != 'P')
+	t_axe	pos;
+
+	pos.y = 1;
+	while (pos.y < game->y_map - 1)
 	{
-		game->x_pos += 1;
-		if (game->x_pos == game->x_map)
+		pos.x = 1;
+		while (pos.x < game->x_map - 1)
 		{
-			game->x_pos = 1;
-			game->y_pos += 1;
+			if (is_lower_ennemy(game->map[pos.y][pos.x]))
+				game->map[pos.y][pos.x] = ft_toupper(game->map[pos.y][pos.x]);
+			pos.x++;
 		}
+		pos.y++;
 	}
 }
 
-int	player_is_in_danger(t_game *game, int y, int x)
+int	ennemy_proximity(t_game *game, t_axe pos, int y_bot, int x_bot)
 {
-	if (game->x_pos == x + 1 && game->y_pos == y && game->map[y][x] == 'R')
+	if (game->x_pos == x_bot && game->y_pos == y_bot)
 		return (1);
-	else if (game->x_pos == x && game->y_pos == y + 1 && game->map[y][x] == 'D')
-		return (1);
-	else if (game->x_pos == x - 1 && game->y_pos == y && game->map[y][x] == 'L')
-		return (1);
-	else if (game->x_pos == x && game->y_pos == y - 1 && game->map[y][x] == 'U')
-		return (1);
+	if (is_ennemy_obstacle(game->map[y_bot][x_bot]) && is_near(game, pos, 'P'))
+		return (2);
 	return (0);
+}
+
+int	is_near(t_game *game, t_axe pos, char c)
+{
+	return (game->map[pos.y + 1][pos.x] == c
+			|| game->map[pos.y][pos.x + 1] == c
+			|| game->map[pos.y - 1][pos.x] == c
+			|| game->map[pos.y][pos.x - 1] == c);
 }

@@ -14,7 +14,7 @@
 
 void	destroy_data_environnement(t_game *game)
 {
-	mlx_destroy_image(game->mlx, game->floor.img);
+	mlx_destroy_image(game->mlx, game->grass.img);
 	mlx_destroy_image(game->mlx, game->wall_one.img);
 	mlx_destroy_image(game->mlx, game->wall_mid.img);
 	mlx_destroy_image(game->mlx, game->wall_top.img);
@@ -36,7 +36,7 @@ void	destroy_data_collectibles(t_game *game)
 	mlx_destroy_image(game->mlx, game->star.img);
 }
 
-void	destroy_elements(t_game *game)
+int	destroy_elements(t_game *game)
 {
 	destroy_data_environnement(game);
 	destroy_data_mobs(game);

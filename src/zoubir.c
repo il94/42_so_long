@@ -12,42 +12,50 @@
 
 #include "../so_long.h"
 
-int	is_ennemies(char c)
+int	is_surrounded_by(t_game *game, t_axe pos, char c)
+{
+	return (game->map[pos.y + 1][pos.x] == c
+			&& game->map[pos.y][pos.x + 1] == c
+			&& game->map[pos.y - 1][pos.x] == c
+			&& game->map[pos.y][pos.x - 1] == c);
+}
+
+int	is_ennemy(char c)
 {
 	int	i;
 
 	i = 0;
-	while (ENNEMIES[i])
+	while (ENNEMY[i])
 	{
-		if (c == ENNEMIES[i])
+		if (c == ENNEMY[i])
 			return (1);
 		i++;
 	}
 	return (0);
 }
 
-int	is_ennemies_m(char c)
+int	is_lower_ennemy(char c)
 {
 	int	i;
 
 	i = 0;
-	while (ENNEMIES_M[i])
+	while (LOWER_ENNEMY[i])
 	{
-		if (c == ENNEMIES_M[i])
+		if (c == LOWER_ENNEMY[i])
 			return (1);
 		i++;
 	}
 	return (0);
 }
 
-int	is_char_content(char c, int *cep)
+int	is_valid_char(char c, int *cep)
 {
 	int	i;
 
 	i = 0;
-	while (CHAR_CONTENT[i])
+	while (VALID_CHAR[i])
 	{
-		if (c == CHAR_CONTENT[i])
+		if (c == VALID_CHAR[i])
 		{
 			if (c == 'C')
 				cep[0]++;
@@ -62,7 +70,6 @@ int	is_char_content(char c, int *cep)
 	return (0);
 }
 
-
 int	is_collectibles(char c)
 {
 	int	i;
@@ -71,6 +78,20 @@ int	is_collectibles(char c)
 	while (COLLECTIBLES[i])
 	{
 		if (c == COLLECTIBLES[i])
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	is_ennemy_obstacle(char c)
+{
+	int	i;
+
+	i = 0;
+	while (ENNEMY_OBSTACLE[i])
+	{
+		if (c == ENNEMY_OBSTACLE[i])
 			return (1);
 		i++;
 	}

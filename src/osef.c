@@ -14,20 +14,20 @@
 
 int	print_sprites(t_game *game)
 {
-	// char	*line;
-	// int		fd;
+	char	*line;
+	int		fd;
 
-	// fd = open("src/map.ber", O_RDONLY);
-	// if (fd < 0)
-	// 	return (NULL); //penser a tout free
-	// line = ft_get_next_line(fd);
-	// printf("line = %s\n", line);
-	// return (0);
+	fd = open("src/map.ber", O_RDONLY);
+	if (fd < 0)
+		return (NULL);
+	line = ft_get_next_line(fd);
+	printf("line = %s\n", line);
+	return (0);
 }
 
 int	get_color(t_data *data, int x, int y)
 {
-	char *dst;
+	char	*dst;
 
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
 	return (*(unsigned int *)dst);

@@ -12,101 +12,65 @@
 
 #include "../so_long.h"
 
-void	change_direction(t_game *game, t_coordinates pos, int y_bot, int x_bot)
+void	change_direction(t_game *game, t_axe pos, int y_bot, int x_bot)
 {
 	if (game->map[pos.y][pos.x] == 'D')
 	{
 		game->map[pos.y][pos.x] = 'R';
-		move_ennemies(game, pos, pos.y, pos.x + 1);
+		move_ennemy(game, pos, pos.y, pos.x + 1);
 	}
 	else if (game->map[pos.y][pos.x] == 'R')
 	{
 		game->map[pos.y][pos.x] = 'U';
-		move_ennemies(game, pos, pos.y - 1, pos.x);
+		move_ennemy(game, pos, pos.y - 1, pos.x);
 	}
 	else if (game->map[pos.y][pos.x] == 'U')
 	{
 		game->map[pos.y][pos.x] = 'L';
-		move_ennemies(game, pos, pos.y, pos.x - 1);
+		move_ennemy(game, pos, pos.y, pos.x - 1);
 	}
 	else if (game->map[pos.y][pos.x] == 'L')
 	{
 		game->map[pos.y][pos.x] = 'D';
-		move_ennemies(game, pos, pos.y + 1, pos.x);
+		move_ennemy(game, pos, pos.y + 1, pos.x);
 	}
 }
 
-void	move_ennemies(t_game *game, t_coordinates pos, int y_bot, int x_bot)
+int	move_ennemy(t_game *game, t_axe pos, int y_bot, int x_bot)
 {
 	if (game->map[y_bot][x_bot] == 'P')
 		end_game(game, LOOSE);
-	if (game->map[y_bot][x_bot] == '0')
+	else if (game->map[y_bot][x_bot] == '0')
 	{
 		game->map[y_bot][x_bot] = ft_tolower(game->map[pos.y][pos.x]);
 		game->map[pos.y][pos.x] = '0';
 	}
-	else
+	else if (is_near(game, pos, '0') || is_near(game, pos, 'P'))
 		change_direction(game, pos, pos.y, pos.x);
+	return (0);
 }
 
-int	get_direction(t_game *game, t_coordinates pos)
+int	get_direction(t_game *game, t_axe pos, int (*f)(t_game *, t_axe, int, int))
 {
 	if (game->map[pos.y][pos.x] == 'M')
 		game->map[pos.y][pos.x] = 'D';
 	if (game->map[pos.y][pos.x] == 'D')
-		move_ennemies(game, pos, pos.y + 1, pos.x);
+		return ((*f)(game, pos, pos.y + 1, pos.x));
 	else if (game->map[pos.y][pos.x] == 'R')
-		move_ennemies(game, pos, pos.y, pos.x + 1);
+		return ((*f)(game, pos, pos.y, pos.x + 1));
 	else if (game->map[pos.y][pos.x] == 'U')
-		move_ennemies(game, pos, pos.y - 1, pos.x);
+		return ((*f)(game, pos, pos.y - 1, pos.x));
 	else if (game->map[pos.y][pos.x] == 'L')
-		move_ennemies(game, pos, pos.y, pos.x - 1);
-	return (0);
-}
-
-int	search_ennemies(t_game *game)
-{
-	t_coordinates	pos;
-
-	pos.y = 1;
-	while (pos.y < game->y_map - 1)
-	{
-		pos.x = 0;
-		while (pos.x < game->x_map - 1)
-		{
-			if (game->map[pos.y][pos.x] && is_ennemies(game->map[pos.y][pos.x]))
-				get_direction(game, pos);
-			pos.x += 1;
-		}
-		pos.y += 1;
-	}
-	spawn_ennemies(game);
-	game->time_a = (unsigned int)time(NULL);
-}
-
-void	spawn_ennemies(t_game *game)
-{
-	t_coordinates	pos;
-
-	pos.y = 1;
-	while (pos.y < game->y_map - 1)
-	{
-		pos.x = 1;
-		while (pos.x < game->x_map - 1)
-		{
-			if (is_ennemies_m(game->map[pos.y][pos.x]))
-				game->map[pos.y][pos.x] = ft_toupper(game->map[pos.y][pos.x]);
-			pos.x += 1;
-		}
-		pos.y += 1;
-	}
+		return ((*f)(game, pos, pos.y, pos.x - 1));
 }
 
 void	move_player(t_game *game, int y, int x)
 {
-	if (is_ennemies(game->map[y][x]))
+	if (is_ennemy(game->map[y][x]))
 		end_game(game, LOOSE);
-	else if (game->map[y][x] != '1')
+	else if (game->map[y][x] == 'e')
+		end_game(game, WIN);
+	else if (game->map[y][x] != '1' && game->map[y][x] != 'E')
 	{
 		game->map[game->y_pos][game->x_pos] = '0';
 		game->x_pos = x;

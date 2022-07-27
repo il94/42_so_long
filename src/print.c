@@ -12,75 +12,80 @@
 
 #include "../so_long.h"
 
-void	print_environnement(t_game *game, int y, int x, int y_map)
+void	print_environnement(t_game *game, t_axe pos, int y_map)
 {
-	if (game->map[y][x] == '0')
-		mlx_put_image_to_window(game->mlx, game->win, game->floor.img,
-			x * CELL, y * CELL);
+	if (game->map[pos.y][pos.x] == '0')
+		mlx_put_image_to_window(game->mlx, game->win, game->grass.img,
+			pos.x * CELL, pos.y * CELL);
 	else
 	{
-		if (y < y_map - 1 && y > 0
-			&& game->map[y + 1][x] == '1' && game->map[y - 1][x] == '1')
+		if (pos.y < y_map - 1 && pos.y > 0
+			&& game->map[pos.y + 1][pos.x] == '1'
+			&& game->map[pos.y - 1][pos.x] == '1')
 			mlx_put_image_to_window(game->mlx, game->win, game->wall_mid.img,
-				x * CELL, y * CELL);
-		else if (y < y_map - 1 && game->map[y + 1][x] == '1')
+				pos.x * CELL, pos.y * CELL);
+		else if (pos.y < y_map - 1 && game->map[pos.y + 1][pos.x] == '1')
 			mlx_put_image_to_window(game->mlx, game->win, game->wall_top.img,
-				x * CELL, y * CELL);
-		else if (y > 0 && game->map[y - 1][x] == '1')
+				pos.x * CELL, pos.y * CELL);
+		else if (pos.y > 0 && game->map[pos.y - 1][pos.x] == '1')
 			mlx_put_image_to_window(game->mlx, game->win, game->wall_bot.img,
-				x * CELL, y * CELL);
+				pos.x * CELL, pos.y * CELL);
 		else
 			mlx_put_image_to_window(game->mlx, game->win, game->wall_one.img,
-				x * CELL, y * CELL);
+				pos.x * CELL, pos.y * CELL);
 	}
 }
 
-void	print_mobs(t_game *game, int y, int x)
+void	print_mobs(t_game *game, t_axe pos)
 {
-	if (game->map[y][x] == 'P')
+	if (game->map[pos.y][pos.x] == 'P')
 		mlx_put_image_to_window(game->mlx, game->win, game->mario.img,
-			x * CELL, y * CELL);
-	else if (player_is_in_danger(game, y, x))
+			pos.x * CELL, pos.y * CELL);
+	else if (get_direction(game, pos, &ennemy_proximity) == 1)
 		mlx_put_image_to_window(game->mlx, game->win, game->goomba_r.img,
-			x * CELL, y * CELL);
+			pos.x * CELL, pos.y * CELL);
+	else if (get_direction(game, pos, &ennemy_proximity) == 2)
+		mlx_put_image_to_window(game->mlx, game->win, game->goomba_b.img,
+			pos.x * CELL, pos.y * CELL);
 	else
 		mlx_put_image_to_window(game->mlx, game->win, game->goomba.img,
-			x * CELL, y * CELL);
+			pos.x * CELL, pos.y * CELL);
 }
 
-void	print_collectibles(t_game *game, int y, int x)
+void	print_collectibles(t_game *game, t_axe pos)
 {
-	if (game->map[y][x] == 'C')
+	if (game->map[pos.y][pos.x] == 'C')
 		mlx_put_image_to_window(game->mlx, game->win, game->mushroom.img,
-			x * CELL, y * CELL);
-	else if (game->map[y][x] == 'E')
+			pos.x * CELL, pos.y * CELL);
+	else if (game->map[pos.y][pos.x] == 'e')
 		mlx_put_image_to_window(game->mlx, game->win, game->star.img,
-			x * CELL, y * CELL);
+			pos.x * CELL, pos.y * CELL);
+	else if (game->map[pos.y][pos.x] == 'E')
+		mlx_put_image_to_window(game->mlx, game->win, game->grass.img,
+			pos.x * CELL, pos.y * CELL);
 }
 
-int	print_elements(t_game *game)
+void	print_elements(t_game *game)
 {
-	int	y;
-	int	x;
+	t_axe	pos;
+	char	target;
 
-	y = 0;
-	x = 0;
-	while (y < game->y_map)
+	pos.y = 0;
+	pos.x = 0;
+	while (game->map[pos.y])
 	{
-		x = 0;
-		while (x < game->x_map)
+		pos.x = 0;
+		while (game->map[pos.y][pos.x])
 		{
-			if (game->map[y][x] == '0' || game->map[y][x] == '1')
-				print_environnement(game, y, x, game->y_map);
-			else if (game->map[y][x] == 'C' || game->map[y][x] == 'E')
-				print_collectibles(game, y, x);
-			else if (is_ennemies(game->map[y][x]) || game->map[y][x] == 'P')
-				print_mobs(game, y, x);
-			x++;
+			target = game->map[pos.y][pos.x];
+			if (target == '0' || target == '1')
+				print_environnement(game, pos, game->y_map);
+			else if (target == 'C' || target == 'E' || target == 'e')
+				print_collectibles(game, pos);
+			else if (is_ennemy(target) || target == 'P')
+				print_mobs(game, pos);
+			pos.x++;
 		}
-		y++;
+		pos.y++;
 	}
-	if ((unsigned int)time(NULL) > game->time_a)
-		search_ennemies(game);
-	return (0);
 }
