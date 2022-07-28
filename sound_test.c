@@ -2,6 +2,9 @@
  #include <stdlib.h>
  #include <vlc/vlc.h>
  
+
+/* apt-get install libvlccore-dev libvlc-dev */
+
  static void quit_on_exception (libvlc_exception_t *excp) {
     if (libvlc_exception_raised (excp)) {
        fprintf(stderr, "error: %s\n", libvlc_exception_get_message(excp));

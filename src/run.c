@@ -38,6 +38,9 @@ int	can_be_started(int ac, char **av, t_game *game)
 
 int	get_input_keyboard(int keycode, t_game *game)
 {
+	int	i;
+
+	i = 0;
 	if (keycode == KEY_W)
 		move_player(game, game->y_pos - 1, game->x_pos);
 	else if (keycode == KEY_D)
@@ -77,7 +80,8 @@ void	initialize_mlx(t_game *game)
 	if (!game->win)
 		exit (0);
 	get_images(game);
-	mlx_key_hook(game->win, get_input_keyboard, game);
+	mlx_hook(game->win, 2, 1L << 0, get_input_keyboard, game);
+	// mlx_key_hook(game->win, get_input_keyboard, game);
 	mlx_loop_hook(game->mlx, run_game, game);
 	mlx_hook(game->win, 17, 0, mlx_loop_end, game->mlx);
 	mlx_loop(game->mlx);
