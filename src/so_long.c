@@ -32,7 +32,7 @@ void	spawn_ennemy(t_game *game)
 
 int	ennemy_proximity(t_game *game, t_axe pos, int y_bot, int x_bot)
 {
-	if (game->x_pos == x_bot && game->y_pos == y_bot)
+	if (game->player.x == x_bot && game->player.y == y_bot)
 		return (1);
 	if (is_ennemy_obstacle(game->map[y_bot][x_bot]) && is_near(game, pos, 'P'))
 		return (2);

@@ -42,13 +42,13 @@ int	get_input_keyboard(int keycode, t_game *game)
 
 	i = 0;
 	if (keycode == KEY_W)
-		move_player(game, game->y_pos - 1, game->x_pos);
+		move_player(game, game->player.y - 1, game->player.x);
 	else if (keycode == KEY_D)
-		move_player(game, game->y_pos, game->x_pos + 1);
+		move_player(game, game->player.y, game->player.x + 1);
 	else if (keycode == KEY_S)
-		move_player(game, game->y_pos + 1, game->x_pos);
+		move_player(game, game->player.y + 1, game->player.x);
 	else if (keycode == KEY_A)
-		move_player(game, game->y_pos, game->x_pos - 1);
+		move_player(game, game->player.y, game->player.x - 1);
 	else if (keycode == KEY_ESC)
 		mlx_loop_end(game->mlx);
 	return (0);
@@ -84,5 +84,6 @@ void	initialize_mlx(t_game *game)
 	// mlx_key_hook(game->win, get_input_keyboard, game);
 	mlx_loop_hook(game->mlx, run_game, game);
 	mlx_hook(game->win, 17, 0, mlx_loop_end, game->mlx);
+	system("cvlc sound/march_ahead.wav &");
 	mlx_loop(game->mlx);
 }

@@ -66,7 +66,7 @@ int	get_direction(t_game *game, t_axe pos, int (*f)(t_game *, t_axe, int, int))
 
 void	move_player(t_game *game, int y, int x)
 {
-	if ((unsigned int)time(NULL) % 10 != 0)
+	// if ((unsigned int)time(NULL) % 10 != 0)
 	{
 		if (is_ennemy(game->map[y][x]))
 			end_game(game, LOOSE);
@@ -74,10 +74,12 @@ void	move_player(t_game *game, int y, int x)
 			end_game(game, WIN);
 		else if (game->map[y][x] != '1' && game->map[y][x] != 'E')
 		{
-			game->map[game->y_pos][game->x_pos] = '0';
-			game->x_pos = x;
-			game->y_pos = y;
-			game->map[game->y_pos][game->x_pos] = 'P';
+			if (game->map[y][x] == 'C')
+				system("cvlc sound/coin.wav &");
+			game->map[game->player.y][game->player.x] = '0';
+			game->player.x = x;
+			game->player.y = y;
+			game->map[game->player.y][game->player.x] = 'P';
 			ft_printf("Moves = %d\n", game->moves += 1);
 		}
 	}

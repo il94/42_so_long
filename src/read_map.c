@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 13:53:24 by ilandols          #+#    #+#             */
-/*   Updated: 2022/07/27 18:16:35 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/07/30 19:56:12 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	search_ennemy(t_game *game)
 		pos.y++;
 	}
 	spawn_ennemy(game);
+	if (is_near(game, game->player, 'D'))
+		system("cvlc sound/goomba.wav &");
 	game->time_a = (unsigned int)time(NULL);
 }
 
@@ -86,8 +88,8 @@ int	get_player_position(t_game *game)
 		{
 			if (game->map[pos.y][pos.x] == 'P')
 			{
-				game->x_pos = pos.x;
-				game->y_pos = pos.y;
+				game->player.x = pos.x;
+				game->player.y = pos.y;
 				return (0);
 			}
 			pos.x++;

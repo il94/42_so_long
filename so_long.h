@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:53:28 by ilandols          #+#    #+#             */
-/*   Updated: 2022/07/29 14:19:35 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/07/30 19:32:51 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 # define KEY_ESC 65307
 
 /* for QWERTY */
-// # define KEY_W 119
-// # define KEY_D 100
-// # define KEY_S 115
-// # define KEY_A 97
-
-/* for AZERTY */
-# define KEY_W 122
+# define KEY_W 119
 # define KEY_D 100
 # define KEY_S 115
-# define KEY_A 113
+# define KEY_A 97
+
+/* for AZERTY */
+// # define KEY_W 122
+// # define KEY_D 100
+// # define KEY_S 115
+// # define KEY_A 113
 
 # define WIDTH 1920 / 2
 # define HEIGHT 1080 / 2
@@ -51,7 +51,7 @@ typedef enum	e_end {
 	WIN
 }				t_end;
 
-typedef struct	s_coordinates {
+typedef struct	s_axe {
 	int	x;
 	int	y;
 }				t_axe;
@@ -75,6 +75,7 @@ typedef struct	s_game {
 	int		y_map;
 	int		x_pos;
 	int		y_pos;
+	t_axe	player;
 	int		moves;
 	t_data	grass;
 	t_data	wall_one;
