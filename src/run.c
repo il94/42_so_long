@@ -80,10 +80,10 @@ void	initialize_mlx(t_game *game)
 	if (!game->win)
 		exit (0);
 	get_images(game);
-	mlx_hook(game->win, 2, 1L << 0, get_input_keyboard, game);
-	// mlx_key_hook(game->win, get_input_keyboard, game);
+	// mlx_hook(game->win, 2, 1L << 0, get_input_keyboard, game);
+	mlx_key_hook(game->win, get_input_keyboard, game);
 	mlx_loop_hook(game->mlx, run_game, game);
-	mlx_hook(game->win, 17, 0, mlx_loop_end, game->mlx);
+	// mlx_hook(game->win, 17, 0, mlx_loop_end, game->mlx);
 	system("cvlc sound/march_ahead.wav &");
 	mlx_loop(game->mlx);
 }

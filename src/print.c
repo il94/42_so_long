@@ -55,7 +55,7 @@ void	print_mobs(t_game *game, t_axe pos)
 void	print_collectibles(t_game *game, t_axe pos)
 {
 	if (game->map[pos.y][pos.x] == 'C')
-		mlx_put_image_to_window(game->mlx, game->win, game->mushroom.img,
+		mlx_put_image_to_window(game->mlx, game->win, game->coin.img,
 			pos.x * CELL, pos.y * CELL);
 	else if (game->map[pos.y][pos.x] == 'e')
 		mlx_put_image_to_window(game->mlx, game->win, game->star.img,

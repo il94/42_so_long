@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:53:28 by ilandols          #+#    #+#             */
-/*   Updated: 2022/07/30 19:32:51 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/07/31 01:07:48 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 # define KEY_ESC 65307
 
 /* for QWERTY */
-# define KEY_W 119
-# define KEY_D 100
-# define KEY_S 115
-# define KEY_A 97
-
-/* for AZERTY */
-// # define KEY_W 122
+// # define KEY_W 119
 // # define KEY_D 100
 // # define KEY_S 115
-// # define KEY_A 113
+// # define KEY_A 97
+
+/* for AZERTY */
+# define KEY_W 122
+# define KEY_D 100
+# define KEY_S 115
+# define KEY_A 113
 
 # define WIDTH 1920 / 2
 # define HEIGHT 1080 / 2
@@ -87,7 +87,7 @@ typedef struct	s_game {
 	t_data	goomba_b;
 	t_data	goomba_g;
 	t_data	goomba_r;
-	t_data	mushroom;
+	t_data	coin;
 	t_data	star;
 	unsigned int	time_a;
 	unsigned int	time_b;

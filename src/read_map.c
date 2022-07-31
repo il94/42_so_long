@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 13:53:24 by ilandols          #+#    #+#             */
-/*   Updated: 2022/07/30 19:56:12 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/07/31 03:55:53 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ int	search_ennemy(t_game *game)
 		pos.y++;
 	}
 	spawn_ennemy(game);
-	if (is_near(game, game->player, 'D'))
-		system("cvlc sound/goomba.wav &");
+	// 	system("cvlc sound/goomba.wav &");
 	game->time_a = (unsigned int)time(NULL);
 }
 
@@ -65,9 +64,9 @@ int	open_exit_door(t_game *game)
 		{
 			if (game->map[pos.y][pos.x] == 'E')
 			{
-				ft_print_array(game->map);
 				game->map[pos.y][pos.x] = 'e';
-				ft_print_array(game->map);
+				system("pkill vlc && cvlc sound/star_spawn.wav &");
+				sleep(3);
 				return (0);
 			}
 			pos.x++;

@@ -32,7 +32,7 @@ void	destroy_data_mobs(t_game *game)
 
 void	destroy_data_collectibles(t_game *game)
 {
-	mlx_destroy_image(game->mlx, game->mushroom.img);
+	mlx_destroy_image(game->mlx, game->coin.img);
 	mlx_destroy_image(game->mlx, game->star.img);
 }
 

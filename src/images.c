@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 00:08:03 by ilandols          #+#    #+#             */
-/*   Updated: 2022/07/27 16:50:57 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/07/31 01:16:05 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	get_images_mobs(t_game *game)
 
 void	get_images_collectibles(t_game *game)
 {
-	game->mushroom.img = mlx_xpm_file_to_image(game->mlx, "xpm/mushroom.xpm",
-			&game->mushroom.width, &game->mushroom.height);
+	game->coin.img = mlx_xpm_file_to_image(game->mlx, "xpm/coin.xpm",
+			&game->coin.width, &game->coin.height);
 	game->star.img = mlx_xpm_file_to_image(game->mlx, "xpm/star.xpm",
 			&game->star.width, &game->star.height);
 }
