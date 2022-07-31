@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:53:28 by ilandols          #+#    #+#             */
-/*   Updated: 2022/07/31 23:17:47 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/07/31 23:52:29 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,14 @@ typedef struct	s_game {
 	int		y_pos;
 	t_axe	player;
 	int		moves;
+	t_data	background;
 	t_data	grass;
 	t_data	wall_one;
 	t_data	wall_mid;
 	t_data	wall_top;
 	t_data	wall_bot;
 	t_data	mario;
+	t_data	mario_tr;
 	t_data	goomba;
 	t_data	goomba_b;
 	t_data	goomba_g;

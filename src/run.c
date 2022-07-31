@@ -46,8 +46,8 @@ int	get_input_keyboard(int keycode, t_game *game)
 		move_player(game, game->player.y + 1, game->player.x);
 	else if (keycode == KEY_A)
 		move_player(game, game->player.y, game->player.x - 1);
-	else if (keycode == KEY_TAB)
-		reboot_game(game);
+	// else if (keycode == KEY_TAB)
+	// 	reboot_game(game);
 	else if (keycode == KEY_ESC)
 		mlx_loop_end(game->mlx);
 	return (0);

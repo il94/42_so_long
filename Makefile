@@ -17,7 +17,6 @@ SRC = main.c \
 		run.c \
 		moves.c \
 		read_map.c \
-		reboot.c \
 		zoubir.c
 
 OBJ = $(SRC:.c=.o)

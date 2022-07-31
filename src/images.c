@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 00:08:03 by ilandols          #+#    #+#             */
-/*   Updated: 2022/07/31 01:16:05 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/07/31 23:43:55 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	get_images_mobs(t_game *game)
 {
 	game->mario.img = mlx_xpm_file_to_image(game->mlx, "xpm/mario.xpm",
 			&game->mario.width, &game->mario.height);
+	// game->mario.img = mlx_xpm_file_to_image(game->mlx, "xpm/mario_tr.xpm",
+	// 		&game->mario.width, &game->mario.height);
 	game->goomba.img = mlx_xpm_file_to_image(game->mlx, "xpm/goomba.xpm",
 			&game->goomba.width, &game->goomba.height);
 	game->goomba_b.img = mlx_xpm_file_to_image(game->mlx, "xpm/goomba_b.xpm",

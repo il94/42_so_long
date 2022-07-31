@@ -24,6 +24,7 @@ void	destroy_data_environnement(t_game *game)
 void	destroy_data_mobs(t_game *game)
 {
 	mlx_destroy_image(game->mlx, game->mario.img);
+	// mlx_destroy_image(game->mlx, game->mario_tr.img);
 	mlx_destroy_image(game->mlx, game->goomba.img);
 	mlx_destroy_image(game->mlx, game->goomba_b.img);
 	mlx_destroy_image(game->mlx, game->goomba_g.img);
