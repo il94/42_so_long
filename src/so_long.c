@@ -46,3 +46,30 @@ int	is_near(t_game *game, t_axe pos, char c)
 			|| game->map[pos.y - 1][pos.x] == c
 			|| game->map[pos.y][pos.x - 1] == c);
 }
+
+int	is_near_e(t_game *game, t_axe pos)
+{
+	return (is_ennemy(game->map[pos.y + 1][pos.x])
+			|| is_ennemy(game->map[pos.y][pos.x + 1])
+			|| is_ennemy(game->map[pos.y - 1][pos.x])
+			|| is_ennemy(game->map[pos.y][pos.x - 1]));
+}
+
+void	kill_ennemies(t_game *game)
+{
+	t_axe	pos;
+
+	system("cvlc sound/goomba.wav &");
+	pos.y = 1;
+	while (game->map[pos.y])
+	{
+		pos.x = 1;
+		while (game->map[pos.y][pos.x])
+		{
+			if (is_ennemy(game->map[pos.y][pos.x]))
+				game->map[pos.y][pos.x] = '0';
+			pos.x++;
+		}
+		pos.y++;
+	}
+}

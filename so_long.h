@@ -6,13 +6,14 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:53:28 by ilandols          #+#    #+#             */
-/*   Updated: 2022/07/31 01:07:48 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/07/31 23:17:47 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 # define KEY_ESC 65307
+# define KEY_TAB 65289
 
 /* for QWERTY */
 // # define KEY_W 119
@@ -97,6 +98,8 @@ typedef struct	s_game {
 void	spawn_ennemy(t_game *game);
 int		ennemy_proximity(t_game *game, t_axe pos, int y_bot, int x_bot);
 int		is_near(t_game *game, t_axe pos, char c);
+int		is_near_e(t_game *game, t_axe pos);
+void	kill_ennemies(t_game *game);
 
 /* run.c */
 void	end_game(t_game *game, t_end condition);
@@ -114,7 +117,7 @@ int		is_collectibles(char c);
 int		is_ennemy_obstacle(char c);
 
 /* moves.c */
-void	change_direction(t_game *game, t_axe pos, int y_bot, int x_bot);
+void	change_direction(t_game *game, t_axe pos);
 int		move_ennemy(t_game *game, t_axe pos, int y_bot, int x_bot);
 int		get_direction(t_game *game, t_axe pos, int (*f)(t_game *, t_axe, int, int));
 void	move_player(t_game *game, int y, int x);
@@ -128,9 +131,10 @@ int		is_valid_map(char ***map, char *file);
 
 /* read_map.c */
 int		search_ennemy(t_game *game);
-int		no_more_collectibles(t_game *game);
-int 	open_exit_door(t_game *game);
-int		get_player_position(t_game *game);
+int		more_collectibles(t_game *game, t_axe pos);
+int		open_exit_door(t_game *game, t_axe pos);
+int		get_player_position(t_game *game, t_axe pos);
+int		read_map(t_game *game, char target,  int (*f)(t_game *, t_axe));
 
 /* images.c */
 void	get_images_environnement(t_game *game);

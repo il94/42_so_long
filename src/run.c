@@ -38,9 +38,6 @@ int	can_be_started(int ac, char **av, t_game *game)
 
 int	get_input_keyboard(int keycode, t_game *game)
 {
-	int	i;
-
-	i = 0;
 	if (keycode == KEY_W)
 		move_player(game, game->player.y - 1, game->player.x);
 	else if (keycode == KEY_D)
@@ -49,6 +46,8 @@ int	get_input_keyboard(int keycode, t_game *game)
 		move_player(game, game->player.y + 1, game->player.x);
 	else if (keycode == KEY_A)
 		move_player(game, game->player.y, game->player.x - 1);
+	else if (keycode == KEY_TAB)
+		reboot_game(game);
 	else if (keycode == KEY_ESC)
 		mlx_loop_end(game->mlx);
 	return (0);
@@ -56,11 +55,17 @@ int	get_input_keyboard(int keycode, t_game *game)
 
 int	run_game(t_game *game)
 {
+	static char	brk;
+
 	print_elements(game);
 	if ((unsigned int)time(NULL) > game->time_a)
 		search_ennemy(game);
-	if (no_more_collectibles(game))
-		open_exit_door(game);
+	if (!read_map(game, 'C', &more_collectibles) && !brk)
+	{
+		brk = '1';
+		read_map(game, 'E', &open_exit_door);
+		kill_ennemies(game);
+	}
 	return (0);
 }
 
@@ -73,7 +78,7 @@ void	initialize_mlx(t_game *game)
 	game->x_map = ft_strlen(game->map[0]);
 	game->y_map = ft_get_size_array(game->map);
 	game->time_a = (unsigned int)time(NULL);
-	get_player_position(game);
+	read_map(game, 'P', &get_player_position);
 	game->moves = 0;
 	game->win = mlx_new_window(game->mlx,
 			game->x_map * CELL, game->y_map * CELL, "Paper Mario");
