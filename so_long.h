@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:53:28 by ilandols          #+#    #+#             */
-/*   Updated: 2022/07/31 23:52:29 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/01 20:23:28 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@
 # define KEY_TAB 65289
 
 /* for QWERTY */
-// # define KEY_W 119
-// # define KEY_D 100
-// # define KEY_S 115
-// # define KEY_A 97
-
-/* for AZERTY */
-# define KEY_W 122
+# define KEY_W 119
 # define KEY_D 100
 # define KEY_S 115
-# define KEY_A 113
+# define KEY_A 97
+
+/* for AZERTY */
+// # define KEY_W 122
+// # define KEY_D 100
+// # define KEY_S 115
+// # define KEY_A 113
 
 # define WIDTH 1920 / 2
 # define HEIGHT 1080 / 2
@@ -78,14 +78,13 @@ typedef struct	s_game {
 	int		y_pos;
 	t_axe	player;
 	int		moves;
-	t_data	background;
+	t_data	screen;
 	t_data	grass;
 	t_data	wall_one;
 	t_data	wall_mid;
 	t_data	wall_top;
 	t_data	wall_bot;
 	t_data	mario;
-	t_data	mario_tr;
 	t_data	goomba;
 	t_data	goomba_b;
 	t_data	goomba_g;
@@ -95,6 +94,10 @@ typedef struct	s_game {
 	unsigned int	time_a;
 	unsigned int	time_b;
 }				t_game;
+
+int	draw_image(t_game *game, t_data *image, t_axe pos);
+unsigned int get_color(t_data *image, int x, int y);
+void	put_color(t_data *image, int x, int y, unsigned int color);
 
 /* so_long.c */
 void	spawn_ennemy(t_game *game);
@@ -138,6 +141,12 @@ int		open_exit_door(t_game *game, t_axe pos);
 int		get_player_position(t_game *game, t_axe pos);
 int		read_map(t_game *game, char target,  int (*f)(t_game *, t_axe));
 
+/* adresses.c */
+void	get_adresses_environnement(t_game *game);
+void	get_adresses_mobs(t_game *game);
+void	get_adresses_collectibles(t_game *game);
+void	get_adresses(t_game *game);
+
 /* images.c */
 void	get_images_environnement(t_game *game);
 void	get_images_mobs(t_game *game);
@@ -145,7 +154,8 @@ void	get_images_collectibles(t_game *game);
 void	get_images(t_game *game);
 
 /* print.c */
-void	print_environnement(t_game *game, t_axe pos, int y_map);
+void	print_wall(t_game *game, t_axe pos);
+void	print_environnement(t_game *game);
 void	print_mobs(t_game *game, t_axe pos);
 void	print_collectibles(t_game *game, t_axe pos);
 void	print_elements(t_game *game);

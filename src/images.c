@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 00:08:03 by ilandols          #+#    #+#             */
-/*   Updated: 2022/07/31 23:43:55 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/01 20:27:08 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,8 @@ void	get_images_environnement(t_game *game)
 
 void	get_images_mobs(t_game *game)
 {
-	game->mario.img = mlx_xpm_file_to_image(game->mlx, "xpm/mario.xpm",
+	game->mario.img = mlx_xpm_file_to_image(game->mlx, "xpm/mario_l1.xpm",
 			&game->mario.width, &game->mario.height);
-	// game->mario.img = mlx_xpm_file_to_image(game->mlx, "xpm/mario_tr.xpm",
-	// 		&game->mario.width, &game->mario.height);
 	game->goomba.img = mlx_xpm_file_to_image(game->mlx, "xpm/goomba.xpm",
 			&game->goomba.width, &game->goomba.height);
 	game->goomba_b.img = mlx_xpm_file_to_image(game->mlx, "xpm/goomba_b.xpm",
@@ -55,4 +53,6 @@ void	get_images(t_game *game)
 	get_images_environnement(game);
 	get_images_mobs(game);
 	get_images_collectibles(game);
+	game->screen.img = mlx_new_image(game->mlx,
+			game->x_map * CELL, game->y_map * CELL);
 }
