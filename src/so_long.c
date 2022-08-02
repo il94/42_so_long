@@ -34,7 +34,7 @@ int	ennemy_proximity(t_game *game, t_axe pos, int y_bot, int x_bot)
 {
 	if (game->player.x == x_bot && game->player.y == y_bot)
 		return (1);
-	if (is_ennemy_obstacle(game->map[y_bot][x_bot]) && is_near(game, pos, 'P'))
+	if (is_ennemy_obstacle(game->map[y_bot][x_bot]) && is_near_p(game, pos))
 		return (2);
 	return (0);
 }
@@ -53,6 +53,14 @@ int	is_near_e(t_game *game, t_axe pos)
 			|| is_ennemy(game->map[pos.y][pos.x + 1])
 			|| is_ennemy(game->map[pos.y - 1][pos.x])
 			|| is_ennemy(game->map[pos.y][pos.x - 1]));
+}
+
+int	is_near_p(t_game *game, t_axe pos)
+{
+	return (is_player(game->map[pos.y + 1][pos.x])
+			|| is_player(game->map[pos.y][pos.x + 1])
+			|| is_player(game->map[pos.y - 1][pos.x])
+			|| is_player(game->map[pos.y][pos.x - 1]));
 }
 
 void	kill_ennemies(t_game *game)

@@ -41,6 +41,77 @@ int	destroy_elements(t_game *game)
 	destroy_data_environnement(game);
 	destroy_data_mobs(game);
 	destroy_data_collectibles(game);
+
+	mlx_destroy_image(game->mlx, game->m_hammer_b_left.img);
+	mlx_destroy_image(game->mlx, game->m_hammer_b_left_2.img);
+	mlx_destroy_image(game->mlx, game->m_hammer_b_right.img);
+	mlx_destroy_image(game->mlx, game->m_hammer_b_right_2.img);
+	mlx_destroy_image(game->mlx, game->m_hammer_left.img);
+	mlx_destroy_image(game->mlx, game->m_hammer_left_2.img);
+	mlx_destroy_image(game->mlx, game->m_hammer_left_3.img);
+	mlx_destroy_image(game->mlx, game->m_hammer_right.img);
+	mlx_destroy_image(game->mlx, game->m_hammer_right_2.img);
+	mlx_destroy_image(game->mlx, game->m_hammer_right_3.img);
+	mlx_destroy_image(game->mlx, game->m_static_b_left.img);
+	mlx_destroy_image(game->mlx, game->m_static_b_right.img);
+	mlx_destroy_image(game->mlx, game->m_static_left.img);
+	mlx_destroy_image(game->mlx, game->m_static_right.img);
+	mlx_destroy_image(game->mlx, game->m_walk_b_left.img);
+	mlx_destroy_image(game->mlx, game->m_walk_b_left_2.img);
+	mlx_destroy_image(game->mlx, game->m_walk_b_left_3.img);
+	mlx_destroy_image(game->mlx, game->m_walk_b_right.img);
+	mlx_destroy_image(game->mlx, game->m_walk_b_right_2.img);
+	mlx_destroy_image(game->mlx, game->m_walk_b_right_3.img);
+	mlx_destroy_image(game->mlx, game->m_walk_left.img);
+	mlx_destroy_image(game->mlx, game->m_walk_left_2.img);
+	mlx_destroy_image(game->mlx, game->m_walk_left_3.img);
+	mlx_destroy_image(game->mlx, game->m_walk_right.img);
+	mlx_destroy_image(game->mlx, game->m_walk_right_2.img);
+	mlx_destroy_image(game->mlx, game->m_walk_right_3.img);
+	mlx_destroy_image(game->mlx, game->c.img);
+	mlx_destroy_image(game->mlx, game->c_2.img);
+	mlx_destroy_image(game->mlx, game->c_3.img);
+	mlx_destroy_image(game->mlx, game->c_4.img);
+	mlx_destroy_image(game->mlx, game->hammer.img);
+	mlx_destroy_image(game->mlx, game->s.img);
+	mlx_destroy_image(game->mlx, game->s_2.img);
+	mlx_destroy_image(game->mlx, game->s_3.img);
+	mlx_destroy_image(game->mlx, game->s_spawn.img);
+	mlx_destroy_image(game->mlx, game->s_spawn_2.img);
+	mlx_destroy_image(game->mlx, game->s_spawn_3.img);
+	mlx_destroy_image(game->mlx, game->s_spawn_4.img);
+	mlx_destroy_image(game->mlx, game->s_spawn_5.img);
+	mlx_destroy_image(game->mlx, game->s_spawn_6.img);
+	mlx_destroy_image(game->mlx, game->s_spawn_7.img);
+	mlx_destroy_image(game->mlx, game->s_spawn_8.img);
+	mlx_destroy_image(game->mlx, game->s_spawn_9.img);
+	mlx_destroy_image(game->mlx, game->s_spawn_10.img);
+	mlx_destroy_image(game->mlx, game->s_spawn_11.img);
+	mlx_destroy_image(game->mlx, game->s_spawn_12.img);
+	mlx_destroy_image(game->mlx, game->s_spawn_13.img);
+	mlx_destroy_image(game->mlx, game->s_spawn_14.img);
+	mlx_destroy_image(game->mlx, game->s_spawn_15.img);
+	mlx_destroy_image(game->mlx, game->s_spawn_16.img);
+	mlx_destroy_image(game->mlx, game->s_spawn_17.img);
+	mlx_destroy_image(game->mlx, game->s_spawn_18.img);
+	mlx_destroy_image(game->mlx, game->s_spawn_19.img);
+	mlx_destroy_image(game->mlx, game->s_spawn_20.img);
+	mlx_destroy_image(game->mlx, game->g.img);
+	mlx_destroy_image(game->mlx, game->g_2.img);
+	mlx_destroy_image(game->mlx, game->g_3.img);
+	mlx_destroy_image(game->mlx, game->g_death.img);
+	mlx_destroy_image(game->mlx, game->g_death_2.img);
+	mlx_destroy_image(game->mlx, game->gb.img);
+	mlx_destroy_image(game->mlx, game->gb_2.img);
+	mlx_destroy_image(game->mlx, game->gb_3.img);
+	mlx_destroy_image(game->mlx, game->gr.img);
+	mlx_destroy_image(game->mlx, game->gr_2.img);
+	mlx_destroy_image(game->mlx, game->gr_3.img);
+
+
+
+
+
 	mlx_destroy_image(game->mlx, game->screen.img);
 	mlx_destroy_window(game->mlx, game->win);
 	mlx_destroy_display(game->mlx);

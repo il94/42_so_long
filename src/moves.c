@@ -38,14 +38,14 @@ void	change_direction(t_game *game, t_axe pos)
 
 int	move_ennemy(t_game *game, t_axe pos, int y_bot, int x_bot)
 {
-	if (game->map[y_bot][x_bot] == 'P')
+	if (is_player(game->map[y_bot][x_bot]))
 		end_game(game, LOOSE);
 	else if (game->map[y_bot][x_bot] == '0')
 	{
 		game->map[y_bot][x_bot] = ft_tolower(game->map[pos.y][pos.x]);
 		game->map[pos.y][pos.x] = '0';
 	}
-	else if (is_near(game, pos, '0') || is_near(game, pos, 'P'))
+	else if (is_near(game, pos, '0') || is_near_p(game, pos))
 		change_direction(game, pos);
 	return (0);
 }
@@ -64,7 +64,7 @@ int	get_direction(t_game *game, t_axe pos, int (*f)(t_game *, t_axe, int, int))
 		return ((*f)(game, pos, pos.y, pos.x - 1));
 }
 
-void	move_player(t_game *game, int y, int x)
+void	move_player(t_game *game, int y, int x, int keycode)
 {
 	if (is_ennemy(game->map[y][x]))
 		end_game(game, LOOSE);
@@ -78,7 +78,7 @@ void	move_player(t_game *game, int y, int x)
 		game->player.x = x;
 		game->player.y = y;
 		game->map[game->player.y][game->player.x] = 'P';
-		print_elements(game);
+		// print_player(game, game->player, keycode);
 		ft_printf("Moves = %d\n", game->moves += 1);
 	}
 }

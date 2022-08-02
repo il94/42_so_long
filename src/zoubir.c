@@ -28,7 +28,21 @@ int	is_ennemy(char c)
 	while (ENNEMY[i])
 	{
 		if (c == ENNEMY[i])
-			return (1);
+			return (ENNEMY[i]);
+		i++;
+	}
+	return (0);
+}
+
+int	is_player(char c)
+{
+	int	i;
+
+	i = 0;
+	while (PLAYER[i])
+	{
+		if (c == PLAYER[i])
+			return (PLAYER[i]);
 		i++;
 	}
 	return (0);
@@ -42,7 +56,7 @@ int	is_lower_ennemy(char c)
 	while (LOWER_ENNEMY[i])
 	{
 		if (c == LOWER_ENNEMY[i])
-			return (1);
+			return (LOWER_ENNEMY[i]);
 		i++;
 	}
 	return (0);
@@ -63,7 +77,7 @@ int	is_valid_char(char c, int *cep)
 				cep[1]++;
 			else if (c == 'P')
 				cep[2]++;
-			return (1);
+			return (VALID_CHAR[i]);
 		}
 		i++;
 	}
@@ -78,7 +92,7 @@ int	is_collectibles(char c)
 	while (COLLECTIBLES[i])
 	{
 		if (c == COLLECTIBLES[i])
-			return (1);
+			return (COLLECTIBLES[i]);
 		i++;
 	}
 	return (0);
@@ -92,7 +106,7 @@ int	is_ennemy_obstacle(char c)
 	while (ENNEMY_OBSTACLE[i])
 	{
 		if (c == ENNEMY_OBSTACLE[i])
-			return (1);
+			return (ENNEMY_OBSTACLE[i]);
 		i++;
 	}
 	return (0);
