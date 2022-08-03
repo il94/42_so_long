@@ -38,18 +38,37 @@ int	can_be_started(int ac, char **av, t_game *game)
 
 int	get_input_keyboard(int keycode, t_game *game)
 {
+	// if (game->time_a > game->time_b + 2)
+	{
+		// print_player(game, game->player, 'Q');
+	}
+	game->time_b = (unsigned int)time(NULL);
 	if (keycode == KEY_W)
-		move_player(game, game->player.y - 1, game->player.x, KEY_W);
+	{
+		if (is(PLAYER, game->map[game->player.y][game->player.x]) == 'a'
+			|| is(PLAYER, game->map[game->player.y][game->player.x]) == 'A')
+			move_player(game, game->player.y - 1, game->player.x, 'a');
+		else
+			move_player(game, game->player.y - 1, game->player.x, 'b');
+	}
 	else if (keycode == KEY_D)
-		move_player(game, game->player.y, game->player.x + 1, KEY_D);
+		move_player(game, game->player.y, game->player.x + 1, 'B');
 	else if (keycode == KEY_S)
-		move_player(game, game->player.y + 1, game->player.x, KEY_S);
+	{
+		if (game->map[game->player.y][game->player.x] == 'a'
+			|| game->map[game->player.y][game->player.x] == 'A')
+			move_player(game, game->player.y + 1, game->player.x, 'A');
+		else
+			move_player(game, game->player.y + 1, game->player.x, 'B');
+	}
 	else if (keycode == KEY_A)
-		move_player(game, game->player.y, game->player.x - 1, KEY_A);
+		move_player(game, game->player.y, game->player.x - 1, 'A');
+	// else if (keycode == KEY_SPACE)
+	// 	reboot_game(game);
 	// else if (keycode == KEY_TAB)
 	// 	reboot_game(game);
-	// else if (keycode == KEY_ESC)
-	// 	mlx_loop_end(game->mlx);
+	else if (keycode == KEY_ESC)
+		mlx_loop_end(game->mlx);
 	return (0);
 }
 
@@ -90,6 +109,6 @@ void	initialize_mlx(t_game *game)
 	// mlx_key_hook(game->win, get_input_keyboard, game);
 	mlx_loop_hook(game->mlx, run_game, game);
 	mlx_hook(game->win, 17, 0, mlx_loop_end, game->mlx);
-	// system("cvlc sound/march_ahead.wav &");
+	system("cvlc sound/march_ahead.wav &");
 	mlx_loop(game->mlx);
 }

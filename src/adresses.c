@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:50:15 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/03 00:53:08 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/03 11:50:53 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	get_adresses(t_game *game)
 	game->s_2.addr = mlx_get_data_addr(game->s_2.img, 
             &game->s_2.bpp, &game->s_2.line, &game->s_2.endian);
 	game->s_3.addr = mlx_get_data_addr(game->s_3.img, 
-            &game->s_3.bpp, &game->s_3.line, &game->s_3.endian)
+            &game->s_3.bpp, &game->s_3.line, &game->s_3.endian);
 	game->s_spawn.addr = mlx_get_data_addr(game->s_spawn.img, 
             &game->s_spawn.bpp, &game->s_spawn.line, &game->s_spawn.endian);
 	game->s_spawn_2.addr = mlx_get_data_addr(game->s_spawn_2.img, 

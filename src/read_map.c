@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 13:53:24 by ilandols          #+#    #+#             */
-/*   Updated: 2022/07/31 23:17:11 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/03 18:04:07 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	search_ennemy(t_game *game)
 		pos.x = 0;
 		while (game->map[pos.y][pos.x])
 		{
-			if (is_ennemy(game->map[pos.y][pos.x]))
+			if (is(ENNEMY, game->map[pos.y][pos.x]))
 				get_direction(game, pos, &move_ennemy);
 			pos.x++;
 		}
@@ -71,4 +71,40 @@ int	read_map(t_game *game, char target, int (*f)(t_game *, t_axe))
 		pos.y++;
 	}
 	return (0);
+}
+
+void	read_all_map(t_game *game, char target, void (*f)(t_game *, t_axe))
+{
+	t_axe	pos;
+
+	pos.y = 1;
+	while (game->map[pos.y])
+	{
+		pos.x = 1;
+		while (game->map[pos.y][pos.x])
+		{
+			if (game->map[pos.y][pos.x] == target)
+				((*f)(game, pos));
+			pos.x++;
+		}
+		pos.y++;
+	}
+}
+
+void	print(t_game *game, char *target, void (*f)(t_game *, t_axe))
+{
+	t_axe	pos;
+
+	pos.y = 0;
+	while (game->map[pos.y])
+	{
+		pos.x = 0;
+		while (game->map[pos.y][pos.x])
+		{
+			if (is(target, game->map[pos.y][pos.x]))
+				((*f)(game, pos));
+			pos.x++;
+		}
+		pos.y++;
+	}
 }

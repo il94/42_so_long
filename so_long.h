@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:53:28 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/03 00:49:43 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/03 17:55:34 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,27 @@
 # define SO_LONG_H
 # define KEY_ESC 65307
 # define KEY_TAB 65289
+# define KEY_SPACE 32
 
 /* for QWERTY */
-// # define KEY_W 119
-// # define KEY_D 100
-// # define KEY_S 115
-// # define KEY_A 97
-
-/* for AZERTY */
-# define KEY_W 122
+# define KEY_W 119
 # define KEY_D 100
 # define KEY_S 115
-# define KEY_A 113
+# define KEY_A 97
+
+/* for AZERTY */
+// # define KEY_W 122
+// # define KEY_D 100
+// # define KEY_S 115
+// # define KEY_A 113
 
 # define WIDTH 1920 / 2
 # define HEIGHT 1080 / 2
 # define CELL 48
 # define VALID_CHAR "01CEPM"
-# define COLLECTIBLES "CE"
-# define PLAYER "P8624"
+# define COLLECTIBLES "CEe"
+# define NOT_WALL "0CEePQABpqabMURDLurdl"
+# define PLAYER "PQABpqab"
 # define ENNEMY "MURDL"
 # define LOWER_ENNEMY "urdl"
 # define ENNEMY_OBSTACLE "1CEMURDL"
@@ -161,10 +163,6 @@ typedef struct	s_game {
 	t_data	gr_3;
 }				t_game;
 
-int	draw_image(t_game *game, t_data *image, t_axe pos);
-int get_color(t_data *image, int x, int y);
-void	put_color(t_game *game, t_data *image, t_axe pos, t_axe cell_pos);
-
 /* so_long.c */
 void	spawn_ennemy(t_game *game);
 int		ennemy_proximity(t_game *game, t_axe pos, int y_bot, int x_bot);
@@ -182,18 +180,14 @@ void	initialize_mlx(t_game *game);
 
 /* zoubir.c */
 int		is_surrounded_by(t_game *game, t_axe pos, char c);
-int		is_ennemy(char c);
-int		is_lower_ennemy(char c);
 int		is_valid_char(char c, int *cep);
-int		is_collectibles(char c);
-int		is_ennemy_obstacle(char c);
-int		is_player(char c);
+int		is(char *str, char c);
 
 /* moves.c */
 void	change_direction(t_game *game, t_axe pos);
 int		move_ennemy(t_game *game, t_axe pos, int y_bot, int x_bot);
 int		get_direction(t_game *game, t_axe pos, int (*f)(t_game *, t_axe, int, int));
-void	move_player(t_game *game, int y, int x, int keycode);
+void	move_player(t_game *game, int y, int x, char code);
 
 /* parsing.c */
 char	*get_data_map(char *file);
@@ -208,6 +202,8 @@ int		more_collectibles(t_game *game, t_axe pos);
 int		open_exit_door(t_game *game, t_axe pos);
 int		get_player_position(t_game *game, t_axe pos);
 int		read_map(t_game *game, char target,  int (*f)(t_game *, t_axe));
+void	read_all_map(t_game *game, char target, void (*f)(t_game *, t_axe));
+void	print(t_game *game, char *target, void (*f)(t_game *, t_axe));
 
 /* adresses.c */
 void	get_adresses_environnement(t_game *game);
@@ -222,13 +218,19 @@ void	get_images_collectibles(t_game *game);
 void	get_images(t_game *game);
 
 /* print.c */
+int		draw_image(t_game *game, t_data *image, t_axe pos);
+void	print_grass(t_game *game, t_axe pos);
 void	print_wall(t_game *game, t_axe pos);
-void	print_player(t_game *game, t_axe pos, int keycode);
-void	print_environnement(t_game *game);
-void	print_mobs(t_game *game, t_axe pos);
+
+int		draw_image_s(t_game *game, t_data *image, t_axe pos);
+void	print_player_up(t_game *game, t_axe pos);
+
+
+void	print_player(t_game *game, t_axe pos);
+void	print_ennemy(t_game *game, t_axe pos);
+void	print_collectibles(t_game *game, t_axe pos);
 void	print_coins(t_game *game, t_axe pos);
 void	print_star(t_game *game, t_axe pos);
-void	print_collectibles(t_game *game, t_axe pos);
 void	print_elements(t_game *game);
 
 /* destroy_elements.c */

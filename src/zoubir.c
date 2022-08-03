@@ -20,43 +20,15 @@ int	is_surrounded_by(t_game *game, t_axe pos, char c)
 			&& game->map[pos.y][pos.x - 1] == c);
 }
 
-int	is_ennemy(char c)
+int	is(char *str, char c)
 {
 	int	i;
 
 	i = 0;
-	while (ENNEMY[i])
+	while (str[i])
 	{
-		if (c == ENNEMY[i])
-			return (ENNEMY[i]);
-		i++;
-	}
-	return (0);
-}
-
-int	is_player(char c)
-{
-	int	i;
-
-	i = 0;
-	while (PLAYER[i])
-	{
-		if (c == PLAYER[i])
-			return (PLAYER[i]);
-		i++;
-	}
-	return (0);
-}
-
-int	is_lower_ennemy(char c)
-{
-	int	i;
-
-	i = 0;
-	while (LOWER_ENNEMY[i])
-	{
-		if (c == LOWER_ENNEMY[i])
-			return (LOWER_ENNEMY[i]);
+		if (c == str[i])
+			return (str[i]);
 		i++;
 	}
 	return (0);
@@ -84,30 +56,3 @@ int	is_valid_char(char c, int *cep)
 	return (0);
 }
 
-int	is_collectibles(char c)
-{
-	int	i;
-
-	i = 0;
-	while (COLLECTIBLES[i])
-	{
-		if (c == COLLECTIBLES[i])
-			return (COLLECTIBLES[i]);
-		i++;
-	}
-	return (0);
-}
-
-int	is_ennemy_obstacle(char c)
-{
-	int	i;
-
-	i = 0;
-	while (ENNEMY_OBSTACLE[i])
-	{
-		if (c == ENNEMY_OBSTACLE[i])
-			return (ENNEMY_OBSTACLE[i]);
-		i++;
-	}
-	return (0);
-}
