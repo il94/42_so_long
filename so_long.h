@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:53:28 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/03 17:55:34 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/04 21:07:51 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,10 @@ typedef struct	s_game {
 	t_data	gr;
 	t_data	gr_2;
 	t_data	gr_3;
+	int		delay;
 }				t_game;
+
+void	delay(int milliseconds);
 
 /* so_long.c */
 void	spawn_ennemy(t_game *game);
@@ -222,7 +225,7 @@ int		draw_image(t_game *game, t_data *image, t_axe pos);
 void	print_grass(t_game *game, t_axe pos);
 void	print_wall(t_game *game, t_axe pos);
 
-int		draw_image_s(t_game *game, t_data *image, t_axe pos);
+int		draw_image_s(t_game *game, t_data *image, t_axe pos, int z);
 void	print_player_up(t_game *game, t_axe pos);
 
 

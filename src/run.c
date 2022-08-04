@@ -38,18 +38,46 @@ int	can_be_started(int ac, char **av, t_game *game)
 
 int	get_input_keyboard(int keycode, t_game *game)
 {
-	// if (game->time_a > game->time_b + 2)
-	{
-		// print_player(game, game->player, 'Q');
-	}
-	game->time_b = (unsigned int)time(NULL);
+	int			freq;
+	static int	delay2;
+
+	freq = 9;
+	if (!delay2)
+		delay2 = 0;
+	if (delay2 > 0)
+		game->delay = 1;
+	else
+		game->delay = 0;
 	if (keycode == KEY_W)
 	{
-		if (is(PLAYER, game->map[game->player.y][game->player.x]) == 'a'
-			|| is(PLAYER, game->map[game->player.y][game->player.x]) == 'A')
-			move_player(game, game->player.y - 1, game->player.x, 'a');
-		else
-			move_player(game, game->player.y - 1, game->player.x, 'b');
+		delay2++;
+		if (delay2 == 1)
+			draw_image_s(game, &game->m_walk_b_left, game->player, 44);
+		if (delay2 == 2)
+			draw_image_s(game, &game->m_walk_b_left, game->player, 40);
+		if (delay2 == 3)
+			draw_image_s(game, &game->m_walk_b_left, game->player, 36);
+		if (delay2 == 4)
+			draw_image_s(game, &game->m_walk_b_left, game->player, 30);
+		if (delay2 == 5)
+			draw_image_s(game, &game->m_walk_b_left, game->player, 24);
+		if (delay2 == 6)
+			draw_image_s(game, &game->m_walk_b_left, game->player, 18);
+		if (delay2 == 7)
+			draw_image_s(game, &game->m_walk_b_left, game->player, 12);
+		if (delay2 == 8)
+			draw_image_s(game, &game->m_walk_b_left, game->player, 6);
+		if (delay2 == 9)
+			draw_image_s(game, &game->m_walk_b_left, game->player, 0);
+		if (delay2 == freq)
+		{
+			if (is(PLAYER, game->map[game->player.y][game->player.x]) == 'a'
+				|| is(PLAYER, game->map[game->player.y][game->player.x]) == 'A')
+				move_player(game, game->player.y - 1, game->player.x, 'a');
+			else
+				move_player(game, game->player.y - 1, game->player.x, 'b');
+			delay2 = 0;
+		}
 	}
 	else if (keycode == KEY_D)
 		move_player(game, game->player.y, game->player.x + 1, 'B');
@@ -99,6 +127,7 @@ void	initialize_mlx(t_game *game)
 	game->time_a = (unsigned int)time(NULL);
 	read_map(game, 'P', &get_player_position);
 	game->moves = 0;
+	game->delay = 0;
 	game->win = mlx_new_window(game->mlx,
 			game->x_map * CELL, game->y_map * CELL, "Paper Mario");
 	if (!game->win)
