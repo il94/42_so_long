@@ -107,7 +107,17 @@ int	destroy_elements(t_game *game)
 	mlx_destroy_image(game->mlx, game->gr.img);
 	mlx_destroy_image(game->mlx, game->gr_2.img);
 	mlx_destroy_image(game->mlx, game->gr_3.img);
-
+	mlx_destroy_image(game->mlx, game->grass_shadow.img);
+	mlx_destroy_image(game->mlx, game->wall_one_shadow.img);
+	mlx_destroy_image(game->mlx, game->wall_mid_shadow.img);
+	mlx_destroy_image(game->mlx, game->wall_top_shadow.img);
+	mlx_destroy_image(game->mlx, game->wall_bot_shadow.img);
+	mlx_destroy_image(game->mlx, game->m_walk_left_light.img);
+	mlx_destroy_image(game->mlx, game->m_walk_left_light_2.img);
+	mlx_destroy_image(game->mlx, game->m_walk_left_light_3.img);
+	mlx_destroy_image(game->mlx, game->m_walk_right_light.img);
+	mlx_destroy_image(game->mlx, game->m_walk_right_light_2.img);
+	mlx_destroy_image(game->mlx, game->m_walk_right_light_3.img);
 
 
 

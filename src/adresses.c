@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:50:15 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/03 11:50:53 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/08 00:50:47 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,28 @@ void	get_adresses(t_game *game)
             &game->gr_2.bpp, &game->gr_2.line, &game->gr_2.endian);
 	game->gr_3.addr = mlx_get_data_addr(game->gr_3.img, 
             &game->gr_3.bpp, &game->gr_3.line, &game->gr_3.endian);
+	game->grass_shadow.addr = mlx_get_data_addr(game->grass_shadow.img, 
+            &game->grass_shadow.bpp, &game->grass_shadow.line, &game->grass_shadow.endian);
+	game->wall_one_shadow.addr = mlx_get_data_addr(game->wall_one_shadow.img, 
+            &game->wall_one_shadow.bpp, &game->wall_one_shadow.line, &game->wall_one_shadow.endian);
+	game->wall_mid_shadow.addr = mlx_get_data_addr(game->wall_mid_shadow.img, 
+            &game->wall_mid_shadow.bpp, &game->wall_mid_shadow.line, &game->wall_mid_shadow.endian);
+	game->wall_top_shadow.addr = mlx_get_data_addr(game->wall_top_shadow.img, 
+            &game->wall_top_shadow.bpp, &game->wall_top_shadow.line, &game->wall_top_shadow.endian);
+	game->wall_bot_shadow.addr = mlx_get_data_addr(game->wall_bot_shadow.img, 
+            &game->wall_bot_shadow.bpp, &game->wall_bot_shadow.line, &game->wall_bot_shadow.endian);
+	game->m_walk_left_light.addr = mlx_get_data_addr(game->m_walk_left_light.img, 
+            &game->m_walk_left_light.bpp, &game->m_walk_left_light.line, &game->m_walk_left_light.endian);
+	game->m_walk_left_light_2.addr = mlx_get_data_addr(game->m_walk_left_light_2.img, 
+            &game->m_walk_left_light_2.bpp, &game->m_walk_left_light_2.line, &game->m_walk_left_light_2.endian);
+	game->m_walk_left_light_3.addr = mlx_get_data_addr(game->m_walk_left_light_3.img, 
+            &game->m_walk_left_light_3.bpp, &game->m_walk_left_light_3.line, &game->m_walk_left_light_3.endian);
+	game->m_walk_right_light.addr = mlx_get_data_addr(game->m_walk_right_light.img, 
+            &game->m_walk_right_light.bpp, &game->m_walk_right_light.line, &game->m_walk_right_light.endian);
+	game->m_walk_right_light_2.addr = mlx_get_data_addr(game->m_walk_right_light_2.img, 
+            &game->m_walk_right_light_2.bpp, &game->m_walk_right_light_2.line, &game->m_walk_right_light_2.endian);
+	game->m_walk_right_light_3.addr = mlx_get_data_addr(game->m_walk_right_light_3.img, 
+            &game->m_walk_right_light_3.bpp, &game->m_walk_right_light_3.line, &game->m_walk_right_light_3.endian);
 
 
 }

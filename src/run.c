@@ -102,8 +102,8 @@ int	get_input_keyboard(int keycode, t_game *game)
 	// 	reboot_game(game);
 	// else if (keycode == KEY_TAB)
 	// 	reboot_game(game);
-	else if (keycode == KEY_ESC)
-		mlx_loop_end(game->mlx);
+	// else if (keycode == KEY_ESC)
+	// 	mlx_loop_end(game->mlx);
 	ft_print_array(game->map);
 	printf("CELL x = %d, y = %d\n", game->cell.x, game->cell.y);
 	printf("PLAYER x = %d, y = %d\n", game->player.x, game->player.y);

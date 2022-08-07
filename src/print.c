@@ -101,24 +101,24 @@ void	print_player2(t_game *game)
 	else if (code == 'A')
 	{
 		if (i >= 0 && i <= frequency)
-			draw_image2(game, &game->m_walk_left, game->cell);
+			draw_image2(game, &game->m_walk_left_light, game->cell);
 		else if (i >= frequency && i <= frequency * 2)
-			draw_image2(game, &game->m_walk_left_2, game->cell);
+			draw_image2(game, &game->m_walk_left_light_2, game->cell);
 		else if (i >= frequency * 2 && i <= frequency * 3)
-			draw_image2(game, &game->m_walk_left_3, game->cell);
+			draw_image2(game, &game->m_walk_left_light_3, game->cell);
 		else if (i >= frequency * 3 && i <= frequency * 4)
-			draw_image2(game, &game->m_walk_left_2, game->cell);
+			draw_image2(game, &game->m_walk_left_light_2, game->cell);
 	}
 	else if (code == 'B')
 	{
 		if (i >= 0 && i <= frequency)
-			draw_image2(game, &game->m_walk_right, game->cell);
+			draw_image2(game, &game->m_walk_right_light, game->cell);
 		else if (i >= frequency && i <= frequency * 2)
-			draw_image2(game, &game->m_walk_right_2, game->cell);
+			draw_image2(game, &game->m_walk_right_light_2, game->cell);
 		else if (i >= frequency * 2 && i <= frequency * 3)
-			draw_image2(game, &game->m_walk_right_3, game->cell);
+			draw_image2(game, &game->m_walk_right_light_3, game->cell);
 		else if (i >= frequency * 3 && i <= frequency * 4)
-			draw_image2(game, &game->m_walk_right_2, game->cell);
+			draw_image2(game, &game->m_walk_right_light_2, game->cell);
 	}
 	else if (code == 'q')
 		draw_image2(game, &game->m_static_b_left, game->cell);
@@ -135,7 +135,7 @@ void	print_player2(t_game *game)
 
 void	print_grass(t_game *game, t_axe pos)
 {
-	draw_image(game, &game->grass, pos);
+	draw_image(game, &game->grass_shadow, pos);
 }
 
 void	print_wall(t_game *game, t_axe pos)
@@ -143,13 +143,13 @@ void	print_wall(t_game *game, t_axe pos)
 	if (pos.y < game->y_map - 1 && pos.y > 0
 		&& game->map[pos.y + 1][pos.x] == '1'
 		&& game->map[pos.y - 1][pos.x] == '1')
-		draw_image(game, &game->wall_mid, pos);
+		draw_image(game, &game->wall_mid_shadow, pos);
 	else if (pos.y < game->y_map - 1 && game->map[pos.y + 1][pos.x] == '1')
-		draw_image(game, &game->wall_top, pos);
+		draw_image(game, &game->wall_top_shadow, pos);
 	else if (pos.y > 0 && game->map[pos.y - 1][pos.x] == '1')
-		draw_image(game, &game->wall_bot, pos);
+		draw_image(game, &game->wall_bot_shadow, pos);
 	else
-		draw_image(game, &game->wall_one, pos);
+		draw_image(game, &game->wall_one_shadow, pos);
 }
 
 void	print_player(t_game *game, t_axe pos)
@@ -187,24 +187,24 @@ void	print_player(t_game *game, t_axe pos)
 	else if (code == 'A')
 	{
 		if (i >= 0 && i <= frequency)
-			draw_image(game, &game->m_walk_left, pos);
+			draw_image(game, &game->m_walk_left_light, pos);
 		else if (i >= frequency && i <= frequency * 2)
-			draw_image(game, &game->m_walk_left_2, pos);
+			draw_image(game, &game->m_walk_left_light_2, pos);
 		else if (i >= frequency * 2 && i <= frequency * 3)
-			draw_image(game, &game->m_walk_left_3, pos);
+			draw_image(game, &game->m_walk_left_light_3, pos);
 		else if (i >= frequency * 3 && i <= frequency * 4)
-			draw_image(game, &game->m_walk_left_2, pos);
+			draw_image(game, &game->m_walk_left_light_2, pos);
 	}
 	else if (code == 'B')
 	{
 		if (i >= 0 && i <= frequency)
-			draw_image(game, &game->m_walk_right, pos);
+			draw_image(game, &game->m_walk_right_light, pos);
 		else if (i >= frequency && i <= frequency * 2)
-			draw_image(game, &game->m_walk_right_2, pos);
+			draw_image(game, &game->m_walk_right_light_2, pos);
 		else if (i >= frequency * 2 && i <= frequency * 3)
-			draw_image(game, &game->m_walk_right_3, pos);
+			draw_image(game, &game->m_walk_right_light_3, pos);
 		else if (i >= frequency * 3 && i <= frequency * 4)
-			draw_image(game, &game->m_walk_right_2, pos);
+			draw_image(game, &game->m_walk_right_light_2, pos);
 	}
 	else if (code == 'q')
 		draw_image(game, &game->m_static_b_left, pos);
@@ -329,6 +329,7 @@ void	print_wall_to_player(t_game *game)
 void	print_elements(t_game *game)
 {
 	print(game, NOT_WALL, print_grass);
+	print(game, "1", print_grass);
 	print(game, "1", print_wall);
 	// print(game, PLAYER, print_player);
 	print(game, ENNEMY, print_ennemy);

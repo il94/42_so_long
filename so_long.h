@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:53:28 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/07 18:44:06 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/08 00:54:02 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@
 # define KEY_SPACE 32
 
 /* for QWERTY */
-# define KEY_W 119
-# define KEY_D 100
-# define KEY_S 115
-# define KEY_A 97
-
-/* for AZERTY */
-// # define KEY_W 122
+// # define KEY_W 119
 // # define KEY_D 100
 // # define KEY_S 115
-// # define KEY_A 113
+// # define KEY_A 97
+
+/* for AZERTY */
+# define KEY_W 122
+# define KEY_D 100
+# define KEY_S 115
+# define KEY_A 113
 
 # define WIDTH 1920 / 2
 # define HEIGHT 1080 / 2
@@ -163,6 +163,19 @@ typedef struct	s_game {
 	t_data	gr;
 	t_data	gr_2;
 	t_data	gr_3;
+	t_data	grass_shadow;
+	t_data	wall_one_shadow;
+	t_data	wall_mid_shadow;
+	t_data	wall_top_shadow;
+	t_data	wall_bot_shadow;
+	t_data	m_walk_left_light;
+	t_data	m_walk_left_light_2;
+	t_data	m_walk_left_light_3;
+	t_data	m_walk_right_light;
+	t_data	m_walk_right_light_2;
+	t_data	m_walk_right_light_3;
+
+
 	int		delay;
 }				t_game;
 

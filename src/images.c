@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 00:08:03 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/03 00:56:20 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/08 00:52:22 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,30 @@ void	get_images(t_game *game)
 			&game->gr_2.width, &game->gr_2.height);
 	game->gr_3.img = mlx_xpm_file_to_image(game->mlx, "xpm/gr_3.xpm",
 			&game->gr_3.width, &game->gr_3.height);
+	game->grass_shadow.img = mlx_xpm_file_to_image(game->mlx, "xpm/grass_shadow.xpm",
+			&game->grass_shadow.width, &game->grass_shadow.height);
+	game->wall_one_shadow.img = mlx_xpm_file_to_image(game->mlx, "xpm/wall_one_shadow.xpm",
+			&game->wall_one_shadow.width, &game->wall_one_shadow.height);
+	game->wall_mid_shadow.img = mlx_xpm_file_to_image(game->mlx, "xpm/wall_mid_shadow.xpm",
+			&game->wall_mid_shadow.width, &game->wall_mid_shadow.height);
+	game->wall_top_shadow.img = mlx_xpm_file_to_image(game->mlx, "xpm/wall_top_shadow.xpm",
+			&game->wall_top_shadow.width, &game->wall_top_shadow.height);
+	game->wall_bot_shadow.img = mlx_xpm_file_to_image(game->mlx, "xpm/wall_bot_shadow.xpm",
+			&game->wall_bot_shadow.width, &game->wall_bot_shadow.height);
+	game->m_walk_left_light.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_walk_left_light.xpm",
+			&game->m_walk_left_light.width, &game->m_walk_left_light.height);
+	game->m_walk_left_light_2.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_walk_left_light_2.xpm",
+			&game->m_walk_left_light_2.width, &game->m_walk_left_light_2.height);
+	game->m_walk_left_light_3.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_walk_left_light_3.xpm",
+			&game->m_walk_left_light_3.width, &game->m_walk_left_light_3.height);
+	game->m_walk_right_light.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_walk_right_light.xpm",
+			&game->m_walk_right_light.width, &game->m_walk_right_light.height);
+	game->m_walk_right_light_2.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_walk_right_light_2.xpm",
+			&game->m_walk_right_light_2.width, &game->m_walk_right_light_2.height);
+	game->m_walk_right_light_3.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_walk_right_light_3.xpm",
+			&game->m_walk_right_light_3.width, &game->m_walk_right_light_3.height);
+
+
 
 	game->screen.img = mlx_new_image(game->mlx,
 			game->x_map * CELL, game->y_map * CELL);
