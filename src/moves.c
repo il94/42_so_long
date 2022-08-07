@@ -78,7 +78,6 @@ void	move_player(t_game *game, int y, int x, char code)
 		game->player.x = x;
 		game->player.y = y;
 		game->map[game->player.y][game->player.x] = code;
-		print_elements(game);
 		ft_printf("Moves = %d\n", game->moves += 1);
 	}
 }

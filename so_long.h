@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:53:28 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/04 21:07:51 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/07 18:44:06 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ typedef struct	s_game {
 	int		x_pos;
 	int		y_pos;
 	t_axe	player;
+	t_axe	cell;
+	char	direction;
 	int		moves;
 	t_data	screen;
 	t_data	grass;
@@ -228,13 +230,15 @@ void	print_wall(t_game *game, t_axe pos);
 int		draw_image_s(t_game *game, t_data *image, t_axe pos, int z);
 void	print_player_up(t_game *game, t_axe pos);
 
-
+int	draw_image2(t_game *game, t_data *image, t_axe pos);
+void	print_player2(t_game *game);
 void	print_player(t_game *game, t_axe pos);
 void	print_ennemy(t_game *game, t_axe pos);
 void	print_collectibles(t_game *game, t_axe pos);
 void	print_coins(t_game *game, t_axe pos);
 void	print_star(t_game *game, t_axe pos);
 void	print_elements(t_game *game);
+void	print_wall_to_player(t_game *game);
 
 /* destroy_elements.c */
 void	destroy_data_environnement(t_game *game);

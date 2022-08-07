@@ -12,51 +12,31 @@
 
 #include "../so_long.h"
 
-int	draw_image_s(t_game *game, t_data *image, t_axe pos, int z)
+int	draw_image2(t_game *game, t_data *image, t_axe pos)
 {
 	t_axe	cell;
 	char 	*dst;
 	int		x;
-	int		x2;
 	int		y;
-	int		y2;
 	int		color;
 
-	print(game, NOT_WALL, print_grass);
 	cell.y = 0;
-	cell.x = 0;
 	while (cell.y < image->width)
 	{
 		cell.x = 0;
 		while (cell.x < image->height)
 		{
-		/*  c = pos sur cell + pos sur map - decalage si sprite + grand */
-			x = cell.y + (CELL * pos.x) - (image->width - CELL);
-			y = cell.x + (CELL * pos.y) - (image->height - CELL) + z;
-		/*  dst = ou ecrire sur map */
+			x = cell.y + pos.x - (image->width - CELL) - (CELL / 2);
+			y = cell.x + pos.y - (image->height - CELL) - CELL + (CELL / 6);
 			dst = game->screen.addr + y * game->screen.line + x * game->screen.bpp / 8;
 			color = *(int *)(image->addr + cell.x * image->line + cell.y * 4);
-			if (color >= -1 && color)
+			if (color >= -1)
 				*(int *)dst = color;
 			cell.x++;
 		}
 		cell.y++;
 	}
 	return (0);
-}
-
-void	print_player_up(t_game *game, t_axe pos)
-{
-	unsigned long long i = 0;
-
-	// sleep(1);
-	draw_image_s(game, &game->m_walk_b_left, pos, 32);
-	// sleep(1);
-	draw_image_s(game, &game->m_walk_b_left_2, pos, 16);
-	// sleep(1);
-	draw_image_s(game, &game->m_walk_b_left_3, pos, 0);
-	// sleep(1);
-
 }
 
 int	draw_image(t_game *game, t_data *image, t_axe pos)
@@ -86,40 +66,76 @@ int	draw_image(t_game *game, t_data *image, t_axe pos)
 	return (0);
 }
 
+void	print_player2(t_game *game)
+{
+	static int	i;
+	char		code;
+	int			frequency;
+	
+	frequency = 10;
+	if (!i)
+		i = 0;
+	code = game->map[game->player.y][game->player.x];
+	if (code == 'a')
+	{
+		if (i >= 0 && i <= frequency)
+			draw_image2(game, &game->m_walk_b_left, game->cell);
+		else if (i >= frequency && i <= frequency * 2)
+			draw_image2(game, &game->m_walk_b_left_2, game->cell);
+		else if (i >= frequency * 2 && i <= frequency * 3)
+			draw_image2(game, &game->m_walk_b_left_3, game->cell);
+		else if (i >= frequency * 3 && i <= frequency * 4)
+			draw_image2(game, &game->m_walk_b_left_2, game->cell);
+	}
+	else if (code == 'b')
+	{
+		if (i >= 0 && i <= frequency)
+			draw_image2(game, &game->m_walk_b_right, game->cell);
+		else if (i >= frequency && i <= frequency * 2)
+			draw_image2(game, &game->m_walk_b_right_2, game->cell);
+		else if (i >= frequency * 2 && i <= frequency * 3)
+			draw_image2(game, &game->m_walk_b_right_3, game->cell);
+		else if (i >= frequency * 3 && i <= frequency * 4)
+			draw_image2(game, &game->m_walk_b_right_2, game->cell);
+	}
+	else if (code == 'A')
+	{
+		if (i >= 0 && i <= frequency)
+			draw_image2(game, &game->m_walk_left, game->cell);
+		else if (i >= frequency && i <= frequency * 2)
+			draw_image2(game, &game->m_walk_left_2, game->cell);
+		else if (i >= frequency * 2 && i <= frequency * 3)
+			draw_image2(game, &game->m_walk_left_3, game->cell);
+		else if (i >= frequency * 3 && i <= frequency * 4)
+			draw_image2(game, &game->m_walk_left_2, game->cell);
+	}
+	else if (code == 'B')
+	{
+		if (i >= 0 && i <= frequency)
+			draw_image2(game, &game->m_walk_right, game->cell);
+		else if (i >= frequency && i <= frequency * 2)
+			draw_image2(game, &game->m_walk_right_2, game->cell);
+		else if (i >= frequency * 2 && i <= frequency * 3)
+			draw_image2(game, &game->m_walk_right_3, game->cell);
+		else if (i >= frequency * 3 && i <= frequency * 4)
+			draw_image2(game, &game->m_walk_right_2, game->cell);
+	}
+	else if (code == 'q')
+		draw_image2(game, &game->m_static_b_left, game->cell);
+	else if (code == 'Q')
+		draw_image2(game, &game->m_static_left, game->cell);
+	else if (code == 'p')
+		draw_image2(game, &game->m_static_b_right, game->cell);
+	else if (code == 'P')
+		draw_image2(game, &game->m_static_right, game->cell);
+		i++;
+	if (i > frequency * 4)
+		i = 0;
+}
+
 void	print_grass(t_game *game, t_axe pos)
 {
-	if (!(game->delay = 1 && game->player.x == pos.x && game->player.y == pos.y))
-		draw_image(game, &game->grass, pos);
-
-	// t_axe	cell;
-	// char 	*dst;
-	// int		x;
-	// int		x2;
-	// int		y;
-	// int		y2;
-	// int		color;
-
-	// cell.y = 0;
-	// cell.x = 0;
-	// while (cell.y < game->grass.width)
-	// {
-	// 	cell.x = 0;
-	// 	while (cell.x < game->grass.height)
-	// 	{
-	// 	/*  c = pos sur cell + pos sur map - decalage si sprite + grand */
-	// 		x = cell.y + (CELL * pos.x) - (game->grass.width - CELL);
-	// 		y = cell.x + (CELL * pos.y) - (game->grass.height - CELL);
-	// 	/*  dst = ou ecrire sur map */
-	// 		dst = game->screen.addr + y * game->screen.line + x * game->screen.bpp / 8;
-	// 		color = *(int *)(game->grass.addr + cell.x * game->grass.line + cell.y * 4);
-	// 		if (color >= -1 && color != *(int *)(game->m_walk_b_left.addr + cell.x * game->m_walk_b_left.line + cell.y * 4))
-	// 			*(int *)dst = color;
-	// 		cell.x++;
-	// 	}
-	// 	cell.y++;
-	// }
-	// return (0);
-
+	draw_image(game, &game->grass, pos);
 }
 
 void	print_wall(t_game *game, t_axe pos)
@@ -148,16 +164,14 @@ void	print_player(t_game *game, t_axe pos)
 		i = 0;
 	if (code == 'a')
 	{
-		// print_player_up(game, pos);
-
-		// if (i >= 0 && i <= frequency)
-		// 	draw_image(game, &game->m_walk_b_left, pos);
-		// else if (i >= frequency && i <= frequency * 2)
-		// 	draw_image(game, &game->m_walk_b_left_2, pos);
-		// else if (i >= frequency * 2 && i <= frequency * 3)
-		// 	draw_image(game, &game->m_walk_b_left_3, pos);
-		// else if (i >= frequency * 3 && i <= frequency * 4)
-		// 	draw_image(game, &game->m_walk_b_left_2, pos);
+		if (i >= 0 && i <= frequency)
+			draw_image(game, &game->m_walk_b_left, pos);
+		else if (i >= frequency && i <= frequency * 2)
+			draw_image(game, &game->m_walk_b_left_2, pos);
+		else if (i >= frequency * 2 && i <= frequency * 3)
+			draw_image(game, &game->m_walk_b_left_3, pos);
+		else if (i >= frequency * 3 && i <= frequency * 4)
+			draw_image(game, &game->m_walk_b_left_2, pos);
 	}
 	else if (code == 'b')
 	{
@@ -200,7 +214,6 @@ void	print_player(t_game *game, t_axe pos)
 		draw_image(game, &game->m_static_b_right, pos);
 	else if (code == 'P')
 		draw_image(game, &game->m_static_right, pos);
-		i++;
 	if (i > frequency * 4)
 		i = 0;
 	// game->map[pos.y][pos.x] = 'P';
@@ -296,12 +309,31 @@ void	print_collectibles(t_game *game, t_axe pos)
 		print_star(game, pos);
 }
 
+void	print_wall_to_player(t_game *game)
+{
+	t_axe	target;
+
+	target = game->player;
+	target.y++;
+	target.x--;
+	if (game->map[game->player.y + 1][game->player.x - 1] == '1')
+		print_wall(game, target);
+	target.x++;
+	if (game->map[game->player.y + 1][game->player.x] == '1')
+		print_wall(game, target);
+	target.x++;
+	if (game->map[game->player.y + 1][game->player.x + 1] == '1')
+		print_wall(game, target);
+}
+
 void	print_elements(t_game *game)
 {
 	print(game, NOT_WALL, print_grass);
 	print(game, "1", print_wall);
-	print(game, PLAYER, print_player);
+	// print(game, PLAYER, print_player);
 	print(game, ENNEMY, print_ennemy);
 	print(game, COLLECTIBLES, print_collectibles);
+	print_player2(game);
+	print_wall_to_player(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->screen.img, 0, 0);
 }
