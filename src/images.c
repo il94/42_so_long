@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 00:08:03 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/08 00:52:22 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/08 15:45:12 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,40 +54,40 @@ void	get_images(t_game *game)
 	get_images_mobs(game);
 	get_images_collectibles(game);
 
-	game->m_hammer_b_left.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_hammer_b_left.xpm",
-			&game->m_hammer_b_left.width, &game->m_hammer_b_left.height);
-	game->m_hammer_b_left_2.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_hammer_b_left_2.xpm",
-			&game->m_hammer_b_left_2.width, &game->m_hammer_b_left_2.height);
+	game->m_hammer_b_left_light.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_hammer_b_left_light.xpm",
+			&game->m_hammer_b_left_light.width, &game->m_hammer_b_left_light.height);
+	game->m_hammer_b_left_light_2.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_hammer_b_left_light_2.xpm",
+			&game->m_hammer_b_left_light_2.width, &game->m_hammer_b_left_light_2.height);
 	game->m_hammer_b_right.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_hammer_b_right.xpm",
 			&game->m_hammer_b_right.width, &game->m_hammer_b_right.height);
 	game->m_hammer_b_right_2.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_hammer_b_right_2.xpm",
 			&game->m_hammer_b_right_2.width, &game->m_hammer_b_right_2.height);
-	game->m_hammer_left.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_hammer_left.xpm",
-			&game->m_hammer_left.width, &game->m_hammer_left.height);
-	game->m_hammer_left_2.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_hammer_left_2.xpm",
-			&game->m_hammer_left_2.width, &game->m_hammer_left_2.height);
-	game->m_hammer_left_3.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_hammer_left_3.xpm",
-			&game->m_hammer_left_3.width, &game->m_hammer_left_3.height);
+	game->m_hammer_left_light.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_hammer_left_light.xpm",
+			&game->m_hammer_left_light.width, &game->m_hammer_left_light.height);
+	game->m_hammer_left_light_2.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_hammer_left_light_2.xpm",
+			&game->m_hammer_left_light_2.width, &game->m_hammer_left_light_2.height);
+	game->m_hammer_left_light_3.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_hammer_left_light_3.xpm",
+			&game->m_hammer_left_light_3.width, &game->m_hammer_left_light_3.height);
 	game->m_hammer_right.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_hammer_right.xpm",
 			&game->m_hammer_right.width, &game->m_hammer_right.height);
 	game->m_hammer_right_2.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_hammer_right_2.xpm",
 			&game->m_hammer_right_2.width, &game->m_hammer_right_2.height);
 	game->m_hammer_right_3.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_hammer_right_3.xpm",
 			&game->m_hammer_right_3.width, &game->m_hammer_right_3.height);
-	game->m_static_b_left.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_static_b_left.xpm",
-			&game->m_static_b_left.width, &game->m_static_b_left.height);
+	game->m_static_b_left_light.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_static_b_left_light.xpm",
+			&game->m_static_b_left_light.width, &game->m_static_b_left_light.height);
 	game->m_static_b_right.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_static_b_right.xpm",
 			&game->m_static_b_right.width, &game->m_static_b_right.height);
-	game->m_static_left.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_static_left.xpm",
-			&game->m_static_left.width, &game->m_static_left.height);
+	game->m_static_left_light.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_static_left_light.xpm",
+			&game->m_static_left_light.width, &game->m_static_left_light.height);
 	game->m_static_right.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_static_right.xpm",
 			&game->m_static_right.width, &game->m_static_right.height);
-	game->m_walk_b_left.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_walk_b_left.xpm",
-			&game->m_walk_b_left.width, &game->m_walk_b_left.height);
-	game->m_walk_b_left_2.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_walk_b_left_2.xpm",
-			&game->m_walk_b_left_2.width, &game->m_walk_b_left_2.height);
-	game->m_walk_b_left_3.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_walk_b_left_3.xpm",
-			&game->m_walk_b_left_3.width, &game->m_walk_b_left_3.height);
+	game->m_walk_b_left_light.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_walk_b_left_light.xpm",
+			&game->m_walk_b_left_light.width, &game->m_walk_b_left_light.height);
+	game->m_walk_b_left_light_2.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_walk_b_left_light_2.xpm",
+			&game->m_walk_b_left_light_2.width, &game->m_walk_b_left_light_2.height);
+	game->m_walk_b_left_light_3.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_walk_b_left_light_3.xpm",
+			&game->m_walk_b_left_light_3.width, &game->m_walk_b_left_light_3.height);
 	game->m_walk_b_right.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_walk_b_right.xpm",
 			&game->m_walk_b_right.width, &game->m_walk_b_right.height);
 	game->m_walk_b_right_2.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_walk_b_right_2.xpm",
@@ -194,6 +194,46 @@ void	get_images(t_game *game)
 			&game->wall_top_shadow.width, &game->wall_top_shadow.height);
 	game->wall_bot_shadow.img = mlx_xpm_file_to_image(game->mlx, "xpm/wall_bot_shadow.xpm",
 			&game->wall_bot_shadow.width, &game->wall_bot_shadow.height);
+	game->m_hammer_b_left.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_hammer_b_left.xpm",
+			&game->m_hammer_b_left.width, &game->m_hammer_b_left.height);
+	game->m_hammer_b_left_2.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_hammer_b_left_2.xpm",
+			&game->m_hammer_b_left_2.width, &game->m_hammer_b_left_2.height);
+	game->m_hammer_b_right_light.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_hammer_b_right_light.xpm",
+			&game->m_hammer_b_right_light.width, &game->m_hammer_b_right_light.height);
+	game->m_hammer_b_right_light_2.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_hammer_b_right_light_2.xpm",
+			&game->m_hammer_b_right_light_2.width, &game->m_hammer_b_right_light_2.height);
+	game->m_hammer_left.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_hammer_left.xpm",
+			&game->m_hammer_left.width, &game->m_hammer_left.height);
+	game->m_hammer_left_2.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_hammer_left_2.xpm",
+			&game->m_hammer_left_2.width, &game->m_hammer_left_2.height);
+	game->m_hammer_left_3.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_hammer_left_3.xpm",
+			&game->m_hammer_left_3.width, &game->m_hammer_left_3.height);
+	game->m_hammer_right_light.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_hammer_right_light.xpm",
+			&game->m_hammer_right_light.width, &game->m_hammer_right_light.height);
+	game->m_hammer_right_light_2.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_hammer_right_light_2.xpm",
+			&game->m_hammer_right_light_2.width, &game->m_hammer_right_light_2.height);
+	game->m_hammer_right_light_3.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_hammer_right_light_3.xpm",
+			&game->m_hammer_right_light_3.width, &game->m_hammer_right_light_3.height);
+	game->m_static_b_left.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_static_b_left.xpm",
+			&game->m_static_b_left.width, &game->m_static_b_left.height);
+	game->m_static_b_right_light.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_static_b_right_light.xpm",
+			&game->m_static_b_right_light.width, &game->m_static_b_right_light.height);
+	game->m_static_left.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_static_left.xpm",
+			&game->m_static_left.width, &game->m_static_left.height);
+	game->m_static_right_light.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_static_right_light.xpm",
+			&game->m_static_right_light.width, &game->m_static_right_light.height);
+	game->m_walk_b_left.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_walk_b_left.xpm",
+			&game->m_walk_b_left.width, &game->m_walk_b_left.height);
+	game->m_walk_b_left_2.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_walk_b_left_2.xpm",
+			&game->m_walk_b_left_2.width, &game->m_walk_b_left_2.height);
+	game->m_walk_b_left_3.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_walk_b_left_3.xpm",
+			&game->m_walk_b_left_3.width, &game->m_walk_b_left_3.height);
+	game->m_walk_b_right_light.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_walk_b_right_light.xpm",
+			&game->m_walk_b_right_light.width, &game->m_walk_b_right_light.height);
+	game->m_walk_b_right_light_2.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_walk_b_right_light_2.xpm",
+			&game->m_walk_b_right_light_2.width, &game->m_walk_b_right_light_2.height);
+	game->m_walk_b_right_light_3.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_walk_b_right_light_3.xpm",
+			&game->m_walk_b_right_light_3.width, &game->m_walk_b_right_light_3.height);
 	game->m_walk_left_light.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_walk_left_light.xpm",
 			&game->m_walk_left_light.width, &game->m_walk_left_light.height);
 	game->m_walk_left_light_2.img = mlx_xpm_file_to_image(game->mlx, "xpm/m_walk_left_light_2.xpm",

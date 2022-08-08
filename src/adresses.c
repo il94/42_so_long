@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:50:15 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/08 00:50:47 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/08 15:47:58 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,40 +56,40 @@ void	get_adresses(t_game *game)
 	game->screen.addr = mlx_get_data_addr(game->screen.img, 
             &game->screen.bpp, &game->screen.line, &game->screen.endian);
 
-	game->m_hammer_b_left.addr = mlx_get_data_addr(game->m_hammer_b_left.img, 
-            &game->m_hammer_b_left.bpp, &game->m_hammer_b_left.line, &game->m_hammer_b_left.endian);
-	game->m_hammer_b_left_2.addr = mlx_get_data_addr(game->m_hammer_b_left_2.img, 
-            &game->m_hammer_b_left_2.bpp, &game->m_hammer_b_left_2.line, &game->m_hammer_b_left_2.endian);
+	game->m_hammer_b_left_light.addr = mlx_get_data_addr(game->m_hammer_b_left_light.img, 
+            &game->m_hammer_b_left_light.bpp, &game->m_hammer_b_left_light.line, &game->m_hammer_b_left_light.endian);
+	game->m_hammer_b_left_light_2.addr = mlx_get_data_addr(game->m_hammer_b_left_light_2.img, 
+            &game->m_hammer_b_left_light_2.bpp, &game->m_hammer_b_left_light_2.line, &game->m_hammer_b_left_light_2.endian);
 	game->m_hammer_b_right.addr = mlx_get_data_addr(game->m_hammer_b_right.img, 
             &game->m_hammer_b_right.bpp, &game->m_hammer_b_right.line, &game->m_hammer_b_right.endian);
 	game->m_hammer_b_right_2.addr = mlx_get_data_addr(game->m_hammer_b_right_2.img, 
             &game->m_hammer_b_right_2.bpp, &game->m_hammer_b_right_2.line, &game->m_hammer_b_right_2.endian);
-	game->m_hammer_left.addr = mlx_get_data_addr(game->m_hammer_left.img, 
-            &game->m_hammer_left.bpp, &game->m_hammer_left.line, &game->m_hammer_left.endian);
-	game->m_hammer_left_2.addr = mlx_get_data_addr(game->m_hammer_left_2.img, 
-            &game->m_hammer_left_2.bpp, &game->m_hammer_left_2.line, &game->m_hammer_left_2.endian);
-	game->m_hammer_left_3.addr = mlx_get_data_addr(game->m_hammer_left_3.img, 
-            &game->m_hammer_left_3.bpp, &game->m_hammer_left_3.line, &game->m_hammer_left_3.endian);
+	game->m_hammer_left_light.addr = mlx_get_data_addr(game->m_hammer_left_light.img, 
+            &game->m_hammer_left_light.bpp, &game->m_hammer_left_light.line, &game->m_hammer_left_light.endian);
+	game->m_hammer_left_light_2.addr = mlx_get_data_addr(game->m_hammer_left_light_2.img, 
+            &game->m_hammer_left_light_2.bpp, &game->m_hammer_left_light_2.line, &game->m_hammer_left_light_2.endian);
+	game->m_hammer_left_light_3.addr = mlx_get_data_addr(game->m_hammer_left_light_3.img, 
+            &game->m_hammer_left_light_3.bpp, &game->m_hammer_left_light_3.line, &game->m_hammer_left_light_3.endian);
 	game->m_hammer_right.addr = mlx_get_data_addr(game->m_hammer_right.img, 
             &game->m_hammer_right.bpp, &game->m_hammer_right.line, &game->m_hammer_right.endian);
 	game->m_hammer_right_2.addr = mlx_get_data_addr(game->m_hammer_right_2.img, 
             &game->m_hammer_right_2.bpp, &game->m_hammer_right_2.line, &game->m_hammer_right_2.endian);
 	game->m_hammer_right_3.addr = mlx_get_data_addr(game->m_hammer_right_3.img, 
             &game->m_hammer_right_3.bpp, &game->m_hammer_right_3.line, &game->m_hammer_right_3.endian);
-	game->m_static_b_left.addr = mlx_get_data_addr(game->m_static_b_left.img, 
-            &game->m_static_b_left.bpp, &game->m_static_b_left.line, &game->m_static_b_left.endian);
+	game->m_static_b_left_light.addr = mlx_get_data_addr(game->m_static_b_left_light.img, 
+            &game->m_static_b_left_light.bpp, &game->m_static_b_left_light.line, &game->m_static_b_left_light.endian);
 	game->m_static_b_right.addr = mlx_get_data_addr(game->m_static_b_right.img, 
             &game->m_static_b_right.bpp, &game->m_static_b_right.line, &game->m_static_b_right.endian);
-	game->m_static_left.addr = mlx_get_data_addr(game->m_static_left.img, 
-            &game->m_static_left.bpp, &game->m_static_left.line, &game->m_static_left.endian);
+	game->m_static_left_light.addr = mlx_get_data_addr(game->m_static_left_light.img, 
+            &game->m_static_left_light.bpp, &game->m_static_left_light.line, &game->m_static_left_light.endian);
 	game->m_static_right.addr = mlx_get_data_addr(game->m_static_right.img, 
             &game->m_static_right.bpp, &game->m_static_right.line, &game->m_static_right.endian);
-	game->m_walk_b_left.addr = mlx_get_data_addr(game->m_walk_b_left.img, 
-            &game->m_walk_b_left.bpp, &game->m_walk_b_left.line, &game->m_walk_b_left.endian);
-	game->m_walk_b_left_2.addr = mlx_get_data_addr(game->m_walk_b_left_2.img, 
-            &game->m_walk_b_left_2.bpp, &game->m_walk_b_left_2.line, &game->m_walk_b_left_2.endian);
-	game->m_walk_b_left_3.addr = mlx_get_data_addr(game->m_walk_b_left_3.img, 
-            &game->m_walk_b_left_3.bpp, &game->m_walk_b_left_3.line, &game->m_walk_b_left_3.endian);
+	game->m_walk_b_left_light.addr = mlx_get_data_addr(game->m_walk_b_left_light.img, 
+            &game->m_walk_b_left_light.bpp, &game->m_walk_b_left_light.line, &game->m_walk_b_left_light.endian);
+	game->m_walk_b_left_light_2.addr = mlx_get_data_addr(game->m_walk_b_left_light_2.img, 
+            &game->m_walk_b_left_light_2.bpp, &game->m_walk_b_left_light_2.line, &game->m_walk_b_left_light_2.endian);
+	game->m_walk_b_left_light_3.addr = mlx_get_data_addr(game->m_walk_b_left_light_3.img, 
+            &game->m_walk_b_left_light_3.bpp, &game->m_walk_b_left_light_3.line, &game->m_walk_b_left_light_3.endian);
 	game->m_walk_b_right.addr = mlx_get_data_addr(game->m_walk_b_right.img, 
             &game->m_walk_b_right.bpp, &game->m_walk_b_right.line, &game->m_walk_b_right.endian);
 	game->m_walk_b_right_2.addr = mlx_get_data_addr(game->m_walk_b_right_2.img, 
@@ -196,6 +196,46 @@ void	get_adresses(t_game *game)
             &game->wall_top_shadow.bpp, &game->wall_top_shadow.line, &game->wall_top_shadow.endian);
 	game->wall_bot_shadow.addr = mlx_get_data_addr(game->wall_bot_shadow.img, 
             &game->wall_bot_shadow.bpp, &game->wall_bot_shadow.line, &game->wall_bot_shadow.endian);
+	game->m_hammer_b_left.addr = mlx_get_data_addr(game->m_hammer_b_left.img, 
+            &game->m_hammer_b_left.bpp, &game->m_hammer_b_left.line, &game->m_hammer_b_left.endian);
+	game->m_hammer_b_left_2.addr = mlx_get_data_addr(game->m_hammer_b_left_2.img, 
+            &game->m_hammer_b_left_2.bpp, &game->m_hammer_b_left_2.line, &game->m_hammer_b_left_2.endian);
+	game->m_hammer_b_right_light.addr = mlx_get_data_addr(game->m_hammer_b_right_light.img, 
+            &game->m_hammer_b_right_light.bpp, &game->m_hammer_b_right_light.line, &game->m_hammer_b_right_light.endian);
+	game->m_hammer_b_right_light_2.addr = mlx_get_data_addr(game->m_hammer_b_right_light_2.img, 
+            &game->m_hammer_b_right_light_2.bpp, &game->m_hammer_b_right_light_2.line, &game->m_hammer_b_right_light_2.endian);
+	game->m_hammer_left.addr = mlx_get_data_addr(game->m_hammer_left.img, 
+            &game->m_hammer_left.bpp, &game->m_hammer_left.line, &game->m_hammer_left.endian);
+	game->m_hammer_left_2.addr = mlx_get_data_addr(game->m_hammer_left_2.img, 
+            &game->m_hammer_left_2.bpp, &game->m_hammer_left_2.line, &game->m_hammer_left_2.endian);
+	game->m_hammer_left_3.addr = mlx_get_data_addr(game->m_hammer_left_3.img, 
+            &game->m_hammer_left_3.bpp, &game->m_hammer_left_3.line, &game->m_hammer_left_3.endian);
+	game->m_hammer_right_light.addr = mlx_get_data_addr(game->m_hammer_right_light.img, 
+            &game->m_hammer_right_light.bpp, &game->m_hammer_right_light.line, &game->m_hammer_right_light.endian);
+	game->m_hammer_right_light_2.addr = mlx_get_data_addr(game->m_hammer_right_light_2.img, 
+            &game->m_hammer_right_light_2.bpp, &game->m_hammer_right_light_2.line, &game->m_hammer_right_light_2.endian);
+	game->m_hammer_right_light_3.addr = mlx_get_data_addr(game->m_hammer_right_light_3.img, 
+            &game->m_hammer_right_light_3.bpp, &game->m_hammer_right_light_3.line, &game->m_hammer_right_light_3.endian);
+	game->m_static_b_left.addr = mlx_get_data_addr(game->m_static_b_left.img, 
+            &game->m_static_b_left.bpp, &game->m_static_b_left.line, &game->m_static_b_left.endian);
+	game->m_static_b_right_light.addr = mlx_get_data_addr(game->m_static_b_right_light.img, 
+            &game->m_static_b_right_light.bpp, &game->m_static_b_right_light.line, &game->m_static_b_right_light.endian);
+	game->m_static_left.addr = mlx_get_data_addr(game->m_static_left.img, 
+            &game->m_static_left.bpp, &game->m_static_left.line, &game->m_static_left.endian);
+	game->m_static_right_light.addr = mlx_get_data_addr(game->m_static_right_light.img, 
+            &game->m_static_right_light.bpp, &game->m_static_right_light.line, &game->m_static_right_light.endian);
+	game->m_walk_b_left.addr = mlx_get_data_addr(game->m_walk_b_left.img, 
+            &game->m_walk_b_left.bpp, &game->m_walk_b_left.line, &game->m_walk_b_left.endian);
+	game->m_walk_b_left_2.addr = mlx_get_data_addr(game->m_walk_b_left_2.img, 
+            &game->m_walk_b_left_2.bpp, &game->m_walk_b_left_2.line, &game->m_walk_b_left_2.endian);
+	game->m_walk_b_left_3.addr = mlx_get_data_addr(game->m_walk_b_left_3.img, 
+            &game->m_walk_b_left_3.bpp, &game->m_walk_b_left_3.line, &game->m_walk_b_left_3.endian);
+	game->m_walk_b_right_light.addr = mlx_get_data_addr(game->m_walk_b_right_light.img, 
+            &game->m_walk_b_right_light.bpp, &game->m_walk_b_right_light.line, &game->m_walk_b_right_light.endian);
+	game->m_walk_b_right_light_2.addr = mlx_get_data_addr(game->m_walk_b_right_light_2.img, 
+            &game->m_walk_b_right_light_2.bpp, &game->m_walk_b_right_light_2.line, &game->m_walk_b_right_light_2.endian);
+	game->m_walk_b_right_light_3.addr = mlx_get_data_addr(game->m_walk_b_right_light_3.img, 
+            &game->m_walk_b_right_light_3.bpp, &game->m_walk_b_right_light_3.line, &game->m_walk_b_right_light_3.endian);
 	game->m_walk_left_light.addr = mlx_get_data_addr(game->m_walk_left_light.img, 
             &game->m_walk_left_light.bpp, &game->m_walk_left_light.line, &game->m_walk_left_light.endian);
 	game->m_walk_left_light_2.addr = mlx_get_data_addr(game->m_walk_left_light_2.img, 

@@ -36,83 +36,118 @@ int	can_be_started(int ac, char **av, t_game *game)
 	return (1);
 }
 
+// int	get_input_keyboard(int keycode, t_game *game)
+// {
+// 	if (keycode == KEY_W)
+// 	{
+// 		if (game->map[game->player.y - 1][game->player.x] != '1'
+// 			|| game->player.y * CELL < game->cell.y)
+// 			game->cell.y -= 8;
+// 		if (game->cell.y / CELL < game->player.y)
+// 			move_player(game, game->player.y - 1, game->player.x);
+// 		if (game->direction == 'a' || game->direction == 'A')
+// 			game->direction = 'a';
+// 		else
+// 			game->direction = 'b';
+// 	}
+// 	else if (keycode == KEY_D)
+// 	{
+// 		if (game->map[game->player.y][game->player.x + 1] != '1'
+// 			|| game->player.x * CELL >= game->cell.x - CELL / 2)
+// 			game->cell.x += 8;
+// 		if (game->cell.x > game->player.x * CELL - (CELL / 3) + CELL)
+// 			move_player(game, game->player.y, game->player.x + 1);
+// 		game->direction = 'B';
+// 	}
+// 	else if (keycode == KEY_S)
+// 	{
+// 		if (game->map[game->player.y + 1][game->player.x] != '1'
+// 			|| game->player.y * CELL > game->cell.y - CELL)
+// 			game->cell.y += 8;
+// 		if (game->cell.y / CELL > game->player.y)
+// 			move_player(game, game->player.y + 1, game->player.x);
+// 		if (game->direction == 'a' || game->direction == 'A')
+// 			game->direction = 'A';
+// 		else
+// 			game->direction = 'B';
+// 	}
+// 	else if (keycode == KEY_A)
+// 	{
+// 		if (game->map[game->player.y][game->player.x - 1] != '1'
+// 			|| game->player.x * CELL <= game->cell.x - CELL / 2)
+// 			game->cell.x -= 8;
+// 		if (game->cell.x < game->player.x * CELL + (CELL / 3))
+// 			move_player(game, game->player.y, game->player.x - 1);
+// 		game->direction = 'A';
+// 	}
+// 	// else if (keycode == KEY_SPACE)
+// 	// 	reboot_game(game);
+// 	// else if (keycode == KEY_TAB)
+// 	// 	reboot_game(game);
+// 	else if (keycode == KEY_ESC)
+// 		mlx_loop_end(game->mlx);
+// 	game->state++;
+// 	if (game->state > 3)
+// 		game->state = 0;
+// 	return (0);
+// }
+
+// int	run_game(t_game *game)
+// {
+// 	static char	brk;
+
+// 	print_elements(game);
+// 	if ((unsigned int)time(NULL) > game->time_a)
+// 		search_ennemy(game);
+// 	if (!read_map(game, 'C', &more_collectibles) && !brk)
+// 	{
+// 		brk = '1';
+// 		read_map(game, 'E', &open_exit_door);
+// 		kill_ennemies(game);
+// 	}
+// 	return (0);
+// }
+
 int	get_input_keyboard(int keycode, t_game *game)
 {
+	t_axe	move_cell;
+	t_axe	move_map;
+
+	move_cell = game->cell;
+	move_map = game->player;
 	if (keycode == KEY_W)
 	{
-		if (game->map[game->player.y - 1][game->player.x - 1] == '1')
-		{
-			if (game->cell.x < game->player.x * CELL + (CELL / 3))
-				printf("BBBBBBBBBBBBBBBBBBBB\n");
-		}
-		// if (game->map[game->player.y - 1][game->player.x + 1] == '1')
-		// {
-		// 	if (game->cell.x < game->player.x * CELL + (CELL / 3))
-		// 		printf("AAAAAAAAAAAAAAAAAAAAA\n");
-		// }
-		if (game->map[game->player.y - 1][game->player.x] != '1')
-			game->cell.y -= 8;
-		else if (game->player.y * CELL < game->cell.y)
-			game->cell.y -= 8;
-		if (game->cell.y / CELL < game->player.y)
-		{
-			if (is(PLAYER, game->map[game->player.y][game->player.x]) == 'a'
-				|| is(PLAYER, game->map[game->player.y][game->player.x]) == 'A')
-				move_player(game, game->player.y - 1, game->player.x, 'a');
-			else
-				move_player(game, game->player.y - 1, game->player.x, 'b');
-		}
+		move_cell.y -= 8;
+		move_map.y -= 1;
 	}
 	else if (keycode == KEY_D)
 	{
-		if (game->map[game->player.y][game->player.x + 1] != '1')
-			game->cell.x += 8;
-		else if (game->player.x * CELL >= game->cell.x - CELL / 2)
-			game->cell.x += 8;
-		if (game->cell.x > game->player.x * CELL - (CELL / 3) + CELL)
-		// if ((double)game->cell.x / CELL > (double)game->player.x + 1.4)
-			move_player(game, game->player.y, game->player.x + 1, 'B');
+		move_cell.x += 8;
+		move_map.x += 1;
 	}
 	else if (keycode == KEY_S)
 	{
-		if (game->map[game->player.y + 1][game->player.x] != '1')
-			game->cell.y += 8;
-		else if (game->player.y * CELL > game->cell.y - CELL)
-			game->cell.y += 8;
-		if (game->cell.y / CELL > game->player.y)
-		{
-			if (game->map[game->player.y][game->player.x] == 'a'
-				|| game->map[game->player.y][game->player.x] == 'A')
-				move_player(game, game->player.y + 1, game->player.x, 'A');
-			else
-				move_player(game, game->player.y + 1, game->player.x, 'B');
-		}
+		move_cell.y += 8;
+		move_map.y += 1;
+
 	}
 	else if (keycode == KEY_A)
 	{
-		if (game->map[game->player.y][game->player.x - 1] != '1')
-			game->cell.x -= 8;
-		else if (game->player.x * CELL <= game->cell.x - CELL / 2)
-			game->cell.x -= 8;
-		if (game->cell.x < game->player.x * CELL + (CELL / 3))
-		// if ((double)game->cell.x / CELL < (double)game->player.x - 0.4)
-			move_player(game, game->player.y, game->player.x - 1, 'A');
+		move_cell.x -= 8;
+		move_map.x -= 1;
 	}
 	// else if (keycode == KEY_SPACE)
 	// 	reboot_game(game);
 	// else if (keycode == KEY_TAB)
 	// 	reboot_game(game);
-	// else if (keycode == KEY_ESC)
-	// 	mlx_loop_end(game->mlx);
-	ft_print_array(game->map);
-	printf("CELL x = %d, y = %d\n", game->cell.x, game->cell.y);
-	printf("PLAYER x = %d, y = %d\n", game->player.x, game->player.y);
+	else if (keycode == KEY_ESC)
+		mlx_loop_end(game->mlx);
+	move_player(game, move_cell, move_map, keycode);
+	game->state++;
+	if (game->state > 3)
+		game->state = 0;
 	return (0);
 }
-
-		// if (game->cell.x > game->player.x * CELL - (CELL / 3) + CELL)
-		// if (game->cell.x < game->player.x * CELL + (CELL / 3))
-
 
 int	run_game(t_game *game)
 {
@@ -127,9 +162,9 @@ int	run_game(t_game *game)
 		read_map(game, 'E', &open_exit_door);
 		kill_ennemies(game);
 	}
-	// print_player(game);
 	return (0);
 }
+
 
 /* ne pas oublier de free lors des inits*/
 void	initialize_mlx(t_game *game)
@@ -144,8 +179,10 @@ void	initialize_mlx(t_game *game)
 	game->cell.x = (game->player.x * CELL) + (CELL / 2);
 	game->cell.y = (game->player.y * CELL) + CELL - (CELL / 6);
 	game->direction = 'P';
+	game->state = 0;
 	game->moves = 0;
 	game->delay = 0;
+	game->night = 0;
 	game->win = mlx_new_window(game->mlx,
 			game->x_map * CELL, game->y_map * CELL, "Paper Mario");
 	if (!game->win)
@@ -153,7 +190,6 @@ void	initialize_mlx(t_game *game)
 	get_images(game);
 	get_adresses(game);
 	mlx_hook(game->win, 2, 1L << 0, get_input_keyboard, game);
-	// mlx_key_hook(game->win, get_input_keyboard, game);
 	mlx_loop_hook(game->mlx, run_game, game);
 	mlx_hook(game->win, 17, 0, mlx_loop_end, game->mlx);
 	system("cvlc sound/march_ahead.wav &");

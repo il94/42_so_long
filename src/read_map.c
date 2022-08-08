@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 13:53:24 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/04 21:08:46 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/08 16:07:38 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	open_exit_door(t_game *game, t_axe pos)
 	system("pkill vlc");
 	system("cvlc sound/star_spawn.wav &");
 	sleep(3);
+	game->night = 1;
 	system("cvlc sound/star_way.wav &");
 	return (1);
 }

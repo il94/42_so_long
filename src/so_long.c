@@ -57,10 +57,10 @@ int	is_near_e(t_game *game, t_axe pos)
 
 int	is_near_p(t_game *game, t_axe pos)
 {
-	return (is(PLAYER, game->map[pos.y + 1][pos.x])
-			|| is(PLAYER, game->map[pos.y][pos.x + 1])
-			|| is(PLAYER, game->map[pos.y - 1][pos.x])
-			|| is(PLAYER, game->map[pos.y][pos.x - 1]));
+	return (game->map[pos.y + 1][pos.x] == 'P'
+			|| game->map[pos.y][pos.x + 1] == 'P'
+			|| game->map[pos.y - 1][pos.x] == 'P'
+			|| game->map[pos.y][pos.x - 1] == 'P');
 }
 
 void	kill_ennemies(t_game *game)
