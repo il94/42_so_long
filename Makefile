@@ -16,7 +16,8 @@ SRC = main.c \
 		so_long.c \
 		destroy_elements.c \
 		run.c \
-		moves.c \
+		move_ennemy.c \
+		move_player.c \
 		read_map.c \
 		zoubir.c
 

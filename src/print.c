@@ -39,6 +39,33 @@ int	draw_player(t_game *game, t_data *image, t_axe pos)
 	return (0);
 }
 
+int	draw_ennemy(t_game *game, t_data *image, t_axe pos)
+{
+	t_axe	cell;
+	char 	*dst;
+	int		x;
+	int		y;
+	int		color;
+
+	cell.y = 0;
+	while (cell.y < image->width)
+	{
+		cell.x = 0;
+		while (cell.x < image->height)
+		{
+			x = cell.y + (CELL * pos.x) - (image->width - CELL);
+			y = cell.x + (CELL * pos.y) - (image->height - CELL);
+			dst = game->screen.addr + y * game->screen.line + x * game->screen.bpp / 8;
+			color = *(int *)(image->addr + cell.x * image->line + cell.y * 4);
+			if (color >= -1)
+				*(int *)dst = color;
+			cell.x++;
+		}
+		cell.y++;
+	}
+	return (0);
+}
+
 int	draw_sprite(t_game *game, t_data *image, t_axe pos)
 {
 	t_axe	cell;
@@ -66,7 +93,7 @@ int	draw_sprite(t_game *game, t_data *image, t_axe pos)
 	return (0);
 }
 
-void	print_player(t_game *game)
+void	put_player(t_game *game)
 {
 	if (game->night == 0)
 	{
@@ -181,7 +208,7 @@ void	print_player(t_game *game)
 	// game->map[game->player.y][game->player.x] = 'P';
 }
 
-void	print_grass(t_game *game, t_axe pos)
+void	put_grass(t_game *game, t_axe pos)
 {
 	if (game->night == 0)
 		draw_sprite(game, &game->grass, pos);
@@ -189,7 +216,7 @@ void	print_grass(t_game *game, t_axe pos)
 		draw_sprite(game, &game->grass_shadow, pos);
 }
 
-void	print_wall(t_game *game, t_axe pos)
+void	put_wall(t_game *game, t_axe pos)
 {
 	if (game->night == 0)
 	{
@@ -219,7 +246,7 @@ void	print_wall(t_game *game, t_axe pos)
 	}
 }
 
-void	print_ennemy(t_game *game, t_axe pos)
+void	put_ennemy(t_game *game, t_axe pos)
 {
 	static int	i;
 	int			frequency;
@@ -259,7 +286,7 @@ void	print_ennemy(t_game *game, t_axe pos)
 		i = 0;
 }
 
-void	print_star(t_game *game, t_axe pos)
+void	put_star(t_game *game, t_axe pos)
 {
 	static int	i;
 	int			frequency;
@@ -280,7 +307,7 @@ void	print_star(t_game *game, t_axe pos)
 		i = 0;
 }
 
-void	print_coins(t_game *game, t_axe pos)
+void	put_coins(t_game *game, t_axe pos)
 {
 	static int	i;
 	int			frequency;
@@ -301,15 +328,15 @@ void	print_coins(t_game *game, t_axe pos)
 		i = 0;
 }
 
-void	print_collectibles(t_game *game, t_axe pos)
+void	put_collectibles(t_game *game, t_axe pos)
 {
 	if (game->map[pos.y][pos.x] == 'C')
-		print_coins(game, pos);
+		put_coins(game, pos);
 	else if (game->map[pos.y][pos.x] == 'e')
-		print_star(game, pos);
+		put_star(game, pos);
 }
 
-void	print_wall_to_player(t_game *game)
+void	put_wall_to_player(t_game *game)
 {
 	t_axe	target;
 
@@ -317,22 +344,22 @@ void	print_wall_to_player(t_game *game)
 	target.y++;
 	target.x--;
 	if (game->map[game->player.y + 1][game->player.x - 1] == '1')
-		print_wall(game, target);
+		put_wall(game, target);
 	target.x++;
 	if (game->map[game->player.y + 1][game->player.x] == '1')
-		print_wall(game, target);
+		put_wall(game, target);
 	target.x++;
 	if (game->map[game->player.y + 1][game->player.x + 1] == '1')
-		print_wall(game, target);
+		put_wall(game, target);
 }
 
-void	print_elements(t_game *game)
+void	put_elements(t_game *game)
 {
-	print(game, ALL, print_grass);
-	print(game, "1", print_wall);
-	print(game, ENNEMY, print_ennemy);
-	print(game, COLLECTIBLES, print_collectibles);
-	print_player(game);
-	print_wall_to_player(game);
+	put_to_screen(game, ALL, put_grass);
+	put_to_screen(game, "1", put_wall);
+	put_to_screen(game, ENNEMY, put_ennemy);
+	put_to_screen(game, COLLECTIBLES, put_collectibles);
+	put_player(game);
+	put_wall_to_player(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->screen.img, 0, 0);
 }

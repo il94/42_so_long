@@ -6,11 +6,31 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 13:53:24 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/08 16:07:38 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/09 17:09:40 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
+
+// int	search_ennemy(t_game *game)
+// {
+// 	t_axe	pos;
+
+// 	pos.y = 1;
+// 	while (game->map[pos.y])
+// 	{
+// 		pos.x = 0;
+// 		while (game->map[pos.y][pos.x])
+// 		{
+// 			if (is(ENNEMY, game->map[pos.y][pos.x]))
+// 				get_direction(game, pos, &move_ennemy);
+// 			pos.x++;
+// 		}
+// 		pos.y++;
+// 	}
+// 	spawn_ennemy(game);
+// 	game->time_a = (unsigned int)time(NULL);
+// }
 
 int	search_ennemy(t_game *game)
 {
@@ -29,7 +49,6 @@ int	search_ennemy(t_game *game)
 		pos.y++;
 	}
 	spawn_ennemy(game);
-	game->time_a = (unsigned int)time(NULL);
 }
 
 int	more_collectibles(t_game *game, t_axe pos)
@@ -92,7 +111,7 @@ void	read_all_map(t_game *game, char target, void (*f)(t_game *, t_axe))
 	}
 }
 
-void	print(t_game *game, char *target, void (*f)(t_game *, t_axe))
+void	put_to_screen(t_game *game, char *target, void (*f)(t_game *, t_axe))
 {
 	t_axe	pos;
 
