@@ -29,7 +29,7 @@ $(NAME): $(OBJ)
 	@$(MAKE) --no-print-directory -C libft
 	@$(MAKE) --no-print-directory -C mlx_linux
 	@echo "\033[36mMaking So Long\033[0m"
-	@$(CC) $(OBJ) $(LIBFT) $(LIBX) $(LIBXFLAGS) -o $(NAME)
+	@$(CC) $(OBJ) $(LIBFT) $(LIBX) $(LIBXFLAGS) -o $(NAME) -g
 	@echo "\033[32mDone\033[0m"
 
 %.o : $(SRCPATH)%.c

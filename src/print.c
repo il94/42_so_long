@@ -12,34 +12,32 @@
 
 #include "../so_long.h"
 
-int	draw_player(t_game *game, t_data *image, t_axe pos)
+int	get_drawing_position(t_axe cell, t_axe map, t_sprite drawing_pos, char axe)
 {
-	t_axe	cell;
-	char 	*dst;
-	int		x;
-	int		y;
-	int		color;
-
-	cell.y = 0;
-	while (cell.y < image->width)
+	if (drawing_pos == FULL)
 	{
-		cell.x = 0;
-		while (cell.x < image->height)
-		{
-			x = cell.y + pos.x - (image->width - CELL) - (CELL / 2);
-			y = cell.x + pos.y - (image->height - CELL) - CELL + (CELL / 6);
-			dst = game->screen.addr + y * game->screen.line + x * game->screen.bpp / 8;
-			color = *(int *)(image->addr + cell.x * image->line + cell.y * 4);
-			if (color >= -1)
-				*(int *)dst = color;
-			cell.x++;
-		}
-		cell.y++;
+		if (axe == 'x')
+			return (cell.y + (CELL * map.x));
+		else if (axe == 'y')
+			return (cell.x + (CELL * map.y));
 	}
-	return (0);
+	else if (drawing_pos == BOT)
+	{
+		if (axe == 'x')
+			return (cell.y + map.x - (CELL / 2));
+		else if (axe == 'y')
+			return (cell.x + map.y - CELL + (CELL / 6));
+	}
+	else if (drawing_pos == CENTER)
+	{
+		if (axe == 'x')
+			return (cell.y + map.x - (CELL / 2));
+		else if (axe == 'y')
+			return (cell.x + map.y - (CELL / 2));
+	}
 }
 
-int	draw_ennemy(t_game *game, t_data *image, t_axe pos)
+int	draw_sprite(t_game *game, t_data *image, t_axe pos, t_sprite drawing_pos)
 {
 	t_axe	cell;
 	char 	*dst;
@@ -53,35 +51,8 @@ int	draw_ennemy(t_game *game, t_data *image, t_axe pos)
 		cell.x = 0;
 		while (cell.x < image->height)
 		{
-			x = cell.y + (CELL * pos.x) - (image->width - CELL);
-			y = cell.x + (CELL * pos.y) - (image->height - CELL);
-			dst = game->screen.addr + y * game->screen.line + x * game->screen.bpp / 8;
-			color = *(int *)(image->addr + cell.x * image->line + cell.y * 4);
-			if (color >= -1)
-				*(int *)dst = color;
-			cell.x++;
-		}
-		cell.y++;
-	}
-	return (0);
-}
-
-int	draw_sprite(t_game *game, t_data *image, t_axe pos)
-{
-	t_axe	cell;
-	char 	*dst;
-	int		x;
-	int		y;
-	int		color;
-
-	cell.y = 0;
-	while (cell.y < image->width)
-	{
-		cell.x = 0;
-		while (cell.x < image->height)
-		{
-			x = cell.y + (CELL * pos.x) - (image->width - CELL);
-			y = cell.x + (CELL * pos.y) - (image->height - CELL);
+			x = get_drawing_position(cell, pos, drawing_pos, 'x');
+			y = get_drawing_position(cell, pos, drawing_pos, 'y');
 			dst = game->screen.addr + y * game->screen.line + x * game->screen.bpp / 8;
 			color = *(int *)(image->addr + cell.x * image->line + cell.y * 4);
 			if (color >= -1)
@@ -100,120 +71,119 @@ void	put_player(t_game *game)
 		if (game->direction == 'a')
 		{
 			if (game->state == 0)
-				draw_player(game, &game->m_walk_b_left, game->cell);
+				draw_sprite(game, &game->m_walk_b_left, game->cell, BOT);
 			else if (game->state == 1)
-				draw_player(game, &game->m_walk_b_left_2, game->cell);
+				draw_sprite(game, &game->m_walk_b_left_2, game->cell, BOT);
 			else if (game->state == 2)
-				draw_player(game, &game->m_walk_b_left_3, game->cell);
+				draw_sprite(game, &game->m_walk_b_left_3, game->cell, BOT);
 			else if (game->state == 3)
-				draw_player(game, &game->m_walk_b_left_2, game->cell);
+				draw_sprite(game, &game->m_walk_b_left_2, game->cell, BOT);
 		}
 		else if (game->direction == 'b')
 		{
 			if (game->state == 0)
-				draw_player(game, &game->m_walk_b_right, game->cell);
+				draw_sprite(game, &game->m_walk_b_right, game->cell, BOT);
 			else if (game->state == 1)
-				draw_player(game, &game->m_walk_b_right_2, game->cell);
+				draw_sprite(game, &game->m_walk_b_right_2, game->cell, BOT);
 			else if (game->state == 2)
-				draw_player(game, &game->m_walk_b_right_3, game->cell);
+				draw_sprite(game, &game->m_walk_b_right_3, game->cell, BOT);
 			else if (game->state == 3)
-				draw_player(game, &game->m_walk_b_right_2, game->cell);
+				draw_sprite(game, &game->m_walk_b_right_2, game->cell, BOT);
 		}
 		else if (game->direction == 'A')
 		{
 			if (game->state == 0)
-				draw_player(game, &game->m_walk_left, game->cell);
+				draw_sprite(game, &game->m_walk_left, game->cell, BOT);
 			else if (game->state == 1)
-				draw_player(game, &game->m_walk_left_2, game->cell);
+				draw_sprite(game, &game->m_walk_left_2, game->cell, BOT);
 			else if (game->state == 2)
-				draw_player(game, &game->m_walk_left_3, game->cell);
+				draw_sprite(game, &game->m_walk_left_3, game->cell, BOT);
 			else if (game->state == 3)
-				draw_player(game, &game->m_walk_left_2, game->cell);
+				draw_sprite(game, &game->m_walk_left_2, game->cell, BOT);
 		}
 		else if (game->direction == 'B')
 		{
 			if (game->state == 0)
-				draw_player(game, &game->m_walk_right, game->cell);
+				draw_sprite(game, &game->m_walk_right, game->cell, BOT);
 			else if (game->state == 1)
-				draw_player(game, &game->m_walk_right_2, game->cell);
+				draw_sprite(game, &game->m_walk_right_2, game->cell, BOT);
 			else if (game->state == 2)
-				draw_player(game, &game->m_walk_right_3, game->cell);
+				draw_sprite(game, &game->m_walk_right_3, game->cell, BOT);
 			else if (game->state == 3)
-				draw_player(game, &game->m_walk_right_2, game->cell);
+				draw_sprite(game, &game->m_walk_right_2, game->cell, BOT);
 		}
 		else if (game->direction == 'q')
-			draw_player(game, &game->m_static_b_left, game->cell);
+			draw_sprite(game, &game->m_static_b_left, game->cell, BOT);
 		else if (game->direction == 'Q')
-			draw_player(game, &game->m_static_left, game->cell);
+			draw_sprite(game, &game->m_static_left, game->cell, BOT);
 		else if (game->direction == 'p')
-			draw_player(game, &game->m_static_b_right, game->cell);
+			draw_sprite(game, &game->m_static_b_right, game->cell, BOT);
 		else if (game->direction == 'P')
-			draw_player(game, &game->m_static_right, game->cell);
+			draw_sprite(game, &game->m_static_right, game->cell, BOT);
 	}
 	else
 	{
 		if (game->direction == 'a')
 		{
 			if (game->state == 0)
-				draw_player(game, &game->m_walk_b_left_light, game->cell);
+				draw_sprite(game, &game->m_walk_b_left_light, game->cell, BOT);
 			else if (game->state == 1)
-				draw_player(game, &game->m_walk_b_left_light_2, game->cell);
+				draw_sprite(game, &game->m_walk_b_left_light_2, game->cell, BOT);
 			else if (game->state == 2)
-				draw_player(game, &game->m_walk_b_left_light_3, game->cell);
+				draw_sprite(game, &game->m_walk_b_left_light_3, game->cell, BOT);
 			else if (game->state == 3)
-				draw_player(game, &game->m_walk_b_left_light_2, game->cell);
+				draw_sprite(game, &game->m_walk_b_left_light_2, game->cell, BOT);
 		}
 		else if (game->direction == 'b')
 		{
 			if (game->state == 0)
-				draw_player(game, &game->m_walk_b_right_light, game->cell);
+				draw_sprite(game, &game->m_walk_b_right_light, game->cell, BOT);
 			else if (game->state == 1)
-				draw_player(game, &game->m_walk_b_right_light_2, game->cell);
+				draw_sprite(game, &game->m_walk_b_right_light_2, game->cell, BOT);
 			else if (game->state == 2)
-				draw_player(game, &game->m_walk_b_right_light_3, game->cell);
+				draw_sprite(game, &game->m_walk_b_right_light_3, game->cell, BOT);
 			else if (game->state == 3)
-				draw_player(game, &game->m_walk_b_right_light_2, game->cell);
+				draw_sprite(game, &game->m_walk_b_right_light_2, game->cell, BOT);
 		}
 		else if (game->direction == 'A')
 		{
 			if (game->state == 0)
-				draw_player(game, &game->m_walk_left_light, game->cell);
+				draw_sprite(game, &game->m_walk_left_light, game->cell, BOT);
 			else if (game->state == 1)
-				draw_player(game, &game->m_walk_left_light_2, game->cell);
+				draw_sprite(game, &game->m_walk_left_light_2, game->cell, BOT);
 			else if (game->state == 2)
-				draw_player(game, &game->m_walk_left_light_3, game->cell);
+				draw_sprite(game, &game->m_walk_left_light_3, game->cell, BOT);
 			else if (game->state == 3)
-				draw_player(game, &game->m_walk_left_light_2, game->cell);
+				draw_sprite(game, &game->m_walk_left_light_2, game->cell, BOT);
 		}
 		else if (game->direction == 'B')
 		{
 			if (game->state == 0)
-				draw_player(game, &game->m_walk_right_light, game->cell);
+				draw_sprite(game, &game->m_walk_right_light, game->cell, BOT);
 			else if (game->state == 1)
-				draw_player(game, &game->m_walk_right_light_2, game->cell);
+				draw_sprite(game, &game->m_walk_right_light_2, game->cell, BOT);
 			else if (game->state == 2)
-				draw_player(game, &game->m_walk_right_light_3, game->cell);
+				draw_sprite(game, &game->m_walk_right_light_3, game->cell, BOT);
 			else if (game->state == 3)
-				draw_player(game, &game->m_walk_right_light_2, game->cell);
+				draw_sprite(game, &game->m_walk_right_light_2, game->cell, BOT);
 		}
 		else if (game->direction == 'q')
-			draw_player(game, &game->m_static_b_left_light, game->cell);
+			draw_sprite(game, &game->m_static_b_left_light, game->cell, BOT);
 		else if (game->direction == 'Q')
-			draw_player(game, &game->m_static_left_light, game->cell);
+			draw_sprite(game, &game->m_static_left_light, game->cell, BOT);
 		else if (game->direction == 'p')
-			draw_player(game, &game->m_static_b_right_light, game->cell);
+			draw_sprite(game, &game->m_static_b_right_light, game->cell, BOT);
 		else if (game->direction == 'P')
-			draw_player(game, &game->m_static_right_light, game->cell);
+			draw_sprite(game, &game->m_static_right_light, game->cell, BOT);
 	}
-	// game->map[game->player.y][game->player.x] = 'P';
 }
 
 void	put_grass(t_game *game, t_axe pos)
 {
 	if (game->night == 0)
-		draw_sprite(game, &game->grass, pos);
+		draw_sprite(game, &game->grass, pos, FULL);
 	else
-		draw_sprite(game, &game->grass_shadow, pos);
+		draw_sprite(game, &game->grass_shadow, pos, FULL);
 }
 
 void	put_wall(t_game *game, t_axe pos)
@@ -223,67 +193,69 @@ void	put_wall(t_game *game, t_axe pos)
 		if (pos.y < game->y_map - 1 && pos.y > 0
 			&& game->map[pos.y + 1][pos.x] == '1'
 			&& game->map[pos.y - 1][pos.x] == '1')
-			draw_sprite(game, &game->wall_mid, pos);
+			draw_sprite(game, &game->wall_mid, pos, FULL);
 		else if (pos.y < game->y_map - 1 && game->map[pos.y + 1][pos.x] == '1')
-			draw_sprite(game, &game->wall_top, pos);
+			draw_sprite(game, &game->wall_top, pos, FULL);
 		else if (pos.y > 0 && game->map[pos.y - 1][pos.x] == '1')
-			draw_sprite(game, &game->wall_bot, pos);
+			draw_sprite(game, &game->wall_bot, pos, FULL);
 		else
-			draw_sprite(game, &game->wall_one, pos);
+			draw_sprite(game, &game->wall_one, pos, FULL);
 	}
 	else
 	{
 		if (pos.y < game->y_map - 1 && pos.y > 0
 			&& game->map[pos.y + 1][pos.x] == '1'
 			&& game->map[pos.y - 1][pos.x] == '1')
-			draw_sprite(game, &game->wall_mid_shadow, pos);
+			draw_sprite(game, &game->wall_mid_shadow, pos, FULL);
 		else if (pos.y < game->y_map - 1 && game->map[pos.y + 1][pos.x] == '1')
-			draw_sprite(game, &game->wall_top_shadow, pos);
+			draw_sprite(game, &game->wall_top_shadow, pos, FULL);
 		else if (pos.y > 0 && game->map[pos.y - 1][pos.x] == '1')
-			draw_sprite(game, &game->wall_bot_shadow, pos);
+			draw_sprite(game, &game->wall_bot_shadow, pos, FULL);
 		else
-			draw_sprite(game, &game->wall_one_shadow, pos);
+			draw_sprite(game, &game->wall_one_shadow, pos, FULL);
 	}
 }
 
-void	put_ennemy(t_game *game, t_axe pos)
+void	put_ennemy(t_game *game)
 {
-	static int	i;
-	int			frequency;
-	
-	frequency = 100;
-	if (!i)
-		i = 0;
-	if (get_direction(game, pos, &ennemy_proximity) == 1)
+	while (game->i_ennemy < game->ennemy_count)
 	{
-		if (i >= 0 && i <= frequency)
-				draw_sprite(game, &game->gr, pos);
-		else if (i >= frequency && i <= frequency * 2)
-				draw_sprite(game, &game->gr_2, pos);
-		else if (i >= frequency * 2 && i <= frequency * 3)
-				draw_sprite(game, &game->gr_3, pos);
+		if (ennemy_proximity(game, game->ennemies[game->i_ennemy].pos) == 1 && is(ENNEMY, game->map[game->ennemies[game->i_ennemy].pos.y][ game->ennemies[game->i_ennemy].pos.x]))
+		{
+			if (game->state_ennemy == 0)
+				draw_sprite(game, &game->gr, game->ennemies[game->i_ennemy].cell, CENTER);
+			else if (game->state_ennemy == 1)
+				draw_sprite(game, &game->gr_2, game->ennemies[game->i_ennemy].cell, CENTER);
+			else if (game->state_ennemy == 2)
+				draw_sprite(game, &game->gr_3, game->ennemies[game->i_ennemy].cell, CENTER);
+			else if (game->state_ennemy == 3)
+				draw_sprite(game, &game->gr_2, game->ennemies[game->i_ennemy].cell, CENTER);
+		}
+		else if (ennemy_proximity(game, game->ennemies[game->i_ennemy].pos) == 2 && is(ENNEMY, game->map[game->ennemies[game->i_ennemy].pos.y][ game->ennemies[game->i_ennemy].pos.x]))
+		{
+			if (game->state_ennemy == 0)
+				draw_sprite(game, &game->gb, game->ennemies[game->i_ennemy].cell, CENTER);
+			else if (game->state_ennemy == 1)
+				draw_sprite(game, &game->gb_2, game->ennemies[game->i_ennemy].cell, CENTER);
+			else if (game->state_ennemy == 2)
+				draw_sprite(game, &game->gb_3, game->ennemies[game->i_ennemy].cell, CENTER);
+			else if (game->state_ennemy == 3)
+				draw_sprite(game, &game->gb_2, game->ennemies[game->i_ennemy].cell, CENTER);
+		}
+		else if (is(ENNEMY, game->map[game->ennemies[game->i_ennemy].pos.y][ game->ennemies[game->i_ennemy].pos.x]))
+		{
+			if (game->state_ennemy == 0)
+				draw_sprite(game, &game->g, game->ennemies[game->i_ennemy].cell, CENTER);
+			else if (game->state_ennemy == 1)
+				draw_sprite(game, &game->g_2, game->ennemies[game->i_ennemy].cell, CENTER);
+			else if (game->state_ennemy == 2)
+				draw_sprite(game, &game->g_3, game->ennemies[game->i_ennemy].cell, CENTER);
+			else if (game->state_ennemy == 3)
+				draw_sprite(game, &game->g_2, game->ennemies[game->i_ennemy].cell, CENTER);
+		}
+		game->i_ennemy++;
 	}
-	else if (get_direction(game, pos, &ennemy_proximity) == 2)
-	{
-		if (i >= 0 && i <= frequency)
-				draw_sprite(game, &game->gb, pos);
-		else if (i >= frequency && i <= frequency * 2)
-				draw_sprite(game, &game->gb_2, pos);
-		else if (i >= frequency * 2 && i <= frequency * 3)
-				draw_sprite(game, &game->gb_3, pos);
-	}
-	else
-	{
-		if (i >= 0 && i <= frequency)
-				draw_sprite(game, &game->g, pos);
-		else if (i >= frequency && i <= frequency * 2)
-				draw_sprite(game, &game->g_2, pos);
-		else if (i >= frequency * 2 && i <= frequency * 3)
-				draw_sprite(game, &game->g_3, pos);
-	}
-	i++;
-	if (i > frequency * 3)
-		i = 0;
+	game->i_ennemy = 0;
 }
 
 void	put_star(t_game *game, t_axe pos)
@@ -295,13 +267,13 @@ void	put_star(t_game *game, t_axe pos)
 	if (!i)
 		i = 0;
 	if (i >= 0 && i <= frequency)
-		draw_sprite(game, &game->s, pos);
+		draw_sprite(game, &game->s, pos, FULL);
 	else if (i >= frequency && i <= frequency * 2)
-		draw_sprite(game, &game->s_2, pos);
+		draw_sprite(game, &game->s_2, pos, FULL);
 	else if (i >= frequency * 2 && i <= frequency * 3)
-		draw_sprite(game, &game->s_3, pos);
+		draw_sprite(game, &game->s_3, pos, FULL);
 	else if (i >= frequency * 3 && i <= frequency * 4)
-		draw_sprite(game, &game->s_2, pos);
+		draw_sprite(game, &game->s_2, pos, FULL);
 	i++;
 	if (i > frequency * 4)
 		i = 0;
@@ -316,13 +288,13 @@ void	put_coins(t_game *game, t_axe pos)
 	if (!i)
 		i = 0;
 	if (i >= 0 && i <= frequency)
-		draw_sprite(game, &game->c, pos);
+		draw_sprite(game, &game->c, pos, FULL);
 	else if (i >= frequency && i <= frequency * 2)
-		draw_sprite(game, &game->c_2, pos);
+		draw_sprite(game, &game->c_2, pos, FULL);
 	else if (i >= frequency * 2 && i <= frequency * 3)
-		draw_sprite(game, &game->c_3, pos);
+		draw_sprite(game, &game->c_3, pos, FULL);
 	else if (i >= frequency * 3 && i <= frequency * 4)
-		draw_sprite(game, &game->c_4, pos);
+		draw_sprite(game, &game->c_4, pos, FULL);
 	i++;
 	if (i > frequency * 4)
 		i = 0;
@@ -334,6 +306,8 @@ void	put_collectibles(t_game *game, t_axe pos)
 		put_coins(game, pos);
 	else if (game->map[pos.y][pos.x] == 'e')
 		put_star(game, pos);
+	else if (game->map[pos.y][pos.x] == 'H')
+		draw_sprite(game, &game->hammer, pos, FULL);
 }
 
 void	put_wall_to_player(t_game *game)
@@ -357,8 +331,8 @@ void	put_elements(t_game *game)
 {
 	put_to_screen(game, ALL, put_grass);
 	put_to_screen(game, "1", put_wall);
-	put_to_screen(game, ENNEMY, put_ennemy);
 	put_to_screen(game, COLLECTIBLES, put_collectibles);
+	put_ennemy(game);
 	put_player(game);
 	put_wall_to_player(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->screen.img, 0, 0);

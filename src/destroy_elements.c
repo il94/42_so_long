@@ -146,6 +146,7 @@ int	destroy_elements(t_game *game)
 	mlx_destroy_window(game->mlx, game->win);
 	mlx_destroy_display(game->mlx);
 	ft_free_array(game->map);
+	free(game->ennemies);
 	free(game->mlx);
 	system("pkill vlc");
 }

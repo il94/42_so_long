@@ -12,6 +12,36 @@
 
 #include "../so_long.h"
 
+void	hammer_hit(t_game *game)
+{
+	if (game->direction == 'a' || game->direction == 'b')
+	{
+		if (is(ENNEMY, game->map[game->player.y - 1][game->player.x]))
+		{
+			game->map[game->player.y - 1][game->player.x] = '0';
+		}
+	}
+}
+
+void	get_ennemies_data(t_game *game, t_axe pos)
+{
+	static int	i;
+
+	if (!i)
+		i = 0;
+	game->ennemies[i].pos = pos;
+	game->ennemies[i].cell.x = pos.x * CELL + CELL / 2;
+	game->ennemies[i].cell.y = pos.y * CELL + CELL / 2;
+	// game->ennemies[i].cell.x = pos.y * CELL;
+	// game->ennemies[i].cell.y = pos.x * CELL;
+	i++;
+}
+
+void	get_ennemies_count(t_game *game, t_axe pos)
+{
+	game->ennemy_count++;
+}
+
 int	is_surrounded_by(t_game *game, t_axe pos, char c)
 {
 	return (game->map[pos.y + 1][pos.x] == c

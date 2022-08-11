@@ -5,6 +5,18 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/11 23:02:52 by ilandols          #+#    #+#             */
+/*   Updated: 2022/08/11 23:02:52 by ilandols         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 00:53:50 by ilandols          #+#    #+#             */
 /*   Updated: 2022/07/24 00:53:50 by ilandols         ###   ########.fr       */
 /*                                                                            */
@@ -30,11 +42,22 @@ void	spawn_ennemy(t_game *game)
 	}
 }
 
-int	ennemy_proximity(t_game *game, t_axe pos, t_axe trgt)
+int	ennemy_proximity(t_game *game, t_axe pos)
 {
-	if (game->player.x == trgt.x && game->player.y == trgt.y)
+	t_axe	target;
+
+	target = pos;
+	if (game->map[pos.y][pos.x] == 'D')
+		target.y++;
+	else if (game->map[pos.y][pos.x] == 'R')
+		target.x++;
+	else if (game->map[pos.y][pos.x] == 'U')
+		target.y--;
+	else if (game->map[pos.y][pos.x] == 'L')
+		target.x--;
+	if (game->player.x == target.x && game->player.y == target.y)
 		return (1);
-	if (is(ENNEMY_OBSTACLE, game->map[trgt.y][trgt.x]) && is_near_p(game, pos))
+	if (is(ENNEMY_OBSTACLE, game->map[target.y][target.x]) && is_near_p(game, pos))
 		return (2);
 	return (0);
 }

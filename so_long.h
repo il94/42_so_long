@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:53:28 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/09 17:47:59 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/11 23:43:20 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,26 @@
 # define KEY_SPACE 32
 
 /* for QWERTY */
-# define KEY_W 119
-# define KEY_D 100
-# define KEY_S 115
-# define KEY_A 97
-
-/* for AZERTY */
-// # define KEY_W 122
+// # define KEY_W 119
 // # define KEY_D 100
 // # define KEY_S 115
-// # define KEY_A 113
+// # define KEY_A 97
+
+/* for AZERTY */
+# define KEY_W 122
+# define KEY_D 100
+# define KEY_S 115
+# define KEY_A 113
 
 # define WIDTH 1920 / 2
 # define HEIGHT 1080 / 2
 # define CELL 48
-# define VALID_CHAR "01CEPM"
-# define COLLECTIBLES "CEe"
-# define ALL "01CEePMURDLurdl"
+# define VALID_CHAR "01CEPMH"
+# define COLLECTIBLES "CEeH"
+# define ALL "01CEePMURDLurdlH"
 # define ENNEMY "MURDL"
 # define LOWER_ENNEMY "urdl"
-# define ENNEMY_OBSTACLE "1CEMURDL"
+# define ENNEMY_OBSTACLE "1CEMURDLH"
 
 # include "mlx_linux/mlx.h"
 # include "libft/libft.h"
@@ -48,6 +48,12 @@
 # include <string.h>
 # include <errno.h>
 # include <time.h>
+
+typedef enum	e_sprite {
+	FULL,
+	BOT,
+	CENTER
+}				t_sprite;
 
 typedef enum	e_end {
 	LOOSE,
@@ -68,6 +74,8 @@ typedef struct	s_data {
 	int		width;
 	int		height;
 	char	direction;
+	t_axe	pos;
+	t_axe	cell;
 }				t_data;
 
 typedef struct	s_game {
@@ -87,6 +95,12 @@ typedef struct	s_game {
 	unsigned int	time_a;
 	unsigned int	time_b;
 	int		night;
+	t_data	*ennemies;
+	int	ennemy_count;
+	int	i_ennemy;
+	int	state_ennemy;
+	int	all_coins;
+	int	get_hammer;
 	t_data	screen;
 	t_data	grass;
 	t_data	wall_one;
@@ -205,7 +219,7 @@ void	delay(int milliseconds);
 
 /* so_long.c */
 void	spawn_ennemy(t_game *game);
-int		ennemy_proximity(t_game *game, t_axe pos, t_axe trgt);
+int		ennemy_proximity(t_game *game, t_axe pos);
 int		is_near(t_game *game, t_axe pos, char c);
 int		is_near_e(t_game *game, t_axe pos);
 int		is_near_p(t_game *game, t_axe pos);
@@ -219,6 +233,9 @@ int		run_game(t_game *game);
 void	initialize_mlx(t_game *game);
 
 /* zoubir.c */
+void	hammer_hit(t_game *game);
+void	get_ennemies_data(t_game *game, t_axe pos);
+void	get_ennemies_count(t_game *game, t_axe pos);
 int		is_surrounded_by(t_game *game, t_axe pos, char c);
 int		is_valid_char(char c, int *cep);
 int		is(char *str, char c);
@@ -229,15 +246,13 @@ int		is(char *str, char c);
 // int		get_direction(t_game *game, t_axe pos, int (*f)(t_game *, t_axe, t_axe));
 
 /* move_ennemy.c */
-int	get_direction(t_game *game, t_axe pos, int (*f)(t_game *, t_axe, t_axe));
-int	move_ennemy(t_game *game, t_axe pos, t_axe pos_trgt);
-void	move_ennemy_position(t_game *game, t_axe pos, t_axe trgt);
-int	ennemy_position_can_move(t_game *game);
+int		ennemy_sprite_can_move(t_game *game, t_axe pos_trgt, char code);
 void	move_ennemy_sprite(t_game *game, t_axe cell_trgt);
-char	get_code(t_game *game, t_axe pos, t_axe pos_trgt);
-int	ennemy_sprite_can_move(t_game *game, t_axe pos, t_axe pos_trgt, char code);
-void	change_direction(t_game *game, t_axe pos);
-void	change_direction2(t_game *game, t_axe pos);
+int		ennemy_position_can_move(t_game *game, t_axe pos_trgt, char code);
+void	change_direction(t_game *game, t_axe cell_trgt, t_axe pos_trgt, char code);
+void	move_ennemy_position(t_game *game, t_axe trgt, char code);
+int		move_ennemy(t_game *game, t_axe cell_trgt, t_axe pos_trgt);
+int		get_ennemy_direction(t_game *game, t_axe pos, t_axe cell);
 
 /* move_player.c */
 void	get_player_sprite_direction(t_game *game, int keycode);
@@ -255,7 +270,6 @@ int		is_rectangular(char **map, int y_map);
 int		is_valid_map(char ***map, char *file);
 
 /* read_map.c */
-int		search_ennemy(t_game *game);
 int		more_collectibles(t_game *game, t_axe pos);
 int		open_exit_door(t_game *game, t_axe pos);
 int		get_player_position(t_game *game, t_axe pos);
@@ -276,7 +290,7 @@ void	get_images_collectibles(t_game *game);
 void	get_images(t_game *game);
 
 /* print.c */
-int		draw_sprite(t_game *game, t_data *image, t_axe pos);
+int	draw_sprite(t_game *game, t_data *image, t_axe pos, t_sprite drawing_pos);
 int		draw_ennemy(t_game *game, t_data *image, t_axe pos);
 int		draw_player(t_game *game, t_data *image, t_axe pos);
 void	put_grass(t_game *game, t_axe pos);
@@ -285,7 +299,7 @@ void	put_wall(t_game *game, t_axe pos);
 void	put_player_up(t_game *game, t_axe pos);
 
 void	put_player(t_game *game);
-void	put_ennemy(t_game *game, t_axe pos);
+void	put_ennemy(t_game *game);
 void	put_collectibles(t_game *game, t_axe pos);
 void	put_coins(t_game *game, t_axe pos);
 void	put_star(t_game *game, t_axe pos);

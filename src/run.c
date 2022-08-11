@@ -41,6 +41,7 @@ int	get_input_keyboard(int keycode, t_game *game)
 	t_axe	cell_trgt;
 	t_axe	pos_trgt;
 
+	printf("key = %d\n", keycode);
 	cell_trgt = game->cell;
 	pos_trgt = game->player;
 	if (keycode == KEY_W)
@@ -57,48 +58,35 @@ int	get_input_keyboard(int keycode, t_game *game)
 	{
 		cell_trgt.y += 8;
 		pos_trgt.y += 1;
-
 	}
 	else if (keycode == KEY_A)
 	{
 		cell_trgt.x -= 8;
 		pos_trgt.x -= 1;
 	}
-	// else if (keycode == KEY_SPACE)
-	// 	reboot_game(game);
+	else if (keycode == KEY_SPACE && game->get_hammer == 1)
+		hammer_hit(game);
 	// else if (keycode == KEY_TAB)
 	// 	reboot_game(game);
-	else if (keycode == KEY_ESC)
-		mlx_loop_end(game->mlx);
+	// else if (keycode == KEY_ESC)
+	// 	mlx_loop_end(game->mlx);
 	move_player(game, cell_trgt, pos_trgt, keycode);
 	return (0);
 }
 
-// int	run_game(t_game *game)
-// {
-// 	static char	brk;
-
-// 	put_elements(game);
-// 	if ((unsigned int)time(NULL) > game->time_a)
-// 		search_ennemy(game);
-// 	if (!read_map(game, 'C', &more_collectibles) && !brk)
-// 	{
-// 		brk = '1';
-// 		read_map(game, 'E', &open_exit_door);
-// 		kill_ennemies(game);
-// 	}
-// 	return (0);
-// }
-
 int	run_game(t_game *game)
 {
-	static char	brk;
-
 	put_elements(game);
-	search_ennemy(game);
-	if (!read_map(game, 'C', &more_collectibles) && !brk)
+	while (game->i_ennemy < game->ennemy_count)
 	{
-		brk = '1';
+		get_ennemy_direction(game, game->ennemies[game->i_ennemy].pos, game->ennemies[game->i_ennemy].cell);
+		game->i_ennemy++;
+	}
+	game->i_ennemy = 0;
+	spawn_ennemy(game);
+	if (game->all_coins == 0 && !read_map(game, 'C', &more_collectibles))
+	{
+		game->all_coins = 1;
 		read_map(game, 'E', &open_exit_door);
 		kill_ennemies(game);
 	}
@@ -115,12 +103,23 @@ void	initialize_mlx(t_game *game)
 	game->y_map = ft_get_size_array(game->map);
 	game->time_a = (unsigned int)time(NULL);
 	read_map(game, 'P', &get_player_position);
+	game->ennemy_count = 0;
+	read_all_map(game, 'M', &get_ennemies_count);
+	game->ennemies = malloc(game->ennemy_count * sizeof(t_data));
+	if (!game->ennemies)
+		/* free */
+	game->ennemies = NULL;
+	read_all_map(game, 'M', &get_ennemies_data);
+	game->i_ennemy = 0;
 	game->cell.x = (game->player.x * CELL) + (CELL / 2);
 	game->cell.y = (game->player.y * CELL) + CELL - (CELL / 6);
 	game->direction = 'P';
 	game->state = 0;
+	game->state_ennemy = 0;
 	game->moves = 0;
 	game->move_ennemy = 0;
+	game->all_coins = 0;
+	game->get_hammer = 0;
 	game->delay = 0;
 	game->night = 0;
 	game->win = mlx_new_window(game->mlx,
