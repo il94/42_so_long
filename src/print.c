@@ -218,40 +218,43 @@ void	put_wall(t_game *game, t_axe pos)
 
 void	put_ennemy(t_game *game)
 {
+	int	frequency;
+
+	frequency = game->speed_ennemy / 4;
 	while (game->i_ennemy < game->ennemy_count)
 	{
 		if (ennemy_proximity(game, game->ennemies[game->i_ennemy].pos) == 1 && is(ENNEMY, game->map[game->ennemies[game->i_ennemy].pos.y][ game->ennemies[game->i_ennemy].pos.x]))
 		{
-			if (game->state_ennemy == 0)
+			if (game->state_ennemy >= 0 && game->state_ennemy <= frequency)
+				draw_sprite(game, &game->gr_2, game->ennemies[game->i_ennemy].cell, CENTER);
+			else if (game->state_ennemy >= frequency && game->state_ennemy <= frequency * 2)
 				draw_sprite(game, &game->gr, game->ennemies[game->i_ennemy].cell, CENTER);
-			else if (game->state_ennemy == 1)
-				draw_sprite(game, &game->gr_2, game->ennemies[game->i_ennemy].cell, CENTER);
-			else if (game->state_ennemy == 2)
+			else if (game->state_ennemy >= frequency * 2 && game->state_ennemy <= frequency * 3)
 				draw_sprite(game, &game->gr_3, game->ennemies[game->i_ennemy].cell, CENTER);
-			else if (game->state_ennemy == 3)
-				draw_sprite(game, &game->gr_2, game->ennemies[game->i_ennemy].cell, CENTER);
+			else if (game->state_ennemy >= frequency * 3 && game->state_ennemy <= frequency * 4)
+				draw_sprite(game, &game->gr, game->ennemies[game->i_ennemy].cell, CENTER);
 		}
 		else if (ennemy_proximity(game, game->ennemies[game->i_ennemy].pos) == 2 && is(ENNEMY, game->map[game->ennemies[game->i_ennemy].pos.y][ game->ennemies[game->i_ennemy].pos.x]))
 		{
-			if (game->state_ennemy == 0)
+			if (game->state_ennemy >= 0 && game->state_ennemy <= frequency)
+				draw_sprite(game, &game->gb_2, game->ennemies[game->i_ennemy].cell, CENTER);
+			else if (game->state_ennemy >= frequency && game->state_ennemy <= frequency * 2)
 				draw_sprite(game, &game->gb, game->ennemies[game->i_ennemy].cell, CENTER);
-			else if (game->state_ennemy == 1)
-				draw_sprite(game, &game->gb_2, game->ennemies[game->i_ennemy].cell, CENTER);
-			else if (game->state_ennemy == 2)
+			else if (game->state_ennemy >= frequency * 2 && game->state_ennemy <= frequency * 3)
 				draw_sprite(game, &game->gb_3, game->ennemies[game->i_ennemy].cell, CENTER);
-			else if (game->state_ennemy == 3)
-				draw_sprite(game, &game->gb_2, game->ennemies[game->i_ennemy].cell, CENTER);
+			else if (game->state_ennemy >= frequency * 3 && game->state_ennemy <= frequency * 4)
+				draw_sprite(game, &game->gb, game->ennemies[game->i_ennemy].cell, CENTER);
 		}
 		else if (is(ENNEMY, game->map[game->ennemies[game->i_ennemy].pos.y][ game->ennemies[game->i_ennemy].pos.x]))
 		{
-			if (game->state_ennemy == 0)
+			if (game->state_ennemy >= 0 && game->state_ennemy <= frequency)
+				draw_sprite(game, &game->g_2, game->ennemies[game->i_ennemy].cell, CENTER);
+			else if (game->state_ennemy >= frequency && game->state_ennemy <= frequency * 2)
 				draw_sprite(game, &game->g, game->ennemies[game->i_ennemy].cell, CENTER);
-			else if (game->state_ennemy == 1)
-				draw_sprite(game, &game->g_2, game->ennemies[game->i_ennemy].cell, CENTER);
-			else if (game->state_ennemy == 2)
+			else if (game->state_ennemy >= frequency * 2 && game->state_ennemy <= frequency * 3)
 				draw_sprite(game, &game->g_3, game->ennemies[game->i_ennemy].cell, CENTER);
-			else if (game->state_ennemy == 3)
-				draw_sprite(game, &game->g_2, game->ennemies[game->i_ennemy].cell, CENTER);
+			else if (game->state_ennemy >= frequency * 3 && game->state_ennemy <= frequency * 4)
+				draw_sprite(game, &game->g, game->ennemies[game->i_ennemy].cell, CENTER);
 		}
 		game->i_ennemy++;
 	}
@@ -308,6 +311,8 @@ void	put_collectibles(t_game *game, t_axe pos)
 		put_star(game, pos);
 	else if (game->map[pos.y][pos.x] == 'H')
 		draw_sprite(game, &game->hammer, pos, FULL);
+	else if (game->map[pos.y][pos.x] == 'J')
+		draw_sprite(game, &game->s_spawn_10, pos, FULL);
 }
 
 void	put_wall_to_player(t_game *game)

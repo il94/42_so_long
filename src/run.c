@@ -41,7 +41,6 @@ int	get_input_keyboard(int keycode, t_game *game)
 	t_axe	cell_trgt;
 	t_axe	pos_trgt;
 
-	printf("key = %d\n", keycode);
 	cell_trgt = game->cell;
 	pos_trgt = game->player;
 	if (keycode == KEY_W)
@@ -68,8 +67,8 @@ int	get_input_keyboard(int keycode, t_game *game)
 		hammer_hit(game);
 	// else if (keycode == KEY_TAB)
 	// 	reboot_game(game);
-	// else if (keycode == KEY_ESC)
-	// 	mlx_loop_end(game->mlx);
+	else if (keycode == KEY_ESC)
+		mlx_loop_end(game->mlx);
 	move_player(game, cell_trgt, pos_trgt, keycode);
 	return (0);
 }
@@ -116,10 +115,12 @@ void	initialize_mlx(t_game *game)
 	game->direction = 'P';
 	game->state = 0;
 	game->state_ennemy = 0;
+	game->speed_ennemy = 200;
 	game->moves = 0;
 	game->move_ennemy = 0;
 	game->all_coins = 0;
 	game->get_hammer = 0;
+	game->get_boots = 0;
 	game->delay = 0;
 	game->night = 0;
 	game->win = mlx_new_window(game->mlx,

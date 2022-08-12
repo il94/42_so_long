@@ -32,7 +32,7 @@ int	ennemy_sprite_can_move(t_game *game, t_axe pos_trgt, char code)
 void	move_ennemy_sprite(t_game *game, t_axe cell_trgt)
 {
 	game->ennemies[game->i_ennemy].cell = cell_trgt;
-	if (game->state_ennemy++ >= 3)
+	if (game->state_ennemy++ >= game->speed_ennemy)
 		game->state_ennemy = 0;
 }
 
@@ -67,9 +67,19 @@ void	change_direction(t_game *game, t_axe cell_trgt, t_axe pos_trgt, char code)
 
 void	move_ennemy_position(t_game *game, t_axe trgt, char code)
 {
-	if (game->map[trgt.y][trgt.x] == 'P')
-		end_game(game, LOOSE);
-	else if (game->map[trgt.y][trgt.x] == '0')
+	// if (game->map[trgt.y][trgt.x] == 'P')
+	// 	end_game(game, LOOSE);
+	// else if (game->map[trgt.y][trgt.x] == '0')
+	// {
+	// 	game->map[game->ennemies[game->i_ennemy].pos.y][game->ennemies[game->i_ennemy].pos.x] = '0';
+	// 	game->ennemies[game->i_ennemy].pos.x = trgt.x;
+	// 	game->ennemies[game->i_ennemy].pos.y = trgt.y;
+	// 	game->map[trgt.y][trgt.x] = ft_tolower(code);
+	// }
+
+	// if (game->ennemies[game->i_ennemy].cell.x == game->cell.x || game->ennemies[game->i_ennemy].cell.y == game->cell.y)
+	// printf("===============in function======================\n");
+	// else
 	{
 		game->map[game->ennemies[game->i_ennemy].pos.y][game->ennemies[game->i_ennemy].pos.x] = '0';
 		game->ennemies[game->i_ennemy].pos.x = trgt.x;
@@ -82,10 +92,15 @@ int	move_ennemy(t_game *game, t_axe cell_trgt, t_axe pos_trgt)
 {
 	char	code;
 
+	ft_print_array(game->map);
+	printf("cell player : x = %d | y = %d\n", game->cell.x, game->cell.y);
+	printf("cell goomba : x = %d | y = %d\n", game->ennemies[game->i_ennemy].cell.x, game->ennemies[game->i_ennemy].cell.y);
 	code = game->map[game->ennemies[game->i_ennemy].pos.y][game->ennemies[game->i_ennemy].pos.x];
 	if (ennemy_sprite_can_move(game, pos_trgt, code))
 	{
 		move_ennemy_sprite(game, cell_trgt);
+		if (game->ennemies[game->i_ennemy].cell.x == game->cell.x && game->ennemies[game->i_ennemy].cell.y == game->cell.y)
+			end_game(game, LOOSE);
 		if (ennemy_position_can_move(game, pos_trgt, code))
 			move_ennemy_position(game, pos_trgt, code);
 	}

@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 12:32:24 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/11 23:42:22 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/12 18:39:16 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,16 @@ int	player_position_can_move(t_game *game, t_axe pos_trgt, int keycode)
 
 void	move_player_position(t_game *game, t_axe pos_trgt, int keycode)
 {
-	if (is(ENNEMY, game->map[pos_trgt.y][pos_trgt.x]))
+	if (keycode == KEY_S && game->get_boots == 1)
+		jump(game);
+	else if (is(ENNEMY, game->map[pos_trgt.y][pos_trgt.x]))
 		end_game(game, LOOSE);
 	else if (game->map[pos_trgt.y][pos_trgt.x] == 'e')
 		end_game(game, WIN);
 	else if (game->map[pos_trgt.y][pos_trgt.x] == 'H')
 		game->get_hammer = 1;
+	else if (game->map[pos_trgt.y][pos_trgt.x] == 'J')
+		game->get_boots = 1;
 	else if (game->map[pos_trgt.y][pos_trgt.x] == 'C')
         system("cvlc sound/coin.wav &");
     game->map[game->player.y][game->player.x] = '0';

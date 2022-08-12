@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:53:28 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/11 23:43:20 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/12 18:56:38 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,26 @@
 # define KEY_SPACE 32
 
 /* for QWERTY */
-// # define KEY_W 119
-// # define KEY_D 100
-// # define KEY_S 115
-// # define KEY_A 97
-
-/* for AZERTY */
-# define KEY_W 122
+# define KEY_W 119
 # define KEY_D 100
 # define KEY_S 115
-# define KEY_A 113
+# define KEY_A 97
+
+/* for AZERTY */
+// # define KEY_W 122
+// # define KEY_D 100
+// # define KEY_S 115
+// # define KEY_A 113
 
 # define WIDTH 1920 / 2
 # define HEIGHT 1080 / 2
 # define CELL 48
-# define VALID_CHAR "01CEPMH"
-# define COLLECTIBLES "CEeH"
-# define ALL "01CEePMURDLurdlH"
+# define VALID_CHAR "01CEPMHJ"
+# define COLLECTIBLES "CEeHJ"
+# define ALL "01CEePMURDLurdlHJ"
 # define ENNEMY "MURDL"
 # define LOWER_ENNEMY "urdl"
-# define ENNEMY_OBSTACLE "1CEMURDLH"
+# define ENNEMY_OBSTACLE "1CEMURDLHJ"
 
 # include "mlx_linux/mlx.h"
 # include "libft/libft.h"
@@ -99,8 +99,10 @@ typedef struct	s_game {
 	int	ennemy_count;
 	int	i_ennemy;
 	int	state_ennemy;
+	int	speed_ennemy;
 	int	all_coins;
 	int	get_hammer;
+	int	get_boots;
 	t_data	screen;
 	t_data	grass;
 	t_data	wall_one;
@@ -233,17 +235,13 @@ int		run_game(t_game *game);
 void	initialize_mlx(t_game *game);
 
 /* zoubir.c */
+void	jump(t_game *game);
 void	hammer_hit(t_game *game);
 void	get_ennemies_data(t_game *game, t_axe pos);
 void	get_ennemies_count(t_game *game, t_axe pos);
 int		is_surrounded_by(t_game *game, t_axe pos, char c);
 int		is_valid_char(char c, int *cep);
 int		is(char *str, char c);
-
-/* move_ennemy.c */
-// void	change_direction(t_game *game, t_axe pos);
-// int		move_ennemy(t_game *game, t_axe pos, t_axe trgt);
-// int		get_direction(t_game *game, t_axe pos, int (*f)(t_game *, t_axe, t_axe));
 
 /* move_ennemy.c */
 int		ennemy_sprite_can_move(t_game *game, t_axe pos_trgt, char code);

@@ -12,14 +12,31 @@
 
 #include "../so_long.h"
 
+void	jump(t_game *game)
+{
+	if (is(ENNEMY, game->map[game->player.y + 1][game->player.x]))
+	{
+		if (game->direction == 'A' || game->direction == 'B')
+			game->map[game->player.y + 1][game->player.x] = '0';
+	}
+}
+
 void	hammer_hit(t_game *game)
 {
-	if (game->direction == 'a' || game->direction == 'b')
+	if (is(ENNEMY, game->map[game->player.y - 1][game->player.x]))
 	{
-		if (is(ENNEMY, game->map[game->player.y - 1][game->player.x]))
-		{
+		if (game->direction == 'a' || game->direction == 'b')
 			game->map[game->player.y - 1][game->player.x] = '0';
-		}
+	}
+	else if (game->direction == 'B')
+	{
+		if (is(ENNEMY, game->map[game->player.y][game->player.x + 1]))
+			game->map[game->player.y][game->player.x + 1] = '0';
+	}
+	else if (game->direction == 'A')
+	{
+		if (is(ENNEMY, game->map[game->player.y][game->player.x - 1]))
+			game->map[game->player.y][game->player.x - 1] = '0';
 	}
 }
 
