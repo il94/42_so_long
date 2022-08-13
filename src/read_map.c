@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 13:53:24 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/11 22:10:57 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/12 20:18:11 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	open_exit_door(t_game *game, t_axe pos)
 	game->map[pos.y][pos.x] = 'e';
 	system("pkill vlc");
 	system("cvlc sound/star_spawn.wav &");
-	sleep(3);
+	sleep(13);
 	game->night = 1;
 	system("cvlc sound/star_way.wav &");
 	return (1);

@@ -36,130 +36,46 @@ int	can_be_started(int ac, char **av, t_game *game)
 	return (1);
 }
 
-// int	get_input_keyboard(int keycode, t_game *game)
-// {
-// 	t_axe	cell_trgt;
-// 	t_axe	pos_trgt;
-
-// 	cell_trgt = game->cell;
-// 	pos_trgt = game->player;
-// 	if (keycode == KEY_W)
-// 	{
-// 		cell_trgt.y -= 8;
-// 		pos_trgt.y -= 1;
-// 	}
-// 	else if (keycode == KEY_D)
-// 	{
-// 		cell_trgt.x += 8;
-// 		pos_trgt.x += 1;
-// 	}
-// 	else if (keycode == KEY_S)
-// 	{
-// 		cell_trgt.y += 8;
-// 		pos_trgt.y += 1;
-// 	}
-// 	else if (keycode == KEY_A)
-// 	{
-// 		cell_trgt.x -= 8;
-// 		pos_trgt.x -= 1;
-// 	}
-// 	else if (keycode == KEY_SPACE && game->get_hammer == 1)
-// 		hammer_hit(game);
-// 	// else if (keycode == KEY_TAB)
-// 	// 	reboot_game(game);
-// 	else if (keycode == KEY_ESC)
-// 		mlx_loop_end(game->mlx);
-// 	move_player(game, cell_trgt, pos_trgt, keycode);
-// 	return (0);
-// }
-
 int	get_input_keyboard(int keycode, t_game *game)
-{
-	if (keycode == KEY_W)
-	{
-		game->move_up = 1;
-		game->move_right = 0;
-		game->move_down = 0;
-		game->move_left = 0;
-	}
-	else if (keycode == KEY_D)
-	{
-		game->move_right = 1;
-		game->move_up = 0;
-		game->move_down = 0;
-		game->move_left = 0;
-	}
-	else if (keycode == KEY_S)
-	{
-		game->move_down = 1;
-		game->move_up = 0;
-		game->move_right = 0;
-		game->move_left = 0;
-	}
-	else if (keycode == KEY_A)
-	{
-		game->move_left = 1;
-		game->move_up = 0;
-		game->move_right = 0;
-		game->move_down = 0;
-	}
-	else if (keycode == KEY_SPACE && game->get_hammer == 1)
-		hammer_hit(game);
-	// else if (keycode == KEY_TAB)
-	// 	display_menu(game);
-	else if (keycode == KEY_ESC)
-		mlx_loop_end(game->mlx);
-	game->keycode = keycode;
-	return (0);
-}
-
-int	get_input_keyboard2(int keycode, t_game *game)
-{
-	if (keycode == KEY_W)
-		game->move_up = 0;
-	else if (keycode == KEY_D)
-		game->move_right = 0;
-	else if (keycode == KEY_S)
-		game->move_down = 0;
-	else if (keycode == KEY_A)
-		game->move_left = 0;
-	return (0);
-}
-
-void	get_player_direction(t_game *game)
 {
 	t_axe	cell_trgt;
 	t_axe	pos_trgt;
 
 	cell_trgt = game->cell;
 	pos_trgt = game->player;
-	if (game->move_up == 1)
+	if (keycode == KEY_W)
 	{
-		cell_trgt.y -= 2;
+		cell_trgt.y -= 8;
 		pos_trgt.y -= 1;
 	}
-	else if (game->move_right == 1)
+	else if (keycode == KEY_D)
 	{
-		cell_trgt.x += 2;
+		cell_trgt.x += 8;
 		pos_trgt.x += 1;
 	}
-	else if (game->move_down == 1)
+	else if (keycode == KEY_S)
 	{
-		cell_trgt.y += 2;
+		cell_trgt.y += 8;
 		pos_trgt.y += 1;
 	}
-	else if (game->move_left == 1)
+	else if (keycode == KEY_A)
 	{
-		cell_trgt.x -= 2;
+		cell_trgt.x -= 8;
 		pos_trgt.x -= 1;
 	}
-	move_player(game, cell_trgt, pos_trgt);
+	else if (keycode == KEY_SPACE && game->get_hammer == 1)
+		hammer_hit(game);
+	// else if (keycode == KEY_TAB)
+	// 	reboot_game(game);
+	else if (keycode == KEY_ESC)
+		mlx_loop_end(game->mlx);
+	move_player(game, cell_trgt, pos_trgt, keycode);
+	return (0);
 }
 
 int	run_game(t_game *game)
 {
 	put_elements(game);
-	get_player_direction(game);
 	while (game->i_ennemy < game->ennemy_count)
 	{
 		get_ennemy_direction(game, game->ennemies[game->i_ennemy].pos, game->ennemies[game->i_ennemy].cell);
@@ -198,10 +114,8 @@ void	initialize_mlx(t_game *game)
 	game->cell.y = (game->player.y * CELL) + CELL - (CELL / 6);
 	game->direction = 'P';
 	game->state = 0;
-	game->hit = '0';
 	game->state_ennemy = 0;
 	game->speed_ennemy = 200;
-	game->speed_player = 12;
 	game->moves = 0;
 	game->move_ennemy = 0;
 	game->all_coins = 0;
@@ -215,7 +129,6 @@ void	initialize_mlx(t_game *game)
 	get_images(game);
 	get_adresses(game);
 	mlx_hook(game->win, 2, 1L << 0, get_input_keyboard, game);
-	mlx_hook(game->win, 3, 1L << 1, get_input_keyboard2, game);
 	mlx_loop_hook(game->mlx, run_game, game);
 	mlx_hook(game->win, 17, 0, mlx_loop_end, game->mlx);
 	system("cvlc sound/march_ahead.wav &");
