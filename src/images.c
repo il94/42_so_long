@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 00:08:03 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/08 15:45:12 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/14 17:56:56 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,24 +28,12 @@ void	get_images_environnement(t_game *game)
 
 void	get_images_mobs(t_game *game)
 {
-	game->mario.img = mlx_xpm_file_to_image(game->mlx, "xpm/mario.xpm",
-			&game->mario.width, &game->mario.height);
-	game->goomba.img = mlx_xpm_file_to_image(game->mlx, "xpm/goomba.xpm",
-			&game->goomba.width, &game->goomba.height);
-	game->goomba_b.img = mlx_xpm_file_to_image(game->mlx, "xpm/goomba_b.xpm",
-			&game->goomba_b.width, &game->goomba_b.height);
-	game->goomba_g.img = mlx_xpm_file_to_image(game->mlx, "xpm/goomba_g.xpm",
-			&game->goomba_g.width, &game->goomba_g.height);
-	game->goomba_r.img = mlx_xpm_file_to_image(game->mlx, "xpm/goomba_r.xpm",
-			&game->goomba_r.width, &game->goomba_r.height);
+	/* while */
 }
 
 void	get_images_collectibles(t_game *game)
 {
-	game->coin.img = mlx_xpm_file_to_image(game->mlx, "xpm/coin.xpm",
-			&game->coin.width, &game->coin.height);
-	game->star.img = mlx_xpm_file_to_image(game->mlx, "xpm/star.xpm",
-			&game->star.width, &game->star.height);
+	/* while */
 }
 
 void	get_images(t_game *game)
@@ -250,5 +238,5 @@ void	get_images(t_game *game)
 
 
 	game->screen.img = mlx_new_image(game->mlx,
-			game->x_map * CELL, game->y_map * CELL);
+			game->max.x * CELL, game->max.y * CELL);
 }

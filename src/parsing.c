@@ -35,7 +35,7 @@ char	*get_data_map(char *file)
 
 int	is_valid_content(char **map)
 {
-	t_axe	pos;
+	t_pos	pos;
 	int		cep[3];
 
 	pos.y = 1;
@@ -57,28 +57,28 @@ int	is_valid_content(char **map)
 	return (0);
 }
 
-int	is_valid_border(char **map, int x_map, int y_map)
+int	is_valid_border(char **map, t_pos map_pos)
 {
-	t_axe	pos;
+	t_pos	pos;
 
 	pos.y = 0;
 	pos.x = 0;
-	while (pos.x != x_map)
+	while (pos.x != map_pos.x)
 	{
-		if (map[pos.y][pos.x] != '1' || map[y_map - 1][pos.x] != '1')
+		if (map[pos.y][pos.x] != '1' || map[map_pos.y - 1][pos.x] != '1')
 			return (0);
 		pos.x++;
 	}
-	while (pos.y != y_map)
+	while (pos.y != map_pos.y)
 	{
-		if (map[pos.y][0] != '1' || map[pos.y][x_map - 1] != '1')
+		if (map[pos.y][0] != '1' || map[pos.y][map_pos.x - 1] != '1')
 			return (0);
 		pos.y++;
 	}
 	return (1);
 }
 
-int	is_rectangular(char **map, int y_map)
+int	is_rectangular(char **map, int y)
 {
 	int	size_line;
 	int	i;
@@ -87,28 +87,27 @@ int	is_rectangular(char **map, int y_map)
 	i = 1;
 	while (map[i] && size_line == ft_strlen(map[i]))
 		i++;
-	if (i != y_map)
+	if (i != y)
 		return (0);
 	return (1);
 }
 
-int	is_valid_map(char ***map, char *file)
+int	is_valid_map(t_game *game, char *file)
 {
 	int		size_line;
 	int		count_line;
 	char	*str;
-	int		x_map;
-	int		y_map;
+	t_pos	map_pos;
 
 	str = get_data_map(file);
-	*map = ft_split(str, '\n');
-	x_map = ft_strlen(*map[0]);
-	y_map = ft_get_size_array(*map);
+	game->map = ft_split(str, '\n');
+	map_pos.x = ft_strlen(game->map[0]);
+	map_pos.y = ft_get_size_array(game->map);
 	free(str);
-	if (y_map < 3 || !is_rectangular(*map, y_map)
-		|| !is_valid_border(*map, x_map, y_map) || !is_valid_content(*map))
+	if (map_pos.y < 3 || !is_rectangular(game->map, map_pos.y)
+		|| !is_valid_border(game->map, map_pos) || !is_valid_content(game->map))
 	{
-		ft_free_array(*map);
+		ft_free_array(game->map);
 		return (0);
 	}
 	return (1);

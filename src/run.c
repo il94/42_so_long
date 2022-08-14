@@ -28,7 +28,7 @@ int	can_be_started(int ac, char **av, t_game *game)
 		ft_printf("Bad input\n");
 		exit (1);
 	}
-	if (!is_valid_map(&game->map, av[1]))
+	if (!is_valid_map(game, av[1]))
 	{
 		ft_printf("Invalid map\n");
 		exit (1);
@@ -36,75 +36,43 @@ int	can_be_started(int ac, char **av, t_game *game)
 	return (1);
 }
 
-// int	get_input_keyboard(int keycode, t_game *game)
-// {
-// 	t_axe	cell_trgt;
-// 	t_axe	pos_trgt;
-
-// 	cell_trgt = game->cell;
-// 	pos_trgt = game->player;
-// 	if (keycode == KEY_W)
-// 	{
-// 		cell_trgt.y -= 8;
-// 		pos_trgt.y -= 1;
-// 	}
-// 	else if (keycode == KEY_D)
-// 	{
-// 		cell_trgt.x += 8;
-// 		pos_trgt.x += 1;
-// 	}
-// 	else if (keycode == KEY_S)
-// 	{
-// 		cell_trgt.y += 8;
-// 		pos_trgt.y += 1;
-// 	}
-// 	else if (keycode == KEY_A)
-// 	{
-// 		cell_trgt.x -= 8;
-// 		pos_trgt.x -= 1;
-// 	}
-// 	else if (keycode == KEY_SPACE && game->get_hammer == 1)
-// 		hammer_hit(game);
-// 	// else if (keycode == KEY_TAB)
-// 	// 	reboot_game(game);
-// 	else if (keycode == KEY_ESC)
-// 		mlx_loop_end(game->mlx);
-// 	move_player(game, cell_trgt, pos_trgt, keycode);
-// 	return (0);
-// }
-
-int	get_input_keyboard(int keycode, t_game *game)
+int	key_press(int keycode, t_game *game)
 {
 	if (keycode == KEY_W)
 	{
-		game->move_up = 1;
-		game->move_right = 0;
-		game->move_down = 0;
-		game->move_left = 0;
+		game->move_up = TRUE;
+		game->move_right = FALSE;
+		game->move_down = FALSE;
+		game->move_left = FALSE;
 	}
 	else if (keycode == KEY_D)
 	{
-		game->move_right = 1;
-		game->move_up = 0;
-		game->move_down = 0;
-		game->move_left = 0;
+		game->move_right = TRUE;
+		game->move_up = FALSE;
+		game->move_down = FALSE;
+		game->move_left = FALSE;
 	}
 	else if (keycode == KEY_S)
 	{
-		game->move_down = 1;
-		game->move_up = 0;
-		game->move_right = 0;
-		game->move_left = 0;
+		game->move_down = TRUE;
+		game->move_up = FALSE;
+		game->move_right = FALSE;
+		game->move_left = FALSE;
 	}
 	else if (keycode == KEY_A)
 	{
-		game->move_left = 1;
-		game->move_up = 0;
-		game->move_right = 0;
-		game->move_down = 0;
+		game->move_left = TRUE;
+		game->move_up = FALSE;
+		game->move_right = FALSE;
+		game->move_down = FALSE;
 	}
-	else if (keycode == KEY_SPACE && game->get_hammer == 1)
-		hammer_hit(game);
+	else if (keycode == KEY_SPACE)
+	{
+		if (game->get_hammer)
+			hammer_hit(game);
+		else if (game->get_boots && game->move_down)
+			jump(game);
+	}
 	// else if (keycode == KEY_TAB)
 	// 	display_menu(game);
 	else if (keycode == KEY_ESC)
@@ -113,64 +81,28 @@ int	get_input_keyboard(int keycode, t_game *game)
 	return (0);
 }
 
-int	get_input_keyboard2(int keycode, t_game *game)
+int	key_release(int keycode, t_game *game)
 {
 	if (keycode == KEY_W)
-		game->move_up = 0;
+		game->move_up = FALSE;
 	else if (keycode == KEY_D)
-		game->move_right = 0;
+		game->move_right = FALSE;
 	else if (keycode == KEY_S)
-		game->move_down = 0;
+		game->move_down = FALSE;
 	else if (keycode == KEY_A)
-		game->move_left = 0;
+		game->move_left = FALSE;
 	return (0);
-}
-
-void	get_player_direction(t_game *game)
-{
-	t_axe	cell_trgt;
-	t_axe	pos_trgt;
-
-	cell_trgt = game->cell;
-	pos_trgt = game->player;
-	if (game->move_up == 1)
-	{
-		cell_trgt.y -= 2;
-		pos_trgt.y -= 1;
-	}
-	else if (game->move_right == 1)
-	{
-		cell_trgt.x += 2;
-		pos_trgt.x += 1;
-	}
-	else if (game->move_down == 1)
-	{
-		cell_trgt.y += 2;
-		pos_trgt.y += 1;
-	}
-	else if (game->move_left == 1)
-	{
-		cell_trgt.x -= 2;
-		pos_trgt.x -= 1;
-	}
-	move_player(game, cell_trgt, pos_trgt);
 }
 
 int	run_game(t_game *game)
 {
 	put_elements(game);
-	get_player_direction(game);
-	while (game->i_ennemy < game->ennemy_count)
+	move_player(game);
+	move_all_ennemies(game);
+	if (!game->all_coins && !read_map(game, "C", &more_collectibles))
 	{
-		get_ennemy_direction(game, game->ennemies[game->i_ennemy].pos, game->ennemies[game->i_ennemy].cell);
-		game->i_ennemy++;
-	}
-	game->i_ennemy = 0;
-	spawn_ennemy(game);
-	if (game->all_coins == 0 && !read_map(game, 'C', &more_collectibles))
-	{
-		game->all_coins = 1;
-		read_map(game, 'E', &open_exit_door);
+		game->all_coins = TRUE;
+		read_map(game, "E", &open_exit_door);
 		kill_ennemies(game);
 	}
 	return (0);
@@ -182,40 +114,39 @@ void	initialize_mlx(t_game *game)
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		exit (0);
-	game->x_map = ft_strlen(game->map[0]);
-	game->y_map = ft_get_size_array(game->map);
-	game->time_a = (unsigned int)time(NULL);
-	read_map(game, 'P', &get_player_position);
-	game->ennemy_count = 0;
-	read_all_map(game, 'M', &get_ennemies_count);
-	game->ennemies = malloc(game->ennemy_count * sizeof(t_data));
-	if (!game->ennemies)
-		/* free */
-	game->ennemies = NULL;
-	read_all_map(game, 'M', &get_ennemies_data);
-	game->i_ennemy = 0;
-	game->cell.x = (game->player.x * CELL) + (CELL / 2);
-	game->cell.y = (game->player.y * CELL) + CELL - (CELL / 6);
-	game->direction = 'P';
-	game->state = 0;
-	game->hit = '0';
-	game->state_ennemy = 0;
-	game->speed_ennemy = 200;
-	game->speed_player = 12;
-	game->moves = 0;
-	game->move_ennemy = 0;
-	game->all_coins = 0;
-	game->get_hammer = 0;
-	game->get_boots = 0;
-	game->night = 0;
+	game->max.x = ft_strlen(game->map[0]);
+	game->max.y = ft_get_size_array(game->map);
 	game->win = mlx_new_window(game->mlx,
-			game->x_map * CELL, game->y_map * CELL, "Paper Mario");
+			game->max.x * CELL, game->max.y * CELL, "Paper Mario");
+	game->night = FALSE;
+	game->all_coins = FALSE;
+	game->get_hammer = FALSE;
+	game->get_boots = FALSE;
+	read_map(game, "P", &get_player_position);
+	game->player_direction = 'P';
+	game->player_state = 0;
+	game->player_steps = 0;
+	game->player_animation_speed = 12;
+	game->is_hitting = FALSE;
+	game->is_jumping = FALSE;
+	game->move_up = FALSE;
+	game->move_right = FALSE;
+	game->move_down = FALSE;
+	game->move_left = FALSE;
+	game->ennemy_count = 0;
+	read_all_map(game, "M", &get_ennemies_count);
+	game->ennemies = malloc(game->ennemy_count * sizeof(t_data));
+	// if (!game->ennemies)
+		/* free */
+	read_all_map(game, "M", &get_ennemies_data);
+	game->state_ennemy = 0;
+	game->speed_animation_ennemy = 200;
 	if (!game->win)
 		exit (0);
 	get_images(game);
 	get_adresses(game);
-	mlx_hook(game->win, 2, 1L << 0, get_input_keyboard, game);
-	mlx_hook(game->win, 3, 1L << 1, get_input_keyboard2, game);
+	mlx_hook(game->win, 2, 1L << 0, key_press, game);
+	mlx_hook(game->win, 3, 1L << 1, key_release, game);
 	mlx_loop_hook(game->mlx, run_game, game);
 	mlx_hook(game->win, 17, 0, mlx_loop_end, game->mlx);
 	system("cvlc sound/march_ahead.wav &");

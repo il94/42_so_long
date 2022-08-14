@@ -12,21 +12,44 @@
 
 #include "../so_long.h"
 
-int	loose_condition_p(t_game *game)
+int	collision_player_ennemy(t_game *game)
 {
 	int	i;
 
 	i = 0;
 	while (i < game->ennemy_count)
 	{
-		if (game->ennemies[i].cell.x >= game->cell.x - 20 /* left */
-			&& game->ennemies[i].cell.x <= game->cell.x + 20 /* right */
-			&& game->ennemies[i].cell.y >= game->cell.y - 25 /* up */
-			&& game->ennemies[i].cell.y <= game->cell.y + 25) /* down */
+		if (game->ennemies[i].cell.x >= game->player_cell.x - 20 /* left */
+			&& game->ennemies[i].cell.x <= game->player_cell.x + 20 /* right */
+			&& game->ennemies[i].cell.y >= game->player_cell.y - 25 /* up */
+			&& game->ennemies[i].cell.y <= game->player_cell.y + 25) /* down */
 			return (1);
 		i++;
 	}
 	return (0);
+}
+
+void	jump(t_game *game)
+{
+	int	i;
+
+	i = 0;
+	while (i < game->ennemy_count)
+	{
+		if (game->player_direction == 'l' || game->player_direction == 'r')
+		{
+			if (game->ennemies[i].cell.x >= game->player_cell.x - 24 && game->ennemies[i].cell.x <= game->player_cell.x + 24 && game->ennemies[i].cell.y >= game->player_cell.y - 50 && game->ennemies[i].cell.y <= game->player_cell.y + 10)
+			{
+				game->map[game->player_pos.y - 1][game->player_pos.x] = '0';
+				game->ennemies[i].cell.x = 1;
+				game->ennemies[i].cell.y = 1;
+				game->ennemies[i].pos.x = 1;
+				game->ennemies[i].pos.y = 1;
+			}
+		}
+		i++;
+	}
+	game->is_jumping = TRUE;
 }
 
 void	hammer_hit(t_game *game)
@@ -36,34 +59,33 @@ void	hammer_hit(t_game *game)
 	i = 0;
 	while (i < game->ennemy_count)
 	{
-		if (game->direction == 'a' || game->direction == 'b')
+		if (game->player_direction == 'l' || game->player_direction == 'r')
 		{
-			if (game->ennemies[i].cell.x >= game->cell.x - 24 && game->ennemies[i].cell.x <= game->cell.x + 24 && game->ennemies[i].cell.y >= game->cell.y - 50 && game->ennemies[i].cell.y <= game->cell.y + 10)
+			if (game->ennemies[i].cell.x >= game->player_cell.x - 24 && game->ennemies[i].cell.x <= game->player_cell.x + 24 && game->ennemies[i].cell.y >= game->player_cell.y - 50 && game->ennemies[i].cell.y <= game->player_cell.y + 10)
 			{
-				game->map[game->player.y - 1][game->player.x] = '0';
+				game->map[game->player_pos.y - 1][game->player_pos.x] = '0';
 				game->ennemies[i].cell.x = 1;
 				game->ennemies[i].cell.y = 1;
 				game->ennemies[i].pos.x = 1;
 				game->ennemies[i].pos.y = 1;
 			}
 		}
-		else if (game->direction == 'B')
+		else if (game->player_direction == 'R')
 		{
-			if (game->ennemies[i].cell.x >= game->cell.x - 10 && game->ennemies[i].cell.x <= game->cell.x + 50 && game->ennemies[i].cell.y >= game->cell.y - 24 && game->ennemies[i].cell.y <= game->cell.y + 24)
+			if (game->ennemies[i].cell.x >= game->player_cell.x - 10 && game->ennemies[i].cell.x <= game->player_cell.x + 50 && game->ennemies[i].cell.y >= game->player_cell.y - 24 && game->ennemies[i].cell.y <= game->player_cell.y + 24)
 			{
-				game->map[game->player.y][game->player.x + 1] = '0';
+				game->map[game->player_pos.y][game->player_pos.x + 1] = '0';
 				game->ennemies[i].cell.x = 1;
 				game->ennemies[i].cell.y = 1;
 				game->ennemies[i].pos.x = 1;
 				game->ennemies[i].pos.y = 1;
 			}
 		}
-		else if (game->direction == 'A')
+		else if (game->player_direction == 'L')
 		{
-			game->hit = 'l';
-			if (game->ennemies[i].cell.x >= game->cell.x - 50 && game->ennemies[i].cell.x <= game->cell.x + 10 && game->ennemies[i].cell.y >= game->cell.y - 24 && game->ennemies[i].cell.y <= game->cell.y + 24)
+			if (game->ennemies[i].cell.x >= game->player_cell.x - 50 && game->ennemies[i].cell.x <= game->player_cell.x + 10 && game->ennemies[i].cell.y >= game->player_cell.y - 24 && game->ennemies[i].cell.y <= game->player_cell.y + 24)
 			{
-				game->map[game->player.y][game->player.x - 1] = '0';
+				game->map[game->player_pos.y][game->player_pos.x - 1] = '0';
 				game->ennemies[i].cell.x = 1;
 				game->ennemies[i].cell.y = 1;
 				game->ennemies[i].pos.x = 1;
@@ -72,28 +94,10 @@ void	hammer_hit(t_game *game)
 		}
 		i++;
 	}
+	game->is_hitting = TRUE;
 }
 
-// void	hammer_hit(t_game *game)
-// {
-// 	if (is(ENNEMY, game->map[game->player.y - 1][game->player.x]))
-// 	{
-// 		if (game->direction == 'a' || game->direction == 'b')
-// 			game->map[game->player.y - 1][game->player.x] = '0';
-// 	}
-// 	else if (game->direction == 'B')
-// 	{
-// 		if (is(ENNEMY, game->map[game->player.y][game->player.x + 1]))
-// 			game->map[game->player.y][game->player.x + 1] = '0';
-// 	}
-// 	else if (game->direction == 'A')
-// 	{
-// 		if (is(ENNEMY, game->map[game->player.y][game->player.x - 1]))
-// 			game->map[game->player.y][game->player.x - 1] = '0';
-// 	}
-// }
-
-void	get_ennemies_data(t_game *game, t_axe pos)
+void	get_ennemies_data(t_game *game, t_pos pos)
 {
 	static int	i;
 
@@ -105,12 +109,12 @@ void	get_ennemies_data(t_game *game, t_axe pos)
 	i++;
 }
 
-void	get_ennemies_count(t_game *game, t_axe pos)
+void	get_ennemies_count(t_game *game, t_pos pos)
 {
 	game->ennemy_count++;
 }
 
-int	is_surrounded_by(t_game *game, t_axe pos, char c)
+int	is_surrounded_by(t_game *game, t_pos pos, char c)
 {
 	return (game->map[pos.y + 1][pos.x] == c
 			&& game->map[pos.y][pos.x + 1] == c

@@ -12,109 +12,122 @@
 
 #include "../so_long.h"
 
-int	ennemy_sprite_can_move(t_game *game, t_axe pos_trgt, char code)
+void	change_direction(t_game *game, char code, int i)
+{
+	if (code == 'D')
+		game->map[game->ennemies[i].pos.y][game->ennemies[i].pos.x] = 'R';
+	else if (code == 'R')
+		game->map[game->ennemies[i].pos.y][game->ennemies[i].pos.x] = 'U';
+	else if (code == 'U')
+		game->map[game->ennemies[i].pos.y][game->ennemies[i].pos.x] = 'L';
+	else if (code == 'L')
+		game->map[game->ennemies[i].pos.y][game->ennemies[i].pos.x] = 'D';
+}
+
+int	ennemy_sprite_can_move(t_game *game, t_pos pos_trgt, char code, int i)
 {
 	if (code == 'U' && (!is(ENNEMY_OBSTACLE, game->map[pos_trgt.y][pos_trgt.x])
-		|| game->ennemies[game->i_ennemy].pos.y * CELL < game->ennemies[game->i_ennemy].cell.y - CELL / 2))
+		|| game->ennemies[i].pos.y * CELL < game->ennemies[i].cell.y - CELL / 2))
 		return (1);
 	else if (code == 'R' && (!is(ENNEMY_OBSTACLE, game->map[pos_trgt.y][pos_trgt.x])
-		|| game->ennemies[game->i_ennemy].pos.x * CELL >= game->ennemies[game->i_ennemy].cell.x - CELL / 2))
+		|| game->ennemies[i].pos.x * CELL >= game->ennemies[i].cell.x - CELL / 2))
 		return (1);
 	else if (code == 'D' && (!is(ENNEMY_OBSTACLE, game->map[pos_trgt.y][pos_trgt.x])
-		|| game->ennemies[game->i_ennemy].pos.y * CELL > game->ennemies[game->i_ennemy].cell.y - CELL / 2))
+		|| game->ennemies[i].pos.y * CELL > game->ennemies[i].cell.y - CELL / 2))
 		return (1);
 	else if (code == 'L' && (!is(ENNEMY_OBSTACLE, game->map[pos_trgt.y][pos_trgt.x])
-		|| game->ennemies[game->i_ennemy].pos.x * CELL <= game->ennemies[game->i_ennemy].cell.x - CELL / 2))
+		|| game->ennemies[i].pos.x * CELL <= game->ennemies[i].cell.x - CELL / 2))
 		return (1);
 	return (0);
 }
 
-void	move_ennemy_sprite(t_game *game, t_axe cell_trgt)
+void	move_ennemy_sprite(t_game *game, t_pos cell_trgt, int i)
 {
-	game->ennemies[game->i_ennemy].cell = cell_trgt;
-	if (game->state_ennemy++ >= game->speed_ennemy)
+	game->ennemies[i].cell = cell_trgt;
+	if (game->state_ennemy++ >= game->speed_animation_ennemy)
 		game->state_ennemy = 0;
 }
 
-int	ennemy_position_can_move(t_game *game, t_axe pos_trgt, char code)
+int	ennemy_position_can_move(t_game *game, t_pos pos_trgt, char code, int i)
 {
 	if (code == 'U' && !is(ENNEMY_OBSTACLE, game->map[pos_trgt.y][pos_trgt.x])
-        && game->ennemies[game->i_ennemy].cell.y / CELL < game->ennemies[game->i_ennemy].pos.y)
+        && game->ennemies[i].cell.y / CELL < game->ennemies[i].pos.y)
 		return (1);
 	else if (code == 'R' && !is(ENNEMY_OBSTACLE, game->map[pos_trgt.y][pos_trgt.x])
-            && game->ennemies[game->i_ennemy].cell.x > game->ennemies[game->i_ennemy].pos.x * CELL - (CELL / 3) + CELL)
+            && game->ennemies[i].cell.x > game->ennemies[i].pos.x * CELL - (CELL / 3) + CELL)
 		return (1);
 	else if (code == 'D' && !is(ENNEMY_OBSTACLE, game->map[pos_trgt.y][pos_trgt.x])
-            && game->ennemies[game->i_ennemy].cell.y / CELL > game->ennemies[game->i_ennemy].pos.y)
+            && game->ennemies[i].cell.y / CELL > game->ennemies[i].pos.y)
 		return (1);
 	else if (code == 'L' && !is(ENNEMY_OBSTACLE, game->map[pos_trgt.y][pos_trgt.x])
-            && game->ennemies[game->i_ennemy].cell.x < game->ennemies[game->i_ennemy].pos.x * CELL + (CELL / 3))
+            && game->ennemies[i].cell.x < game->ennemies[i].pos.x * CELL + (CELL / 3))
 		return (1);
 	return (0);
 }
 
-void	move_ennemy_position(t_game *game, t_axe trgt, char code)
+void	move_ennemy_position(t_game *game, t_pos trgt, char code, int i)
 {
-	game->map[game->ennemies[game->i_ennemy].pos.y][game->ennemies[game->i_ennemy].pos.x] = '0';
-	game->ennemies[game->i_ennemy].pos.x = trgt.x;
-	game->ennemies[game->i_ennemy].pos.y = trgt.y;
+	game->map[game->ennemies[i].pos.y][game->ennemies[i].pos.x] = '0';
+	game->ennemies[i].pos.x = trgt.x;
+	game->ennemies[i].pos.y = trgt.y;
 	game->map[trgt.y][trgt.x] = ft_tolower(code);
 }
 
-int	move_ennemy(t_game *game, t_axe cell_trgt, t_axe pos_trgt)
+void	move_ennemy(t_game *game, t_pos pos_trgt, t_pos cell_trgt, int i)
 {
 	char	code;
 
-	// ft_print_array(game->map);
-	// printf("cell player : x = %d | y = %d\n", game->cell.x, game->cell.y);
-	// printf("cell goomba : x = %d | y = %d\n", game->ennemies[game->i_ennemy].cell.x, game->ennemies[game->i_ennemy].cell.y);
-	code = game->map[game->ennemies[game->i_ennemy].pos.y][game->ennemies[game->i_ennemy].pos.x];
-	if (ennemy_sprite_can_move(game, pos_trgt, code))
+	code = game->map[game->ennemies[i].pos.y][game->ennemies[i].pos.x];
+	if (ennemy_sprite_can_move(game, pos_trgt, code, i))
 	{
-		move_ennemy_sprite(game, cell_trgt);
-		if (ennemy_position_can_move(game, pos_trgt, code))
-			move_ennemy_position(game, pos_trgt, code);
+		move_ennemy_sprite(game, cell_trgt, i);
+		if (ennemy_position_can_move(game, pos_trgt, code, i))
+			move_ennemy_position(game, pos_trgt, code, i);
 	}
 	else
-		change_direction(game, game->ennemies[game->i_ennemy].cell, game->ennemies[game->i_ennemy].pos, code);
-	return (0);
+		change_direction(game, code, i);
 }
 
-void	change_direction(t_game *game, t_axe cell_trgt, t_axe pos_trgt, char code)
+void	get_ennemy_direction(t_game *game, t_pos *pos, t_pos *cell)
 {
-	if (code == 'D')
-		game->map[game->ennemies[game->i_ennemy].pos.y][game->ennemies[game->i_ennemy].pos.x] = 'R';
-	else if (code == 'R')
-		game->map[game->ennemies[game->i_ennemy].pos.y][game->ennemies[game->i_ennemy].pos.x] = 'U';
-	else if (code == 'U')
-		game->map[game->ennemies[game->i_ennemy].pos.y][game->ennemies[game->i_ennemy].pos.x] = 'L';
-	else if (code == 'L')
-		game->map[game->ennemies[game->i_ennemy].pos.y][game->ennemies[game->i_ennemy].pos.x] = 'D';
+	if (game->map[pos->y][pos->x] == 'M')
+		game->map[pos->y][pos->x] = 'D';
+	if (game->map[pos->y][pos->x] == 'D')
+	{
+		pos->y++;
+		cell->y++;
+	}
+	else if (game->map[pos->y][pos->x] == 'R')
+	{
+		pos->x++;
+		cell->x++;
+	}
+	else if (game->map[pos->y][pos->x] == 'U')
+	{
+		pos->y--;
+		cell->y--;
+	}
+	else if (game->map[pos->y][pos->x] == 'L')
+	{
+		pos->x--;
+		cell->x--;
+	}
 }
 
-int	get_ennemy_direction(t_game *game, t_axe pos, t_axe cell)
+void	move_all_ennemies(t_game *game)
 {
-	if (game->map[pos.y][pos.x] == 'M')
-		game->map[pos.y][pos.x] = 'D';
-	if (game->map[pos.y][pos.x] == 'D')
+	int		i;
+	t_pos	pos;
+	t_pos	cell;
+
+	i = 0;
+	while (i < game->ennemy_count)
 	{
-		cell.y += 1;
-		pos.y += 1;
+		pos = game->ennemies[i].pos;
+		cell = game->ennemies[i].cell;
+		get_ennemy_direction(game, &pos, &cell);
+		move_ennemy(game, pos, cell, i);
+		i++;
 	}
-	else if (game->map[pos.y][pos.x] == 'R')
-	{
-		cell.x += 1;
-		pos.x += 1;
-	}
-	else if (game->map[pos.y][pos.x] == 'U')
-	{
-		cell.y -= 1;
-		pos.y -= 1;
-	}
-	else if (game->map[pos.y][pos.x] == 'L')
-	{
-		cell.x -= 1;
-		pos.x -= 1;
-	}
-	move_ennemy(game, cell, pos);
+	read_all_map(game, LOWER_ENNEMY, spawn_ennemy);
 }

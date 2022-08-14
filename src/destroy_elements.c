@@ -23,17 +23,12 @@ void	destroy_data_environnement(t_game *game)
 
 void	destroy_data_mobs(t_game *game)
 {
-	mlx_destroy_image(game->mlx, game->mario.img);
-	mlx_destroy_image(game->mlx, game->goomba.img);
-	mlx_destroy_image(game->mlx, game->goomba_b.img);
-	mlx_destroy_image(game->mlx, game->goomba_g.img);
-	mlx_destroy_image(game->mlx, game->goomba_r.img);
+	/* while */
 }
 
 void	destroy_data_collectibles(t_game *game)
 {
-	mlx_destroy_image(game->mlx, game->coin.img);
-	mlx_destroy_image(game->mlx, game->star.img);
+	/* while */
 }
 
 int	destroy_elements(t_game *game)

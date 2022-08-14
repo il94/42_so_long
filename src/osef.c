@@ -1,4 +1,4 @@
-int	get_input_keyboard(int keycode, t_game *game)
+int	key_press(int keycode, t_game *game)
 {
 	int			freq;
 	static int	delay2;
