@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 13:53:24 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/14 20:17:45 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/16 18:23:12 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	open_exit_door(t_game *game, t_pos pos)
 	game->map[pos.y][pos.x] = 'e';
 	system("pkill vlc");
 	system("cvlc sound/star_spawn.wav &");
-	sleep(13);
+	sleep(3);
 	game->night = TRUE;
 	system("cvlc sound/star_way.wav &");
 	return (1);
@@ -75,5 +75,17 @@ void	read_all_map(t_game *game, char *target, void (*f)(t_game *, t_pos))
 			pos.x++;
 		}
 		pos.y++;
+	}
+}
+
+void	iterate_ennemies(t_game *game, void (*f)(t_game *, t_data *))
+{
+	int	i;
+
+	i = 0;
+	while (i < game->ennemy_count)
+	{
+		(*f)(game, &game->ennemies[i]);
+		i++;
 	}
 }

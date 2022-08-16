@@ -68,13 +68,13 @@ int	key_press(int keycode, t_game *game)
 	}
 	else if (keycode == KEY_SPACE)
 	{
-		if (game->get_hammer)
-			hammer_hit(game);
-		else if (game->get_boots && game->move_down)
+		if (game->move_down)
 			jump(game);
+		else if (game->get_hammer)
+			hammer_hit(game);
 	}
-	// else if (keycode == KEY_TAB)
-	// 	display_menu(game);
+	else if (keycode == KEY_TAB)
+		display_menu(game);
 	else if (keycode == KEY_ESC)
 		mlx_loop_end(game->mlx);
 	game->keycode = keycode;
@@ -96,14 +96,17 @@ int	key_release(int keycode, t_game *game)
 
 int	run_game(t_game *game)
 {
+	// printf("cell player : x = %d | y = %d\n", game->player_cell.x, game->player_cell.y);
+	ft_print_array(game->map);
+	printf("=========\n");
 	put_elements(game);
 	move_player(game);
 	move_all_ennemies(game);
 	if (!game->all_coins && !read_map(game, "C", &more_collectibles))
 	{
 		game->all_coins = TRUE;
-		read_map(game, "E", &open_exit_door);
-		kill_ennemies(game);
+		read_map(game, "E", open_exit_door);
+		iterate_ennemies(game, kill_ennemy);
 	}
 	return (0);
 }
@@ -121,11 +124,12 @@ void	initialize_mlx(t_game *game)
 	game->night = FALSE;
 	game->all_coins = FALSE;
 	game->get_hammer = FALSE;
-	game->get_boots = FALSE;
+	game->menu_opened = FALSE;
 	read_map(game, "P", &get_player_position);
 	game->player_direction = 'P';
 	game->player_state = 0;
 	game->player_steps = 0;
+	game->max_player_steps = FALSE;
 	game->player_animation_speed = 12;
 	game->is_hitting = FALSE;
 	game->is_jumping = FALSE;
@@ -134,7 +138,7 @@ void	initialize_mlx(t_game *game)
 	game->move_down = FALSE;
 	game->move_left = FALSE;
 	game->ennemy_count = 0;
-	read_all_map(game, "M", &get_ennemies_count);
+	read_all_map(game, "M", get_ennemies_count);
 	game->ennemies = malloc(game->ennemy_count * sizeof(t_data));
 	// if (!game->ennemies)
 		/* free */

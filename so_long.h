@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:53:28 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/14 22:03:14 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/16 18:21:58 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@
 // # define KEY_A 113
 
 # define CELL 48
-# define VALID_CHAR "01CEPMHB"
-# define COLLECTIBLES "CEeHB"
-# define ALL "01CEePMURDLurdlHB"
+# define VALID_CHAR "01CEPMH"
+# define COLLECTIBLES "CEeH"
+# define ALL "01CEePMURDLurdlH"
 # define ENNEMY "MURDL"
 # define LOWER_ENNEMY "urdl"
-# define ENNEMY_OBSTACLE "1CEMURDLHB"
+# define ENNEMY_OBSTACLE "1CEMURDLH"
 
 # include "mlx_linux/mlx.h"
 # include "libft/libft.h"
@@ -51,7 +51,9 @@ typedef enum	e_sprite {
 	HAMMER_LEFT_1,
 	HAMMER_LEFT_2,
 	HAMMER_RIGHT_1,
-	HAMMER_RIGHT_2
+	HAMMER_RIGHT_2,
+	MENU,
+	TEST
 }				t_sprite;
 
 typedef enum	e_bool {
@@ -87,12 +89,13 @@ typedef struct	s_game {
 	void	*mlx;
 	void	*win;
 	t_data	screen;
+	t_data	menu_full;
 	
 	/* data game */
 	t_bool	night;
 	t_bool	all_coins;
 	t_bool	get_hammer;
-	t_bool	get_boots;
+	t_bool	menu_opened;
 	int		keycode;
 
 	/* data map */
@@ -105,6 +108,7 @@ typedef struct	s_game {
 	char	player_direction;
 	int		player_state;
 	int		player_steps;
+	t_bool	max_player_steps;
 	int		player_animation_speed;
 	t_bool	is_hitting;
 	t_bool	is_jumping;
@@ -120,64 +124,57 @@ typedef struct	s_game {
 	int		speed_animation_ennemy;
 	
 	/* images environnement */
-	t_data		grass;
-	t_data		wall_one;
-	t_data		wall_mid;
-	t_data		wall_top;
-	t_data		wall_bot;
-	t_data		grass_shadow;
-	t_data		wall_one_shadow;
-	t_data		wall_mid_shadow;
-	t_data		wall_top_shadow;
-	t_data		wall_bot_shadow;
+	t_data		e_grass;
+	t_data		e_wall_one;
+	t_data		e_wall_mid;
+	t_data		e_wall_top;
+	t_data		e_wall_bot;
+	t_data		e_grass_shadow;
+	t_data		e_wall_one_shadow;
+	t_data		e_wall_mid_shadow;
+	t_data		e_wall_top_shadow;
+	t_data		e_wall_bot_shadow;
 
 	/* images player */
-	t_data		m_hammer_b_left;
-	t_data		m_hammer_b_left_2;
-	t_data		m_hammer_b_right;
-	t_data		m_hammer_b_right_2;
+
+	t_data		m_jump_left;
+	t_data		m_jump_right;
 	t_data		m_hammer_left;
 	t_data		m_hammer_left_2;
-	t_data		m_hammer_left_3;
 	t_data		m_hammer_right;
 	t_data		m_hammer_right_2;
-	t_data		m_hammer_right_3;
-	t_data		m_static_b_left;
-	t_data		m_static_b_right;
+	t_data		m_jump_left_light;
+	t_data		m_jump_right_light;
+	t_data		m_hammer_left_light;
+	t_data		m_hammer_left_light_2;
+	t_data		m_hammer_right_light;
+	t_data		m_hammer_right_light_2;
+
+	t_data		m_hammer_left_b;
+	t_data		m_hammer_left_b_2;
+	t_data		m_hammer_right_b;
+	t_data		m_hammer_right_b_2;
+	t_data		m_hammer_left_light_b;
+	t_data		m_hammer_left_light_b_2;
+	t_data		m_hammer_right_light_b;
+	t_data		m_hammer_right_light_b_2;
+/*============================================================================*/
 	t_data		m_static_left;
 	t_data		m_static_right;
-	t_data		m_walk_b_left;
-	t_data		m_walk_b_left_2;
-	t_data		m_walk_b_left_3;
-	t_data		m_walk_b_right;
-	t_data		m_walk_b_right_2;
-	t_data		m_walk_b_right_3;
+	t_data		m_static_left_light;
+	t_data		m_static_right_light;
+	
+	t_data		m_static_left_b;
+	t_data		m_static_right_b;
+	t_data		m_static_left_light_b;
+	t_data		m_static_right_light_b;
+/*============================================================================*/
 	t_data		m_walk_left;
 	t_data		m_walk_left_2;
 	t_data		m_walk_left_3;
 	t_data		m_walk_right;
 	t_data		m_walk_right_2;
 	t_data		m_walk_right_3;
-	t_data		m_hammer_b_left_light;
-	t_data		m_hammer_b_left_light_2;
-	t_data		m_hammer_b_right_light;
-	t_data		m_hammer_b_right_light_2;
-	t_data		m_hammer_left_light;
-	t_data		m_hammer_left_light_2;
-	t_data		m_hammer_left_light_3;
-	t_data		m_hammer_right_light;
-	t_data		m_hammer_right_light_2;
-	t_data		m_hammer_right_light_3;
-	t_data		m_static_b_left_light;
-	t_data		m_static_b_right_light;
-	t_data		m_static_left_light;
-	t_data		m_static_right_light;
-	t_data		m_walk_b_left_light;
-	t_data		m_walk_b_left_light_2;
-	t_data		m_walk_b_left_light_3;
-	t_data		m_walk_b_right_light;
-	t_data		m_walk_b_right_light_2;
-	t_data		m_walk_b_right_light_3;
 	t_data		m_walk_left_light;
 	t_data		m_walk_left_light_2;
 	t_data		m_walk_left_light_3;
@@ -185,6 +182,19 @@ typedef struct	s_game {
 	t_data		m_walk_right_light_2;
 	t_data		m_walk_right_light_3;
 
+	t_data		m_walk_left_b;
+	t_data		m_walk_left_b_2;
+	t_data		m_walk_left_b_3;
+	t_data		m_walk_right_b;
+	t_data		m_walk_right_b_2;
+	t_data		m_walk_right_b_3;
+	t_data		m_walk_left_light_b;
+	t_data		m_walk_left_light_b_2;
+	t_data		m_walk_left_light_b_3;
+	t_data		m_walk_right_light_b;
+	t_data		m_walk_right_light_b_2;
+	t_data		m_walk_right_light_b_3;
+/*============================================================================*/
 	/* images ennemies */
 	t_data		g;
 	t_data		g_2;
@@ -207,6 +217,8 @@ typedef struct	s_game {
 	t_data		s;
 	t_data		s_2;
 	t_data		s_3;
+	t_data		s_4;
+	t_data		s_5;
 	t_data		s_spawn;
 	t_data		s_spawn_2;
 	t_data		s_spawn_3;
@@ -227,7 +239,15 @@ typedef struct	s_game {
 	t_data		s_spawn_18;
 	t_data		s_spawn_19;
 	t_data		s_spawn_20;
-}				t_game;
+
+	/* images menu */
+	t_data		menu;
+	t_data		menu_2;
+	t_data		menu_3;
+	t_data		step;
+	t_data		steps;
+	t_data		numbers[10];
+	}				t_game;
 
 /* zoubir.c */
 int		collision_player_ennemy(t_game *game);
@@ -236,16 +256,14 @@ void	hammer_hit(t_game *game);
 void	jump(t_game *game);
 void	get_ennemies_data(t_game *game, t_pos pos);
 void	get_ennemies_count(t_game *game, t_pos pos);
-int		is_surrounded_by(t_game *game, t_pos pos, char c);
 int		is_valid_char(char c, int *cep);
 int		is(char *str, char c);
 
 /* so_long.c */
+void	display_menu(t_game *game);
 int		ennemy_proximity(t_game *game, t_pos pos);
-int		is_near(t_game *game, t_pos pos, char c);
-int		is_near_e(t_game *game, t_pos pos);
-int		is_near_p(t_game *game, t_pos pos);
-void	kill_ennemies(t_game *game);
+int		is_near(t_game *game, t_pos pos, char *str);
+void	kill_ennemy(t_game *game, t_data *ennemy);
 
 /* run.c */
 void	end_game(t_game *game, t_end condition);
@@ -281,19 +299,24 @@ int		open_exit_door(t_game *game, t_pos pos);
 int		get_player_position(t_game *game, t_pos pos);
 int		read_map(t_game *game, char *target,  int (*f)(t_game *, t_pos));
 void	read_all_map(t_game *game, char *target, void (*f)(t_game *, t_pos));
+void	iterate_ennemies(t_game *game, void (*f)(t_game *, t_data *));
 
 /* print.c */
 int		get_drawing_position(t_pos cell, t_pos map, t_sprite drawing_pos, char pos);
 int		draw_sprite(t_game *game, t_data *image, t_pos pos, t_sprite drawing_pos);
+int		draw_menu(t_game *game, t_data *image, t_pos trgt, t_sprite drawing_pos);
+void	put_moves(t_game *game);
+void	put_menu(t_game *game);
+void	put_jump(t_game *game);
 void	put_hammer(t_game *game);
 void	put_player(t_game *game);
-void	put_grass(t_game *game, t_pos pos);
-void	put_wall(t_game *game, t_pos pos);
+void	put_e_grass(t_game *game, t_pos pos);
+void	put_e_wall(t_game *game, t_pos pos);
 void	put_ennemy(t_game *game);
 void	put_star(t_game *game, t_pos pos);
 void	put_coins(t_game *game, t_pos pos);
 void	put_collectibles(t_game *game, t_pos pos);
-void	put_wall_to_player(t_game *game);
+void	put_e_wall_to_player(t_game *game);
 void	put_elements(t_game *game);
 
 /* adresses.c */

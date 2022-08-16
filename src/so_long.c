@@ -12,6 +12,20 @@
 
 #include "../so_long.h"
 
+void	display_menu(t_game *game)
+{
+	if (!game->menu_opened)
+	{
+		system("cvlc sound/open_menu.wav &");
+		game->menu_opened = TRUE;
+	}
+	else
+	{
+ 		system("cvlc sound/close_menu.wav &");
+		game->menu_opened = FALSE;
+	}
+}
+
 int	ennemy_proximity(t_game *game, t_pos pos)
 {
 	t_pos	target;
@@ -27,50 +41,26 @@ int	ennemy_proximity(t_game *game, t_pos pos)
 		target.x--;
 	if (game->player_pos.x == target.x && game->player_pos.y == target.y)
 		return (1);
-	if (is(ENNEMY_OBSTACLE, game->map[target.y][target.x]) && is_near_p(game, pos))
+	if (is(ENNEMY_OBSTACLE, game->map[target.y][target.x]) && is_near(game, pos, "P"))
 		return (2);
 	return (0);
 }
 
-int	is_near(t_game *game, t_pos pos, char c)
+int	is_near(t_game *game, t_pos pos, char *str)
 {
-	return (game->map[pos.y + 1][pos.x] == c
-			|| game->map[pos.y][pos.x + 1] == c
-			|| game->map[pos.y - 1][pos.x] == c
-			|| game->map[pos.y][pos.x - 1] == c);
+	return (is(str, game->map[pos.y + 1][pos.x])
+			|| is(str, game->map[pos.y][pos.x + 1])
+			|| is(str, game->map[pos.y - 1][pos.x])
+			|| is(str, game->map[pos.y][pos.x - 1]));
 }
 
-int	is_near_e(t_game *game, t_pos pos)
+void	kill_ennemy(t_game *game, t_data *ennemy)
 {
-	return (is(ENNEMY, game->map[pos.y + 1][pos.x])
-			|| is(ENNEMY, game->map[pos.y][pos.x + 1])
-			|| is(ENNEMY, game->map[pos.y - 1][pos.x])
-			|| is(ENNEMY, game->map[pos.y][pos.x - 1]));
-}
-
-int	is_near_p(t_game *game, t_pos pos)
-{
-	return (game->map[pos.y + 1][pos.x] == 'P'
-			|| game->map[pos.y][pos.x + 1] == 'P'
-			|| game->map[pos.y - 1][pos.x] == 'P'
-			|| game->map[pos.y][pos.x - 1] == 'P');
-}
-
-void	kill_ennemies(t_game *game)
-{
-	t_pos	pos;
-
 	system("cvlc sound/goomba.wav &");
-	pos.y = 1;
-	while (game->map[pos.y])
-	{
-		pos.x = 1;
-		while (game->map[pos.y][pos.x])
-		{
-			if (is(ENNEMY, game->map[pos.y][pos.x]))
-				game->map[pos.y][pos.x] = '0';
-			pos.x++;
-		}
-		pos.y++;
-	}
+	if (ennemy->pos.x != 0)
+		game->map[ennemy->pos.y][ennemy->pos.x] = '0';
+	ennemy->pos.x = 0;
+	ennemy->pos.y = 1;
+	ennemy->cell.x = 1;
+	ennemy->cell.y = 1;
 }

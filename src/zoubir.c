@@ -34,63 +34,46 @@ void	jump(t_game *game)
 	int	i;
 
 	i = 0;
+	game->is_jumping = TRUE;
+    system("cvlc sound/jump.wav &");
 	while (i < game->ennemy_count)
 	{
-		if (game->player_direction == 'l' || game->player_direction == 'r')
+		if (game->ennemies[i].cell.x >= game->player_cell.x - 24 && game->ennemies[i].cell.x <= game->player_cell.x + 24 && game->ennemies[i].cell.y >= game->player_cell.y - 10 && game->ennemies[i].cell.y <= game->player_cell.y + 50)
 		{
-			if (game->ennemies[i].cell.x >= game->player_cell.x - 24 && game->ennemies[i].cell.x <= game->player_cell.x + 24 && game->ennemies[i].cell.y >= game->player_cell.y - 50 && game->ennemies[i].cell.y <= game->player_cell.y + 10)
-			{
-				game->map[game->player_pos.y - 1][game->player_pos.x] = '0';
-				game->ennemies[i].cell.x = 1;
-				game->ennemies[i].cell.y = 1;
-				game->ennemies[i].pos.x = 1;
-				game->ennemies[i].pos.y = 1;
-			}
+			game->map[game->player_pos.y + 1][game->player_pos.x] = '0';
+			game->ennemies[i].cell.x = 1;
+			game->ennemies[i].cell.y = 1;
+			game->ennemies[i].pos.x = 1;
+			game->ennemies[i].pos.y = 1;
 		}
 		i++;
 	}
-	game->is_jumping = TRUE;
 }
 
 void	hammer_hit(t_game *game)
 {
 	int	i;
+	t_pos	trgt;
 
 	i = 0;
+	trgt = game->player_pos;
+    system("cvlc sound/hammer.wav &");
 	while (i < game->ennemy_count)
 	{
 		if (game->player_direction == 'l' || game->player_direction == 'r')
 		{
 			if (game->ennemies[i].cell.x >= game->player_cell.x - 24 && game->ennemies[i].cell.x <= game->player_cell.x + 24 && game->ennemies[i].cell.y >= game->player_cell.y - 50 && game->ennemies[i].cell.y <= game->player_cell.y + 10)
-			{
-				game->map[game->player_pos.y - 1][game->player_pos.x] = '0';
-				game->ennemies[i].cell.x = 1;
-				game->ennemies[i].cell.y = 1;
-				game->ennemies[i].pos.x = 1;
-				game->ennemies[i].pos.y = 1;
-			}
+				kill_ennemy(game, &game->ennemies[i]);
 		}
 		else if (game->player_direction == 'R')
 		{
 			if (game->ennemies[i].cell.x >= game->player_cell.x - 10 && game->ennemies[i].cell.x <= game->player_cell.x + 50 && game->ennemies[i].cell.y >= game->player_cell.y - 24 && game->ennemies[i].cell.y <= game->player_cell.y + 24)
-			{
-				game->map[game->player_pos.y][game->player_pos.x + 1] = '0';
-				game->ennemies[i].cell.x = 1;
-				game->ennemies[i].cell.y = 1;
-				game->ennemies[i].pos.x = 1;
-				game->ennemies[i].pos.y = 1;
-			}
+				kill_ennemy(game, &game->ennemies[i]);
 		}
 		else if (game->player_direction == 'L')
 		{
 			if (game->ennemies[i].cell.x >= game->player_cell.x - 50 && game->ennemies[i].cell.x <= game->player_cell.x + 10 && game->ennemies[i].cell.y >= game->player_cell.y - 24 && game->ennemies[i].cell.y <= game->player_cell.y + 24)
-			{
-				game->map[game->player_pos.y][game->player_pos.x - 1] = '0';
-				game->ennemies[i].cell.x = 1;
-				game->ennemies[i].cell.y = 1;
-				game->ennemies[i].pos.x = 1;
-				game->ennemies[i].pos.y = 1;
-			}
+				kill_ennemy(game, &game->ennemies[i]);
 		}
 		i++;
 	}
@@ -112,14 +95,6 @@ void	get_ennemies_data(t_game *game, t_pos pos)
 void	get_ennemies_count(t_game *game, t_pos pos)
 {
 	game->ennemy_count++;
-}
-
-int	is_surrounded_by(t_game *game, t_pos pos, char c)
-{
-	return (game->map[pos.y + 1][pos.x] == c
-			&& game->map[pos.y][pos.x + 1] == c
-			&& game->map[pos.y - 1][pos.x] == c
-			&& game->map[pos.y][pos.x - 1] == c);
 }
 
 int	is_valid_char(char c, int *cep)

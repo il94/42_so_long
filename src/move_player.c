@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 12:32:24 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/14 21:55:11 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/16 18:22:49 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,15 @@ void	move_player_sprite(t_game *game, t_pos cell_trgt)
 	game->player_cell = cell_trgt;
 	if (game->player_state++ >= game->player_animation_speed)
 		game->player_state = 0;
-    ft_printf("Steps : %d\n", ++game->player_steps);
+	if (!game->max_player_steps)
+		game->player_steps++;
+		// game->player_steps +=3000;
+
+	else
+	{
+		game->player_steps = 0;
+		game->max_player_steps = FALSE;
+	}
 }
 
 int	player_position_can_move(t_game *game, t_pos pos_trgt)
@@ -83,8 +91,6 @@ void	move_player_position(t_game *game, t_pos pos_trgt)
 		end_game(game, WIN);
 	else if (game->map[pos_trgt.y][pos_trgt.x] == 'H')
 		game->get_hammer = TRUE;
-	else if (game->map[pos_trgt.y][pos_trgt.x] == 'B')
-		game->get_boots = TRUE;
 	else if (game->map[pos_trgt.y][pos_trgt.x] == 'C')
         system("cvlc sound/coin.wav &");
 	if (!is(ENNEMY, game->map[game->player_pos.y][game->player_pos.x]))

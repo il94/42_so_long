@@ -18,23 +18,23 @@ int	key_press(int keycode, t_game *game)
 		ft_print_array(game->map);
 		delay2++;
 		if (delay2 == 1)
-			draw_image_s(game, &game->m_walk_b_left, game->player, 44 - 48);
+			draw_image_s(game, &game->m_walk_left_b, game->player, 44 - 48);
 		if (delay2 == 2)
-			draw_image_s(game, &game->m_walk_b_left_2, game->player, 40 - 48);
+			draw_image_s(game, &game->m_walk_left_b_2, game->player, 40 - 48);
 		if (delay2 == 3)
-			draw_image_s(game, &game->m_walk_b_left_3, game->player, 36 - 48);
+			draw_image_s(game, &game->m_walk_left_b_3, game->player, 36 - 48);
 		if (delay2 == 4)
-			draw_image_s(game, &game->m_walk_b_left, game->player, 30 - 48);
+			draw_image_s(game, &game->m_walk_left_b, game->player, 30 - 48);
 		if (delay2 == 5)
-			draw_image_s(game, &game->m_walk_b_left_2, game->player, 24 - 48);
+			draw_image_s(game, &game->m_walk_left_b_2, game->player, 24 - 48);
 		if (delay2 == 6)
-			draw_image_s(game, &game->m_walk_b_left_3, game->player, 18 - 48);
+			draw_image_s(game, &game->m_walk_left_b_3, game->player, 18 - 48);
 		if (delay2 == 7)
-			draw_image_s(game, &game->m_walk_b_left, game->player, 12 - 48);
+			draw_image_s(game, &game->m_walk_left_b, game->player, 12 - 48);
 		if (delay2 == 8)
-			draw_image_s(game, &game->m_walk_b_left_2, game->player, 6 - 48);
+			draw_image_s(game, &game->m_walk_left_b_2, game->player, 6 - 48);
 		if (delay2 == 9)
-			draw_image_s(game, &game->m_walk_b_left_3, game->player, 0 - 48);
+			draw_image_s(game, &game->m_walk_left_b_3, game->player, 0 - 48);
 		if (delay2 == freq)
 		{
 			if (is(PLAYER, game->map[game->player.y][game->player.x]) == 'a'
