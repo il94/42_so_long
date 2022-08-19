@@ -10,6 +10,8 @@ LIBXFLAGS = -lmlx -lXext -lX11
 SRCPATH = src/
 SRC = main.c \
 		parsing.c \
+		parsing_map_content.c \
+		parsing_map_file.c \
 		images.c \
 		adresses.c \
 		print.c \

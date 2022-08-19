@@ -21,21 +21,6 @@ void	end_game(t_game *game, t_end condition)
 	mlx_loop_end(game->mlx);
 }
 
-int	can_be_started(int ac, char **av, t_game *game)
-{
-	if (ac != 2)
-	{
-		ft_printf("Bad input\n");
-		exit (1);
-	}
-	if (!is_valid_map(game, av[1]))
-	{
-		ft_printf("Invalid map\n");
-		exit (1);
-	}
-	return (1);
-}
-
 int	key_press(int keycode, t_game *game)
 {
 	if (keycode == KEY_W)
@@ -96,10 +81,6 @@ int	key_release(int keycode, t_game *game)
 
 int	run_game(t_game *game)
 {
-	printf("PLAYER player : x = %d | y = %d\n", game->player_pos.x, game->player_pos.y);
-	printf("cell player : x = %d | y = %d\n", game->player_cell.x, game->player_cell.y);
-	ft_print_array(game->map);
-	printf("=========\n");
 	put_elements(game);
 	move_player(game);
 	move_all_ennemies(game);
@@ -113,13 +94,12 @@ int	run_game(t_game *game)
 }
 
 /* ne pas oublier de free lors des inits*/
-void	initialize_mlx(t_game *game)
+void	initialize_mlx(t_game *game, char *file)
 {
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		exit (0);
-	game->max.x = ft_strlen(game->map[0]);
-	game->max.y = ft_get_size_array(game->map);
+	get_data_map(file, &game->map, &game->max);
 	game->win = mlx_new_window(game->mlx,
 			game->max.x * CELL, game->max.y * CELL, "Paper Mario");
 	game->night = FALSE;

@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:53:28 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/16 18:21:58 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/19 19:00:23 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,121 +124,90 @@ typedef struct	s_game {
 	int		speed_animation_ennemy;
 	
 	/* images environnement */
-	t_data		e_grass;
-	t_data		e_wall_one;
-	t_data		e_wall_mid;
-	t_data		e_wall_top;
-	t_data		e_wall_bot;
-	t_data		e_grass_shadow;
-	t_data		e_wall_one_shadow;
-	t_data		e_wall_mid_shadow;
-	t_data		e_wall_top_shadow;
-	t_data		e_wall_bot_shadow;
+	t_data		environnement[10];
+	// [0]		e_grass;
+	// [1]		e_grass_shadow;
+	// [2]		e_wall_bot;
+	// [3]		e_wall_bot_shadow;
+	// [4]		e_wall_mid;
+	// [5]		e_wall_mid_shadow;
+	// [6]		e_wall_top;
+	// [7]		e_wall_top_shadow;
+	// [8]		e_wall_one;
+	// [9]		e_wall_one_shadow;
 
 	/* images player */
 
-	t_data		m_jump_left;
-	t_data		m_jump_right;
-	t_data		m_hammer_left;
-	t_data		m_hammer_left_2;
-	t_data		m_hammer_right;
-	t_data		m_hammer_right_2;
-	t_data		m_jump_left_light;
-	t_data		m_jump_right_light;
-	t_data		m_hammer_left_light;
-	t_data		m_hammer_left_light_2;
-	t_data		m_hammer_right_light;
-	t_data		m_hammer_right_light_2;
-
-	t_data		m_hammer_left_b;
-	t_data		m_hammer_left_b_2;
-	t_data		m_hammer_right_b;
-	t_data		m_hammer_right_b_2;
-	t_data		m_hammer_left_light_b;
-	t_data		m_hammer_left_light_b_2;
-	t_data		m_hammer_right_light_b;
-	t_data		m_hammer_right_light_b_2;
-/*============================================================================*/
-	t_data		m_static_left;
-	t_data		m_static_right;
-	t_data		m_static_left_light;
-	t_data		m_static_right_light;
-	
-	t_data		m_static_left_b;
-	t_data		m_static_right_b;
-	t_data		m_static_left_light_b;
-	t_data		m_static_right_light_b;
-/*============================================================================*/
-	t_data		m_walk_left;
-	t_data		m_walk_left_2;
-	t_data		m_walk_left_3;
-	t_data		m_walk_right;
-	t_data		m_walk_right_2;
-	t_data		m_walk_right_3;
-	t_data		m_walk_left_light;
-	t_data		m_walk_left_light_2;
-	t_data		m_walk_left_light_3;
-	t_data		m_walk_right_light;
-	t_data		m_walk_right_light_2;
-	t_data		m_walk_right_light_3;
-
-	t_data		m_walk_left_b;
-	t_data		m_walk_left_b_2;
-	t_data		m_walk_left_b_3;
-	t_data		m_walk_right_b;
-	t_data		m_walk_right_b_2;
-	t_data		m_walk_right_b_3;
-	t_data		m_walk_left_light_b;
-	t_data		m_walk_left_light_b_2;
-	t_data		m_walk_left_light_b_3;
-	t_data		m_walk_right_light_b;
-	t_data		m_walk_right_light_b_2;
-	t_data		m_walk_right_light_b_3;
+	t_data		mario[44];
+	// [0]			m_hammer_left;
+	// [1]			m_hammer_left_2;
+	// [2]			m_hammer_left_b;
+	// [3]			m_hammer_left_b_2;
+	// [4]			m_hammer_left_light;
+	// [5]			m_hammer_left_light_2;
+	// [6]			m_hammer_left_light_b;
+	// [7]			m_hammer_left_light_b_2;
+	// [8]			m_hammer_right;
+	// [9]			m_hammer_right_2;
+	// [10]		m_hammer_right_b;
+	// [11]		m_hammer_right_b_2;
+	// [12]		m_hammer_right_light;
+	// [13]		m_hammer_right_light_2;
+	// [14]		m_hammer_right_light_b;
+	// [15]		m_hammer_right_light_b_2;
+	// [16]		m_jump_left;
+	// [17]		m_jump_left_light;
+	// [18]		m_jump_right;
+	// [19]		m_jump_right_light;
+	// [20]		m_walk_left;
+	// [21]		m_walk_left_2;
+	// [22]		m_walk_left_3;
+	// [23]		m_walk_left_b;
+	// [24]		m_walk_left_b_2;
+	// [25]		m_walk_left_b_3;
+	// [26]		m_walk_left_light;
+	// [27]		m_walk_left_light_2;
+	// [28]		m_walk_left_light_3;
+	// [29]		m_walk_left_light_b;
+	// [30]		m_walk_left_light_b_2;
+	// [31]		m_walk_left_light_b_3;
+	// [32]		m_walk_right;
+	// [33]		m_walk_right_2;
+	// [34]		m_walk_right_3;
+	// [35]		m_walk_right_b;
+	// [36]		m_walk_right_b_2;
+	// [37]		m_walk_right_b_3;
+	// [38]		m_walk_right_light;
+	// [39]		m_walk_right_light_2;
+	// [40]		m_walk_right_light_3;
+	// [41]		m_walk_right_light_b;
+	// [42]		m_walk_right_light_b_2;
+	// [43]		m_walk_right_light_b_3;
 /*============================================================================*/
 	/* images ennemies */
-	t_data		g;
-	t_data		g_2;
-	t_data		g_3;
-	t_data		g_death;
-	t_data		g_death_2;
-	t_data		gb;
-	t_data		gb_2;
-	t_data		gb_3;
-	t_data		gr;
-	t_data		gr_2;
-	t_data		gr_3;
+	t_data		goombas[9];
+	// [0]		g;
+	// [1]		g_2;
+	// [2]		g_3;
+	// [3]		gb;
+	// [4]		gb_2;
+	// [5]		gb_3;
+	// [6]		gr;
+	// [7]		gr_2;
+	// [8]		gr_3;
 
 	/* images collectibles */
-	t_data		c;
-	t_data		c_2;
-	t_data		c_3;
-	t_data		c_4;
+	t_data		coin[4];
+	// t_data		c;
+	// t_data		c_2;
+	// t_data		c_3;
+	// t_data		c_4;
 	t_data		hammer;
 	t_data		s;
 	t_data		s_2;
 	t_data		s_3;
 	t_data		s_4;
 	t_data		s_5;
-	t_data		s_spawn;
-	t_data		s_spawn_2;
-	t_data		s_spawn_3;
-	t_data		s_spawn_4;
-	t_data		s_spawn_5;
-	t_data		s_spawn_6;
-	t_data		s_spawn_7;
-	t_data		s_spawn_8;
-	t_data		s_spawn_9;
-	t_data		s_spawn_10;
-	t_data		s_spawn_11;
-	t_data		s_spawn_12;
-	t_data		s_spawn_13;
-	t_data		s_spawn_14;
-	t_data		s_spawn_15;
-	t_data		s_spawn_16;
-	t_data		s_spawn_17;
-	t_data		s_spawn_18;
-	t_data		s_spawn_19;
-	t_data		s_spawn_20;
 
 	/* images menu */
 	t_data		menu;
@@ -267,11 +236,10 @@ void	kill_ennemy(t_game *game, t_data *ennemy);
 
 /* run.c */
 void	end_game(t_game *game, t_end condition);
-int		can_be_started(int ac, char **av, t_game *game);
 int		key_release(int keycode, t_game *game);
 int		key_press(int keycode, t_game *game);
 int		run_game(t_game *game);
-void	initialize_mlx(t_game *game);
+void	initialize_mlx(t_game *game, char *file);
 
 /* move_ennemy.c */
 void	change_direction(t_game *game, char code, int i);
@@ -338,10 +306,19 @@ void	destroy_data_collectibles(t_game *game);
 int		destroy_elements(t_game *game);
 
 /* parsing.c */
-char	*get_data_map(char *file);
+int		is_valid_parameter(int ac, char *file);
+int		is_valid_map(t_game *game, char *file);
+
+/* parsing_map_file.c */
+int		is_only_one_parameter(int ac);
+int		file_exist(char *file, int fd);
+int		is_ber_file(char *file);
+int		is_not_empty(char *file, int fd, char *buffer);
+
+/* parsing_map_content.c */
+void	get_data_map(char *file, char ***map, t_pos *size_map);
 int		is_valid_content(char **map);
 int		is_valid_border(char **map, t_pos map_pos);
 int		is_rectangular(char **map, int y);
-int		is_valid_map(t_game *game, char *file);
 
 #endif
