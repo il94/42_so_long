@@ -96,7 +96,8 @@ int	key_release(int keycode, t_game *game)
 
 int	run_game(t_game *game)
 {
-	// printf("cell player : x = %d | y = %d\n", game->player_cell.x, game->player_cell.y);
+	printf("PLAYER player : x = %d | y = %d\n", game->player_pos.x, game->player_pos.y);
+	printf("cell player : x = %d | y = %d\n", game->player_cell.x, game->player_cell.y);
 	ft_print_array(game->map);
 	printf("=========\n");
 	put_elements(game);

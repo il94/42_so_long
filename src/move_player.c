@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 12:32:24 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/16 18:22:49 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/16 19:52:21 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void	move_player_sprite(t_game *game, t_pos cell_trgt)
 	if (game->player_state++ >= game->player_animation_speed)
 		game->player_state = 0;
 	if (!game->max_player_steps)
-		game->player_steps++;
-		// game->player_steps +=3000;
+		// game->player_steps++;
+		game->player_steps +=3000;
 
 	else
 	{
@@ -95,8 +95,7 @@ void	move_player_position(t_game *game, t_pos pos_trgt)
         system("cvlc sound/coin.wav &");
 	if (!is(ENNEMY, game->map[game->player_pos.y][game->player_pos.x]))
    		game->map[game->player_pos.y][game->player_pos.x] = '0';
-    game->player_pos.x = pos_trgt.x;
-    game->player_pos.y = pos_trgt.y;
+    game->player_pos = pos_trgt;
     game->map[game->player_pos.y][game->player_pos.x] = 'P';
 }
 

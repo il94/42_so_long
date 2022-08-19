@@ -68,8 +68,7 @@ int	ennemy_position_can_move(t_game *game, t_pos pos_trgt, char code, int i)
 void	move_ennemy_position(t_game *game, t_pos trgt, char code, int i)
 {
 	game->map[game->ennemies[i].pos.y][game->ennemies[i].pos.x] = '0';
-	game->ennemies[i].pos.x = trgt.x;
-	game->ennemies[i].pos.y = trgt.y;
+	game->ennemies[i].pos = trgt;
 	game->map[trgt.y][trgt.x] = ft_tolower(code);
 }
 
