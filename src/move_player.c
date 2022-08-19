@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 12:32:24 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/16 19:52:21 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/19 19:41:08 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,7 @@ void	move_player_sprite(t_game *game, t_pos cell_trgt)
 	if (game->player_state++ >= game->player_animation_speed)
 		game->player_state = 0;
 	if (!game->max_player_steps)
-		// game->player_steps++;
-		game->player_steps +=3000;
-
+		game->player_steps++;
 	else
 	{
 		game->player_steps = 0;
