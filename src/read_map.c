@@ -6,38 +6,22 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 13:53:24 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/19 19:37:58 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/20 19:28:55 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-void	spawn_ennemy(t_game *game, t_pos pos)
+void	spawn_enemy(char **map, t_data *enemy)
 {
-	game->map[pos.y][pos.x] = ft_toupper(game->map[pos.y][pos.x]);
+	t_pos	pos;
+	
+	pos = enemy->pos;
+	map[pos.y][pos.x] = ft_toupper(map[pos.y][pos.x]);
 }
 
-int	more_collectibles(t_game *game, t_pos pos)
+int	more_element(t_game *game, t_pos pos)
 {
-	return (1);
-}
-
-int	open_exit_door(t_game *game, t_pos pos)
-{
-	game->map[pos.y][pos.x] = 'e';
-	system("pkill vlc");
-	system("cvlc sound/star_spawn.wav &");
-	sleep(3);
-	game->night = TRUE;
-	system("cvlc sound/star_way.wav &");
-	return (1);
-}
-
-int	get_player_position(t_game *game, t_pos pos)
-{
-	game->player_pos = pos;
-	game->player_cell.x = (game->player_pos.x * CELL) + (CELL / 2);
-	game->player_cell.y = (game->player_pos.y * CELL) + CELL - (CELL / 6);
 	return (1);
 }
 
@@ -78,14 +62,14 @@ void	read_all_map(t_game *game, char *target, void (*f)(t_game *, t_pos))
 	}
 }
 
-void	iterate_ennemies(t_game *game, void (*f)(t_game *, t_data *))
+void	iterate_elements(char **map, int element_count, t_data *elements, void (*f)(char **, t_data *))
 {
 	int	i;
 
 	i = 0;
-	while (i < game->ennemy_count)
+	while (i < element_count)
 	{
-		(*f)(game, &game->ennemies[i]);
+		(*f)(map, &elements[i]);
 		i++;
 	}
 }

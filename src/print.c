@@ -95,7 +95,7 @@ int	draw_sprite(t_game *game, t_data *image, t_pos trgt, t_sprite drawing_pos)
 		{
 			x = get_drawing_position(index, trgt, drawing_pos, 'x');
 			y = get_drawing_position(index, trgt, drawing_pos, 'y');
-			dst = game->screen.addr + y * game->screen.line + x * game->screen.bpp / 8;
+			dst = game->render.addr + y * game->render.line + x * game->render.bpp / 8;
 			color = *(int *)(image->addr + index.x * image->line + index.y * 4);
 			if (color >= -1 && y >= 0 && x >= 0)
 				*(int *)dst = color;
@@ -106,7 +106,7 @@ int	draw_sprite(t_game *game, t_data *image, t_pos trgt, t_sprite drawing_pos)
 	return (0);
 }
 
-int	draw_menu(t_game *game, t_data *image, t_pos trgt, t_sprite drawing_pos)
+int	draw_bar(t_game *game, t_data *image, t_pos trgt, t_sprite drawing_pos)
 {
 	t_pos	index;
 	char 	*dst;
@@ -122,7 +122,7 @@ int	draw_menu(t_game *game, t_data *image, t_pos trgt, t_sprite drawing_pos)
 		{
 			x = get_drawing_position(index, trgt, drawing_pos, 'x');
 			y = get_drawing_position(index, trgt, drawing_pos, 'y');
-			dst = game->menu_full.addr + y * game->menu_full.line + x * game->menu_full.bpp / 8;
+			dst = game->bar.addr + y * game->bar.line + x * game->bar.bpp / 8;
 			color = *(int *)(image->addr + index.x * image->line + index.y * 4);
 			if (color >= -1 && y >= 0 && x >= 0)
 				*(int *)dst = color;
@@ -150,7 +150,7 @@ void	put_moves(t_game *game)
 	{
 		while (i >= 0)
 		{
-			draw_menu(game, &game->numbers[steps[i] - '0'], pos, TEST);
+			draw_bar(game, &game->sprites_bar[steps[i] - '0'], pos, TEST);
 			if (pos.x - 25 >= 48)
 				pos.x -= 25;
 			else
@@ -161,16 +161,16 @@ void	put_moves(t_game *game)
 		if (pos.x < 0)
 			pos.x = 0;
 		if (game->player_steps < 2)
-			draw_menu(game, &game->step, pos, TEST);
+			draw_bar(game, &game->sprites_bar[13], pos, TEST);
 		else
-			draw_menu(game, &game->steps, pos, TEST);
+			draw_bar(game, &game->sprites_bar[14], pos, TEST);
 	}
 	else
 		game->max_player_steps = TRUE;
 	free(steps);
 }
 
-void	put_menu(t_game *game)
+void	put_bar(t_game *game)
 {
 	t_pos	pos;
 	int	i;
@@ -182,80 +182,80 @@ void	put_menu(t_game *game)
 	pos.x = 0;
 	pos.y = 0;
 	i = 1;
-	draw_menu(game, &game->menu, pos, FULL);
+	draw_bar(game, &game->sprites_bar[10], pos, FULL);
 	pos.x++;
 	while (i < game->max.x - 1)
 	{
-		draw_menu(game, &game->menu_2, pos, FULL);
+		draw_bar(game, &game->sprites_bar[11], pos, FULL);
 		pos.x++;
 		i++;
 	}
-	draw_menu(game, &game->menu_3, pos, FULL);
+	draw_bar(game, &game->sprites_bar[12], pos, FULL);
 	put_moves(game);
 	pos.x = 0;
-	if (game->menu_opened && scroll < frequency * 12)
+	if (game->bar_displayed && scroll < frequency * 12)
 		scroll++;
-	else if (!game->menu_opened && scroll >= 0)
+	else if (!game->bar_displayed && scroll >= 0)
 		scroll--;
 	if (scroll >= 0 && scroll <= frequency)
 	{
 		pos.y = 4;
-		draw_sprite(game, &game->menu_full, pos, MENU);
+		draw_sprite(game, &game->bar, pos, MENU);
 	}
 	else if (scroll >= frequency && scroll <= frequency * 2)
 	{
 		pos.y = 8;
-		draw_sprite(game, &game->menu_full, pos, MENU);
+		draw_sprite(game, &game->bar, pos, MENU);
 	}
 	else if (scroll >= frequency * 2 && scroll <= frequency * 3)
 	{
 		pos.y = 12;
-		draw_sprite(game, &game->menu_full, pos, MENU);
+		draw_sprite(game, &game->bar, pos, MENU);
 	}
 	else if (scroll >= frequency * 3 && scroll <= frequency * 4)
 	{
 		pos.y = 16;
-		draw_sprite(game, &game->menu_full, pos, MENU);
+		draw_sprite(game, &game->bar, pos, MENU);
 	}
 	else if (scroll >= frequency * 4 && scroll <= frequency * 5)
 	{
 		pos.y = 20;
-		draw_sprite(game, &game->menu_full, pos, MENU);
+		draw_sprite(game, &game->bar, pos, MENU);
 	}
 	else if (scroll >= frequency * 5 && scroll <= frequency * 6)
 	{
 		pos.y = 24;
-		draw_sprite(game, &game->menu_full, pos, MENU);
+		draw_sprite(game, &game->bar, pos, MENU);
 	}
 	else if (scroll >= frequency * 6 && scroll <= frequency * 7)
 	{
 		pos.y = 28;
-		draw_sprite(game, &game->menu_full, pos, MENU);
+		draw_sprite(game, &game->bar, pos, MENU);
 	}
 	else if (scroll >= frequency * 7 && scroll <= frequency * 8)
 	{
 		pos.y = 32;
-		draw_sprite(game, &game->menu_full, pos, MENU);
+		draw_sprite(game, &game->bar, pos, MENU);
 	}
 	else if (scroll >= frequency * 8 && scroll <= frequency * 9)
 	{
 		pos.y = 36;
-		draw_sprite(game, &game->menu_full, pos, MENU);
+		draw_sprite(game, &game->bar, pos, MENU);
 	}
 	else if (scroll >= frequency * 9 && scroll <= frequency * 10)
 	{
 		pos.y = 40;
-		draw_sprite(game, &game->menu_full, pos, MENU);
+		draw_sprite(game, &game->bar, pos, MENU);
 	}
 	else if (scroll >= frequency * 10 && scroll <= frequency * 11)
 	{
 		pos.y = 44;
-		draw_sprite(game, &game->menu_full, pos, MENU);
+		draw_sprite(game, &game->bar, pos, MENU);
 	}
 	else if (scroll >= frequency * 11 && scroll <= frequency * 12)
 	{
 		pos.y = 48;
-		draw_sprite(game, &game->menu_full, pos, MENU);
+		draw_sprite(game, &game->bar, pos, MENU);
 	}
 }
 
@@ -271,18 +271,18 @@ void	put_jump(t_game *game)
 	frequency = 3;
 	if (!i)
 		i = 0;
-	if (!game->night)
+	if (!game->star_appeared)
 	{
 		if (game->player_direction == 'L' || game->player_direction == 'l')
 		{
 			if (i >= 0 && i <= frequency * 10)
-				draw_sprite(game, &game->mario[16], trgt, BOT);
+				draw_sprite(game, &game->sprites_mario[16], trgt, BOT);
 			i++;
 		}
 		else if (game->player_direction == 'R' || game->player_direction == 'r')
 		{
 			if (i >= 0 && i <= frequency * 10)
-				draw_sprite(game, &game->mario[18], trgt, BOT);
+				draw_sprite(game, &game->sprites_mario[18], trgt, BOT);
 			i++;
 		}
 	}
@@ -291,13 +291,13 @@ void	put_jump(t_game *game)
 		if (game->player_direction == 'L')
 		{
 			if (i >= 0 && i <= frequency * 10)
-				draw_sprite(game, &game->mario[17], trgt, BOT);
+				draw_sprite(game, &game->sprites_mario[17], trgt, BOT);
 			i++;
 		}
 		else if (game->player_direction == 'R')
 		{
 			if (i >= 0 && i <= frequency * 10)
-				draw_sprite(game, &game->mario[19], trgt, BOT);
+				draw_sprite(game, &game->sprites_mario[19], trgt, BOT);
 			i++;
 		}
 	}
@@ -322,38 +322,38 @@ void	put_hammer(t_game *game)
 	frequency = 3;
 	if (!i)
 		i = 0;
-	if (!game->night)
+	if (!game->star_appeared)
 	{
 		if (game->player_direction == 'L')
 		{
 			if (i >= 0 && i <= frequency)
-				draw_sprite(game, &game->mario[0], trgt, HAMMER_LEFT_1);
+				draw_sprite(game, &game->sprites_mario[0], trgt, HAMMER_LEFT_1);
 			else if (i >= frequency && i <= frequency * 10)
-				draw_sprite(game, &game->mario[1], trgt, HAMMER_LEFT_2);
+				draw_sprite(game, &game->sprites_mario[1], trgt, HAMMER_LEFT_2);
 			i++;
 		}
 		else if (game->player_direction == 'R')
 		{
 			if (i >= 0 && i <= frequency)
-				draw_sprite(game, &game->mario[8], trgt, HAMMER_RIGHT_1);
+				draw_sprite(game, &game->sprites_mario[8], trgt, HAMMER_RIGHT_1);
 			else if (i >= frequency && i <= frequency * 10)
-				draw_sprite(game, &game->mario[9], trgt, HAMMER_RIGHT_2);
+				draw_sprite(game, &game->sprites_mario[9], trgt, HAMMER_RIGHT_2);
 			i++;
 		}
 		else if (game->player_direction == 'l')
 		{
 			if (i >= 0 && i <= frequency)
-				draw_sprite(game, &game->mario[2], trgt, HAMMER_LEFT_1);
+				draw_sprite(game, &game->sprites_mario[2], trgt, HAMMER_LEFT_1);
 			else if (i >= frequency && i <= frequency * 10)
-				draw_sprite(game, &game->mario[3], trgt, HAMMER_LEFT_2);
+				draw_sprite(game, &game->sprites_mario[3], trgt, HAMMER_LEFT_2);
 			i++;
 		}
 		else if (game->player_direction == 'r')
 		{
 			if (i >= 0 && i <= frequency)
-				draw_sprite(game, &game->mario[10], trgt, HAMMER_RIGHT_1);
+				draw_sprite(game, &game->sprites_mario[10], trgt, HAMMER_RIGHT_1);
 			else if (i >= frequency && i <= frequency * 10)
-				draw_sprite(game, &game->mario[11], trgt, HAMMER_RIGHT_2);
+				draw_sprite(game, &game->sprites_mario[11], trgt, HAMMER_RIGHT_2);
 			i++;
 		}
 	}
@@ -362,33 +362,33 @@ void	put_hammer(t_game *game)
 		if (game->player_direction == 'L')
 		{
 			if (i >= 0 && i <= frequency)
-				draw_sprite(game, &game->mario[4], trgt, HAMMER_LEFT_1);
+				draw_sprite(game, &game->sprites_mario[4], trgt, HAMMER_LEFT_1);
 			else if (i >= frequency && i <= frequency * 10)
-				draw_sprite(game, &game->mario[5], trgt, HAMMER_LEFT_2);
+				draw_sprite(game, &game->sprites_mario[5], trgt, HAMMER_LEFT_2);
 			i++;
 		}
 		else if (game->player_direction == 'R')
 		{
 			if (i >= 0 && i <= frequency)
-				draw_sprite(game, &game->mario[12], trgt, HAMMER_RIGHT_1);
+				draw_sprite(game, &game->sprites_mario[12], trgt, HAMMER_RIGHT_1);
 			else if (i >= frequency && i <= frequency * 10)
-				draw_sprite(game, &game->mario[13], trgt, HAMMER_RIGHT_2);
+				draw_sprite(game, &game->sprites_mario[13], trgt, HAMMER_RIGHT_2);
 			i++;
 		}
 		else if (game->player_direction == 'l')
 		{
 			if (i >= 0 && i <= frequency)
-				draw_sprite(game, &game->mario[6], trgt, HAMMER_LEFT_1);
+				draw_sprite(game, &game->sprites_mario[6], trgt, HAMMER_LEFT_1);
 			else if (i >= frequency && i <= frequency * 10)
-				draw_sprite(game, &game->mario[7], trgt, HAMMER_LEFT_2);
+				draw_sprite(game, &game->sprites_mario[7], trgt, HAMMER_LEFT_2);
 			i++;
 		}
 		else if (game->player_direction == 'r')
 		{
 			if (i >= 0 && i <= frequency)
-				draw_sprite(game, &game->mario[14], trgt, HAMMER_RIGHT_1);
+				draw_sprite(game, &game->sprites_mario[14], trgt, HAMMER_RIGHT_1);
 			else if (i >= frequency && i <= frequency * 10)
-				draw_sprite(game, &game->mario[15], trgt, HAMMER_RIGHT_2);
+				draw_sprite(game, &game->sprites_mario[15], trgt, HAMMER_RIGHT_2);
 			i++;
 		}
 	}
@@ -405,51 +405,51 @@ void	put_player(t_game *game)
 	int	frequency;
 
 	frequency = game->player_animation_speed / 4;
-	if (!game->night)
+	if (!game->star_appeared)
 	{
 		if (game->player_direction == 'l')
 		{
 			if (game->player_state >= 0 && game->player_state <= frequency)
-				draw_sprite(game, &game->mario[23], game->player_cell, BOT);
+				draw_sprite(game, &game->sprites_mario[23], game->player_cell, BOT);
 			else if (game->player_state >= frequency && game->player_state <= frequency * 2)
-				draw_sprite(game, &game->mario[24], game->player_cell, BOT);
+				draw_sprite(game, &game->sprites_mario[24], game->player_cell, BOT);
 			else if (game->player_state >= frequency * 2 && game->player_state <= frequency * 3)
-				draw_sprite(game, &game->mario[25], game->player_cell, BOT);
+				draw_sprite(game, &game->sprites_mario[25], game->player_cell, BOT);
 			else if (game->player_state >= frequency * 3 && game->player_state <= frequency * 4)
-				draw_sprite(game, &game->mario[24], game->player_cell, BOT);
+				draw_sprite(game, &game->sprites_mario[24], game->player_cell, BOT);
 		}
 		else if (game->player_direction == 'r')
 		{
 			if (game->player_state >= 0 && game->player_state <= frequency)
-				draw_sprite(game, &game->mario[35], game->player_cell, BOT);
+				draw_sprite(game, &game->sprites_mario[35], game->player_cell, BOT);
 			else if (game->player_state >= frequency && game->player_state <= frequency * 2)
-				draw_sprite(game, &game->mario[36], game->player_cell, BOT);
+				draw_sprite(game, &game->sprites_mario[36], game->player_cell, BOT);
 			else if (game->player_state >= frequency * 2 && game->player_state <= frequency * 3)
-				draw_sprite(game, &game->mario[37], game->player_cell, BOT);
+				draw_sprite(game, &game->sprites_mario[37], game->player_cell, BOT);
 			else if (game->player_state >= frequency * 3 && game->player_state <= frequency * 4)
-				draw_sprite(game, &game->mario[36], game->player_cell, BOT);
+				draw_sprite(game, &game->sprites_mario[36], game->player_cell, BOT);
 		}
 		else if (game->player_direction == 'L')
 		{
 			if (game->player_state >= 0 && game->player_state <= frequency)
-				draw_sprite(game, &game->mario[20], game->player_cell, BOT);
+				draw_sprite(game, &game->sprites_mario[20], game->player_cell, BOT);
 			else if (game->player_state >= frequency && game->player_state <= frequency * 2)
-				draw_sprite(game, &game->mario[21], game->player_cell, BOT);
+				draw_sprite(game, &game->sprites_mario[21], game->player_cell, BOT);
 			else if (game->player_state >= frequency * 2 && game->player_state <= frequency * 3)
-				draw_sprite(game, &game->mario[22], game->player_cell, BOT);
+				draw_sprite(game, &game->sprites_mario[22], game->player_cell, BOT);
 			else if (game->player_state >= frequency * 3 && game->player_state <= frequency * 4)
-				draw_sprite(game, &game->mario[21], game->player_cell, BOT);
+				draw_sprite(game, &game->sprites_mario[21], game->player_cell, BOT);
 		}
 		else if (game->player_direction == 'R')
 		{
 			if (game->player_state >= 0 && game->player_state <= frequency)
-				draw_sprite(game, &game->mario[32], game->player_cell, BOT);
+				draw_sprite(game, &game->sprites_mario[32], game->player_cell, BOT);
 			else if (game->player_state >= frequency && game->player_state <= frequency * 2)
-				draw_sprite(game, &game->mario[33], game->player_cell, BOT);
+				draw_sprite(game, &game->sprites_mario[33], game->player_cell, BOT);
 			else if (game->player_state >= frequency * 2 && game->player_state <= frequency * 3)
-				draw_sprite(game, &game->mario[34], game->player_cell, BOT);
+				draw_sprite(game, &game->sprites_mario[34], game->player_cell, BOT);
 			else if (game->player_state >= frequency * 3 && game->player_state <= frequency * 4)
-				draw_sprite(game, &game->mario[33], game->player_cell, BOT);
+				draw_sprite(game, &game->sprites_mario[33], game->player_cell, BOT);
 		}
 		// else if (game->player_direction == 'q')
 		// 	draw_sprite(game, &game->m_static_left_b, game->player_cell, BOT);
@@ -458,53 +458,53 @@ void	put_player(t_game *game)
 		// else if (game->player_direction == 'p')
 		// 	draw_sprite(game, &game->m_static_right_b, game->player_cell, BOT);
 		// else if (game->player_direction == 'P')
-		// 	draw_sprite(game, &game->mario[36], game->player_cell, BOT);
+		// 	draw_sprite(game, &game->sprites_mario[36], game->player_cell, BOT);
 	}
 	else
 	{
 		if (game->player_direction == 'l')
 		{
 			if (game->player_state >= 0 && game->player_state <= frequency)
-				draw_sprite(game, &game->mario[29], game->player_cell, BOT);
+				draw_sprite(game, &game->sprites_mario[29], game->player_cell, BOT);
 			else if (game->player_state >= frequency && game->player_state <= frequency * 2)
-				draw_sprite(game, &game->mario[30], game->player_cell, BOT);
+				draw_sprite(game, &game->sprites_mario[30], game->player_cell, BOT);
 			else if (game->player_state >= frequency * 2 && game->player_state <= frequency * 3)
-				draw_sprite(game, &game->mario[31], game->player_cell, BOT);
+				draw_sprite(game, &game->sprites_mario[31], game->player_cell, BOT);
 			else if (game->player_state >= frequency * 3 && game->player_state <= frequency * 4)
-				draw_sprite(game, &game->mario[30], game->player_cell, BOT);
+				draw_sprite(game, &game->sprites_mario[30], game->player_cell, BOT);
 		}
 		else if (game->player_direction == 'r')
 		{
 			if (game->player_state >= 0 && game->player_state <= frequency)
-				draw_sprite(game, &game->mario[41], game->player_cell, BOT);
+				draw_sprite(game, &game->sprites_mario[41], game->player_cell, BOT);
 			else if (game->player_state >= frequency && game->player_state <= frequency * 2)
-				draw_sprite(game, &game->mario[42], game->player_cell, BOT);
+				draw_sprite(game, &game->sprites_mario[42], game->player_cell, BOT);
 			else if (game->player_state >= frequency * 2 && game->player_state <= frequency * 3)
-				draw_sprite(game, &game->mario[43], game->player_cell, BOT);
+				draw_sprite(game, &game->sprites_mario[43], game->player_cell, BOT);
 			else if (game->player_state >= frequency * 3 && game->player_state <= frequency * 4)
-				draw_sprite(game, &game->mario[42], game->player_cell, BOT);
+				draw_sprite(game, &game->sprites_mario[42], game->player_cell, BOT);
 		}
 		else if (game->player_direction == 'L')
 		{
 			if (game->player_state >= 0 && game->player_state <= frequency)
-				draw_sprite(game, &game->mario[26], game->player_cell, BOT);
+				draw_sprite(game, &game->sprites_mario[26], game->player_cell, BOT);
 			else if (game->player_state >= frequency && game->player_state <= frequency * 2)
-				draw_sprite(game, &game->mario[27], game->player_cell, BOT);
+				draw_sprite(game, &game->sprites_mario[27], game->player_cell, BOT);
 			else if (game->player_state >= frequency * 2 && game->player_state <= frequency * 3)
-				draw_sprite(game, &game->mario[28], game->player_cell, BOT);
+				draw_sprite(game, &game->sprites_mario[28], game->player_cell, BOT);
 			else if (game->player_state >= frequency * 3 && game->player_state <= frequency * 4)
-				draw_sprite(game, &game->mario[27], game->player_cell, BOT);
+				draw_sprite(game, &game->sprites_mario[27], game->player_cell, BOT);
 		}
 		else if (game->player_direction == 'R')
 		{
 			if (game->player_state >= 0 && game->player_state <= frequency)
-				draw_sprite(game, &game->mario[38], game->player_cell, BOT);
+				draw_sprite(game, &game->sprites_mario[38], game->player_cell, BOT);
 			else if (game->player_state >= frequency && game->player_state <= frequency * 2)
-				draw_sprite(game, &game->mario[39], game->player_cell, BOT);
+				draw_sprite(game, &game->sprites_mario[39], game->player_cell, BOT);
 			else if (game->player_state >= frequency * 2 && game->player_state <= frequency * 3)
-				draw_sprite(game, &game->mario[40], game->player_cell, BOT);
+				draw_sprite(game, &game->sprites_mario[40], game->player_cell, BOT);
 			else if (game->player_state >= frequency * 3 && game->player_state <= frequency * 4)
-				draw_sprite(game, &game->mario[39], game->player_cell, BOT);
+				draw_sprite(game, &game->sprites_mario[39], game->player_cell, BOT);
 		}
 		// else if (game->player_direction == 'q')
 		// 	draw_sprite(game, &game->m_static_left_light_b, game->player_cell, BOT);
@@ -513,89 +513,89 @@ void	put_player(t_game *game)
 		// else if (game->player_direction == 'p')
 		// 	draw_sprite(game, &game->m_static_right_light_b, game->player_cell, BOT);
 		// else if (game->player_direction == 'P')
-		// 	draw_sprite(game, &game->mario[36], game->player_cell, BOT);
+		// 	draw_sprite(game, &game->sprites_mario[36], game->player_cell, BOT);
 	}
 }
 
 void	put_e_grass(t_game *game, t_pos pos)
 {
-	if (!game->night)
-		draw_sprite(game, &game->environnement[0], pos, FULL);
+	if (!game->star_appeared)
+		draw_sprite(game, &game->sprites_environnement[0], pos, FULL);
 	else
-		draw_sprite(game, &game->environnement[1], pos, FULL);
+		draw_sprite(game, &game->sprites_environnement[1], pos, FULL);
 }
 
 void	put_e_wall(t_game *game, t_pos pos)
 {
-	if (!game->night)
+	if (!game->star_appeared)
 	{
 		if (pos.y < game->max.y - 1 && pos.y > 0
 			&& game->map[pos.y + 1][pos.x] == '1'
 			&& game->map[pos.y - 1][pos.x] == '1')
-			draw_sprite(game, &game->environnement[4], pos, FULL);
+			draw_sprite(game, &game->sprites_environnement[4], pos, FULL);
 		else if (pos.y < game->max.y - 1 && game->map[pos.y + 1][pos.x] == '1')
-			draw_sprite(game, &game->environnement[6], pos, FULL);
+			draw_sprite(game, &game->sprites_environnement[6], pos, FULL);
 		else if (pos.y > 0 && game->map[pos.y - 1][pos.x] == '1')
-			draw_sprite(game, &game->environnement[2], pos, FULL);
+			draw_sprite(game, &game->sprites_environnement[2], pos, FULL);
 		else
-			draw_sprite(game, &game->environnement[8], pos, FULL);
+			draw_sprite(game, &game->sprites_environnement[8], pos, FULL);
 	}
 	else
 	{
 		if (pos.y < game->max.y - 1 && pos.y > 0
 			&& game->map[pos.y + 1][pos.x] == '1'
 			&& game->map[pos.y - 1][pos.x] == '1')
-			draw_sprite(game, &game->environnement[5], pos, FULL);
+			draw_sprite(game, &game->sprites_environnement[5], pos, FULL);
 		else if (pos.y < game->max.y - 1 && game->map[pos.y + 1][pos.x] == '1')
-			draw_sprite(game, &game->environnement[7], pos, FULL);
+			draw_sprite(game, &game->sprites_environnement[7], pos, FULL);
 		else if (pos.y > 0 && game->map[pos.y - 1][pos.x] == '1')
-			draw_sprite(game, &game->environnement[3], pos, FULL);
+			draw_sprite(game, &game->sprites_environnement[3], pos, FULL);
 		else
-			draw_sprite(game, &game->environnement[9], pos, FULL);
+			draw_sprite(game, &game->sprites_environnement[9], pos, FULL);
 	}
 }
 
-void	put_ennemy(t_game *game)
+void	put_enemy(t_game *game)
 {
 	int	i;
 	int	frequency;
 
 	i = 0;
-	frequency = game->speed_animation_ennemy / 4;
-	while (i < game->ennemy_count)
+	frequency = game->speed_animation_enemy / 4;
+	while (i < game->enemy_index)
 	{
-		if (ennemy_proximity(game, game->ennemies[i].pos) == 1 && is(ENNEMY, game->map[game->ennemies[i].pos.y][ game->ennemies[i].pos.x]))
+		if (enemy_proximity(game, game->enemies[i].pos) == 1 && is(ENEMY, game->map[game->enemies[i].pos.y][ game->enemies[i].pos.x]))
 		{
-			if (game->state_ennemy >= 0 && game->state_ennemy <= frequency)
-				draw_sprite(game, &game->goombas[7], game->ennemies[i].cell, CENTER);
-			else if (game->state_ennemy >= frequency && game->state_ennemy <= frequency * 2)
-				draw_sprite(game, &game->goombas[6], game->ennemies[i].cell, CENTER);
-			else if (game->state_ennemy >= frequency * 2 && game->state_ennemy <= frequency * 3)
-				draw_sprite(game, &game->goombas[8], game->ennemies[i].cell, CENTER);
-			else if (game->state_ennemy >= frequency * 3 && game->state_ennemy <= frequency * 4)
-				draw_sprite(game, &game->goombas[6], game->ennemies[i].cell, CENTER);
+			if (game->state_enemy >= 0 && game->state_enemy <= frequency)
+				draw_sprite(game, &game->sprites_goombas[7], game->enemies[i].cell, CENTER);
+			else if (game->state_enemy >= frequency && game->state_enemy <= frequency * 2)
+				draw_sprite(game, &game->sprites_goombas[6], game->enemies[i].cell, CENTER);
+			else if (game->state_enemy >= frequency * 2 && game->state_enemy <= frequency * 3)
+				draw_sprite(game, &game->sprites_goombas[8], game->enemies[i].cell, CENTER);
+			else if (game->state_enemy >= frequency * 3 && game->state_enemy <= frequency * 4)
+				draw_sprite(game, &game->sprites_goombas[6], game->enemies[i].cell, CENTER);
 		}
-		else if (ennemy_proximity(game, game->ennemies[i].pos) == 2 && is(ENNEMY, game->map[game->ennemies[i].pos.y][ game->ennemies[i].pos.x]))
+		else if (enemy_proximity(game, game->enemies[i].pos) == 2 && is(ENEMY, game->map[game->enemies[i].pos.y][ game->enemies[i].pos.x]))
 		{
-			if (game->state_ennemy >= 0 && game->state_ennemy <= frequency)
-				draw_sprite(game, &game->goombas[4], game->ennemies[i].cell, CENTER);
-			else if (game->state_ennemy >= frequency && game->state_ennemy <= frequency * 2)
-				draw_sprite(game, &game->goombas[3], game->ennemies[i].cell, CENTER);
-			else if (game->state_ennemy >= frequency * 2 && game->state_ennemy <= frequency * 3)
-				draw_sprite(game, &game->goombas[5], game->ennemies[i].cell, CENTER);
-			else if (game->state_ennemy >= frequency * 3 && game->state_ennemy <= frequency * 4)
-				draw_sprite(game, &game->goombas[3], game->ennemies[i].cell, CENTER);
+			if (game->state_enemy >= 0 && game->state_enemy <= frequency)
+				draw_sprite(game, &game->sprites_goombas[4], game->enemies[i].cell, CENTER);
+			else if (game->state_enemy >= frequency && game->state_enemy <= frequency * 2)
+				draw_sprite(game, &game->sprites_goombas[3], game->enemies[i].cell, CENTER);
+			else if (game->state_enemy >= frequency * 2 && game->state_enemy <= frequency * 3)
+				draw_sprite(game, &game->sprites_goombas[5], game->enemies[i].cell, CENTER);
+			else if (game->state_enemy >= frequency * 3 && game->state_enemy <= frequency * 4)
+				draw_sprite(game, &game->sprites_goombas[3], game->enemies[i].cell, CENTER);
 		}
-		else if (is(ENNEMY, game->map[game->ennemies[i].pos.y][ game->ennemies[i].pos.x]))
+		else if (is(ENEMY, game->map[game->enemies[i].pos.y][ game->enemies[i].pos.x]))
 		{
-			if (game->state_ennemy >= 0 && game->state_ennemy <= frequency)
-				draw_sprite(game, &game->goombas[1], game->ennemies[i].cell, CENTER);
-			else if (game->state_ennemy >= frequency && game->state_ennemy <= frequency * 2)
-				draw_sprite(game, &game->goombas[0], game->ennemies[i].cell, CENTER);
-			else if (game->state_ennemy >= frequency * 2 && game->state_ennemy <= frequency * 3)
-				draw_sprite(game, &game->goombas[2], game->ennemies[i].cell, CENTER);
-			else if (game->state_ennemy >= frequency * 3 && game->state_ennemy <= frequency * 4)
-				draw_sprite(game, &game->goombas[0], game->ennemies[i].cell, CENTER);
+			if (game->state_enemy >= 0 && game->state_enemy <= frequency)
+				draw_sprite(game, &game->sprites_goombas[1], game->enemies[i].cell, CENTER);
+			else if (game->state_enemy >= frequency && game->state_enemy <= frequency * 2)
+				draw_sprite(game, &game->sprites_goombas[0], game->enemies[i].cell, CENTER);
+			else if (game->state_enemy >= frequency * 2 && game->state_enemy <= frequency * 3)
+				draw_sprite(game, &game->sprites_goombas[2], game->enemies[i].cell, CENTER);
+			else if (game->state_enemy >= frequency * 3 && game->state_enemy <= frequency * 4)
+				draw_sprite(game, &game->sprites_goombas[0], game->enemies[i].cell, CENTER);
 		}
 		i++;
 	}
@@ -610,19 +610,19 @@ void	put_star(t_game *game, t_pos pos)
 	if (!i)
 		i = 0;
 	if (i >= 0 && i <= frequency * 3)
-		draw_sprite(game, &game->s, pos, FULL);
+		draw_sprite(game, &game->sprites_collectibles[5], pos, FULL);
 	else if (i >= frequency * 3 && i <= frequency * 4)
-		draw_sprite(game, &game->s_2, pos, FULL);
+		draw_sprite(game, &game->sprites_collectibles[6], pos, FULL);
 	else if (i >= frequency * 4 && i <= frequency * 7)
-		draw_sprite(game, &game->s_3, pos, FULL);
+		draw_sprite(game, &game->sprites_collectibles[7], pos, FULL);
 	else if (i >= frequency * 7 && i <= frequency * 8)
-		draw_sprite(game, &game->s_2, pos, FULL);
+		draw_sprite(game, &game->sprites_collectibles[6], pos, FULL);
 	i++;
 	if (i > frequency * 8)
 		i = 0;
 }
 
-void	put_coins(t_game *game, t_pos pos)
+void	put_collectibless(t_game *game, t_pos pos)
 {
 	static int	i;
 	int			frequency;
@@ -631,13 +631,13 @@ void	put_coins(t_game *game, t_pos pos)
 	if (!i)
 		i = 0;
 	if (i >= 0 && i <= frequency)
-		draw_sprite(game, &game->coin[0], pos, FULL);
+		draw_sprite(game, &game->sprites_collectibles[0], pos, FULL);
 	else if (i >= frequency && i <= frequency * 2)
-		draw_sprite(game, &game->coin[1], pos, FULL);
+		draw_sprite(game, &game->sprites_collectibles[1], pos, FULL);
 	else if (i >= frequency * 2 && i <= frequency * 3)
-		draw_sprite(game, &game->coin[2], pos, FULL);
+		draw_sprite(game, &game->sprites_collectibles[2], pos, FULL);
 	else if (i >= frequency * 3 && i <= frequency * 4)
-		draw_sprite(game, &game->coin[3], pos, FULL);
+		draw_sprite(game, &game->sprites_collectibles[3], pos, FULL);
 	i++;
 	if (i > frequency * 4)
 		i = 0;
@@ -646,11 +646,11 @@ void	put_coins(t_game *game, t_pos pos)
 void	put_collectibles(t_game *game, t_pos pos)
 {
 	if (game->map[pos.y][pos.x] == 'C')
-		put_coins(game, pos);
+		put_collectibless(game, pos);
 	else if (game->map[pos.y][pos.x] == 'e')
 		put_star(game, pos);
 	else if (game->map[pos.y][pos.x] == 'H')
-		draw_sprite(game, &game->hammer, pos, FULL);
+		draw_sprite(game, &game->sprites_collectibles[4], pos, FULL);
 }
 
 void	put_e_wall_to_player(t_game *game)
@@ -675,14 +675,14 @@ void	put_elements(t_game *game)
 	read_all_map(game, ALL, put_e_grass);
 	read_all_map(game, "1", put_e_wall);
 	read_all_map(game, COLLECTIBLES, put_collectibles);
-	put_ennemy(game);
+	put_enemy(game);
 	if (game->is_jumping)
 		put_jump(game);
 	else if (game->is_hitting)
 		put_hammer(game);
 	else
 		put_player(game);
-	put_menu(game);
+	put_bar(game);
 	put_e_wall_to_player(game);
-	mlx_put_image_to_window(game->mlx, game->win, game->screen.img, 0, 0);
+	mlx_put_image_to_window(game->mlx, game->win, game->render.img, 0, 0);
 }

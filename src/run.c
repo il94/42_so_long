@@ -59,7 +59,7 @@ int	key_press(int keycode, t_game *game)
 			hammer_hit(game);
 	}
 	else if (keycode == KEY_TAB)
-		display_menu(game);
+		display_bar(game);
 	else if (keycode == KEY_ESC)
 		mlx_loop_end(game->mlx);
 	game->keycode = keycode;
@@ -81,15 +81,18 @@ int	key_release(int keycode, t_game *game)
 
 int	run_game(t_game *game)
 {
+	// ft_print_array(game->map);
+	// printf("========\n");
+	printf("ennemies = %d\n", game->enemy_count);
+	if (game->enemy_count == 0)
+		game->enemy_index = 0;
 	put_elements(game);
 	move_player(game);
-	move_all_ennemies(game);
-	if (!game->all_coins && !read_map(game, "C", &more_collectibles))
-	{
-		game->all_coins = TRUE;
-		read_map(game, "E", open_exit_door);
-		iterate_ennemies(game, kill_ennemy);
-	}
+	move_all_enemies(game);
+	if (collision_player_enemy(game))
+		end_game(game, LOOSE);
+	if (!game->star_appeared && game->coin_count == 0)
+		appearing_star(game, game->star_pos);
 	return (0);
 }
 
@@ -101,11 +104,14 @@ void	initialize_mlx(t_game *game, char *file)
 		exit (0);
 	get_data_map(file, &game->map, &game->max);
 	game->win = mlx_new_window(game->mlx,
-			game->max.x * CELL, game->max.y * CELL, "Paper Mario");
-	game->night = FALSE;
-	game->all_coins = FALSE;
+			game->max.x * CELL, game->max.y * CELL, "Paper mario");
+	game->star_appeared = FALSE;
 	game->get_hammer = FALSE;
-	game->menu_opened = FALSE;
+	game->bar_displayed = FALSE;
+	game->enemy_count = 0;
+	game->coin_count = 0;
+	read_all_map(game, "CEM", get_elements_count);
+	game->enemy_index = game->enemy_count;
 	read_map(game, "P", &get_player_position);
 	game->player_direction = 'P';
 	game->player_state = 0;
@@ -118,18 +124,16 @@ void	initialize_mlx(t_game *game, char *file)
 	game->move_right = FALSE;
 	game->move_down = FALSE;
 	game->move_left = FALSE;
-	game->ennemy_count = 0;
-	read_all_map(game, "M", get_ennemies_count);
-	game->ennemies = malloc(game->ennemy_count * sizeof(t_data));
-	// if (!game->ennemies)
-		/* free */
-	read_all_map(game, "M", &get_ennemies_data);
-	game->state_ennemy = 0;
-	game->speed_animation_ennemy = 200;
+	game->enemies = malloc(game->enemy_count * sizeof(t_data));
+	read_all_map(game, "M", &get_enemies_data);
+	game->state_enemy = 0;
+	game->speed_animation_enemy = 200;
 	if (!game->win)
 		exit (0);
-	get_images(game);
-	get_adresses(game);
+
+	// game->sprites_collectibles[5].pos = 
+	get_all_images(game);
+	get_all_addresses(game);
 	mlx_hook(game->win, 2, 1L << 0, key_press, game);
 	mlx_hook(game->win, 3, 1L << 1, key_release, game);
 	mlx_loop_hook(game->mlx, run_game, game);

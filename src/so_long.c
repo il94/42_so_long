@@ -12,21 +12,34 @@
 
 #include "../so_long.h"
 
-void	display_menu(t_game *game)
+int	appearing_star(t_game *game, t_pos pos)
 {
-	if (!game->menu_opened)
+	game->map[pos.y][pos.x] = 'e';
+	game->star_appeared = TRUE;
+	system("pkill vlc");
+	system("cvlc sound/star_appeared.wav &");
+	sleep(3);
+	iterate_elements(game->map, game->enemy_index, game->enemies, kill_enemy);
+	game->enemy_count = 0;
+	system("cvlc sound/star_way.wav &");
+	return (1);
+}
+
+void	display_bar(t_game *game)
+{
+	if (!game->bar_displayed)
 	{
-		system("cvlc sound/open_menu.wav &");
-		game->menu_opened = TRUE;
+		system("cvlc sound/open_bar.wav &");
+		game->bar_displayed = TRUE;
 	}
 	else
 	{
- 		system("cvlc sound/close_menu.wav &");
-		game->menu_opened = FALSE;
+ 		system("cvlc sound/close_bar.wav &");
+		game->bar_displayed = FALSE;
 	}
 }
 
-int	ennemy_proximity(t_game *game, t_pos pos)
+int	enemy_proximity(t_game *game, t_pos pos)
 {
 	t_pos	target;
 
@@ -41,7 +54,7 @@ int	ennemy_proximity(t_game *game, t_pos pos)
 		target.x--;
 	if (game->player_pos.x == target.x && game->player_pos.y == target.y)
 		return (1);
-	if (is(ENNEMY_OBSTACLE, game->map[target.y][target.x]) && is_near(game, pos, "P"))
+	if (is(ENEMY_OBSTACLE, game->map[target.y][target.x]) && is_near(game, pos, "P"))
 		return (2);
 	return (0);
 }
@@ -54,13 +67,4 @@ int	is_near(t_game *game, t_pos pos, char *str)
 			|| is(str, game->map[pos.y][pos.x - 1]));
 }
 
-void	kill_ennemy(t_game *game, t_data *ennemy)
-{
-	system("cvlc sound/goomba.wav &");
-	if (ennemy->pos.x != 0)
-		game->map[ennemy->pos.y][ennemy->pos.x] = '0';
-	ennemy->pos.x = 0;
-	ennemy->pos.y = 1;
-	ennemy->cell.x = 1;
-	ennemy->cell.y = 1;
-}
+

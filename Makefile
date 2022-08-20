@@ -13,15 +13,18 @@ SRC = main.c \
 		parsing_map_content.c \
 		parsing_map_file.c \
 		images.c \
-		adresses.c \
+		addresses.c \
 		print.c \
 		so_long.c \
-		destroy_elements.c \
+		destroy.c \
 		run.c \
-		move_ennemy.c \
+		move_enemy.c \
 		move_player.c \
+		move.c \
 		read_map.c \
-		zoubir.c
+		zoubir.c \
+		entity.c \
+		get_data.c
 
 OBJ = $(SRC:.c=.o)
 
