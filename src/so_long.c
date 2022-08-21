@@ -19,8 +19,8 @@ int	appearing_star(t_game *game, t_pos pos)
 	system("pkill vlc");
 	system("cvlc sound/star_appeared.wav &");
 	sleep(3);
-	iterate_elements(game->map, game->enemy_index, game->enemies, kill_enemy);
-	game->enemy_count = 0;
+	iterate_elements(game->map, game->enemies->index, game->enemies, kill_enemy);
+	game->enemies->count = 0;
 	system("cvlc sound/star_way.wav &");
 	return (1);
 }
@@ -52,9 +52,9 @@ int	enemy_proximity(t_game *game, t_pos pos)
 		target.y--;
 	else if (game->map[pos.y][pos.x] == 'L')
 		target.x--;
-	if (game->player_pos.x == target.x && game->player_pos.y == target.y)
+	if (game->player.pos.x == target.x && game->player.pos.y == target.y)
 		return (1);
-	if (is(ENEMY_OBSTACLE, game->map[target.y][target.x]) && is_near(game, pos, "P"))
+	if (is(ENEMY_OBSTACLE, game->map[target.y][target.x]) && is_near(game, pos, PLAYER))
 		return (2);
 	return (0);
 }

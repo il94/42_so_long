@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:53:28 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/20 19:53:02 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/21 23:21:44 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,25 @@
 # define KEY_SPACE 32
 
 /* for QWERTY */
-# define KEY_W 119
-# define KEY_D 100
-# define KEY_S 115
-# define KEY_A 97
-
-/* for AZERTY */
-// # define KEY_W 122
+// # define KEY_W 119
 // # define KEY_D 100
 // # define KEY_S 115
-// # define KEY_A 113
+// # define KEY_A 97
+
+/* for AZERTY */
+# define KEY_W 122
+# define KEY_D 100
+# define KEY_S 115
+# define KEY_A 113
 
 # define CELL 48
 # define VALID_CHAR "01CEPMH"
 # define COLLECTIBLES "CEeH"
 # define ALL "01CEePMURDLurdlH"
+# define COIN "C"
+# define STAR "Ee"
+# define PLAYER "P"
+# define HAMMER "H"
 # define ENEMY "MURDL"
 # define LOWER_ENEMY "urdl"
 # define ENEMY_OBSTACLE "1CEMURDLH"
@@ -79,9 +83,12 @@ typedef struct	s_data {
 	int		endian;
 	int		width;
 	int		height;
-	char	player_direction;
 	t_pos	pos;
 	t_pos	cell;
+	int		count;
+	int		index;
+	int		state;
+	int		speed_animation;
 }				t_data;
 
 typedef struct	s_game {
@@ -97,20 +104,16 @@ typedef struct	s_game {
 	t_bool	get_hammer;
 	t_bool	bar_displayed;
 	int		keycode;
-	int		coin_count;
 
 	/* data map */
 	char	**map;
 	t_pos	max;
 
 	/* data mario */
-	t_pos	player_pos;
-	t_pos	player_cell;
+	t_data	player;
 	char	player_direction;
-	int		player_state;
 	int		player_steps;
 	t_bool	max_player_steps;
-	int		player_animation_speed;
 	t_bool	is_hitting;
 	t_bool	is_jumping;
 	t_bool	move_up;
@@ -120,11 +123,13 @@ typedef struct	s_game {
 
 	/* data enemies */
 	t_data	*enemies;
-	int		enemy_count;
-	int		enemy_index;
-	int		state_enemy;
-	int		speed_animation_enemy;
-	
+
+	/* data coins */
+	t_data	*coins;
+
+	/* data star */
+	t_data	star;
+
 	/* images */
 
 	t_data		sprites_collectibles[8];
@@ -223,13 +228,17 @@ void	put_e_grass(t_game *game, t_pos pos);
 void	put_e_wall(t_game *game, t_pos pos);
 void	put_enemy(t_game *game);
 void	put_star(t_game *game, t_pos pos);
+void	put_coin(t_game *game);
 void	put_collectibless(t_game *game, t_pos pos);
 void	put_collectibles(t_game *game, t_pos pos);
 void	put_e_wall_to_player(t_game *game);
 void	put_elements(t_game *game);
 
 /* zoubir.c */
-int		player_get_coin(int coin_count);
+void	get_player_position(t_data *entity, t_pos pos_trgt);
+void	get_position_entities(t_data *entities, t_pos pos_trgt);
+int		count_entity(char **map, char *target);
+int		player_get_coin(t_game *game);
 int		is_valid_char(char c, int *cep);
 int		is(char *str, char c);
 
@@ -244,28 +253,36 @@ void	end_game(t_game *game, t_end condition);
 int		key_release(int keycode, t_game *game);
 int		key_press(int keycode, t_game *game);
 int		run_game(t_game *game);
-void	initialize_mlx(t_game *game, char *file);
+void	initialize_mlx(t_game *game);
+void	initialize_data_game(t_game *game, char *file);
 
 /* read_map.c */
 void	spawn_enemy(char **map, t_data *enemy);
 int		more_element(t_game *game, t_pos pos);
-int		read_map(t_game *game, char *target,  int (*f)(t_game *, t_pos));
+void	read_map_and_array(char **map, t_data *element, char *target, void (*f)(t_data *, t_pos));
+void	read_map(char **map, t_data *element, char *target, void (*f)(t_data *, t_pos));
 void	read_all_map(t_game *game, char *target, void (*f)(t_game *, t_pos));
+t_pos	read_map_return_pos(char **map, char *target);
 void	iterate_elements(char **map, int element_count, t_data *elements, void (*f)(char **, t_data *));
 
 /* entity.c */
 void	kill_enemy(char **map, t_data *enemy);
+int		collision(t_data entity, t_data player);
 int		collision_player_enemy(t_game *game);
+int		collision_player_coin(t_game *game);
 void	hammer_hit(t_game *game);
 void	jump(t_game *game);
 
 /* get_data.c */
-int		get_player_position(t_game *game, t_pos pos);
-void	get_enemies_data(t_game *game, t_pos pos);
+void	get_data_elements(t_game *game);
+void	get_elements_data(t_game *game, t_pos pos_trgt);
 void	get_elements_count(t_game *game, t_pos pos);
 
 
-
+/* initialize.c */
+void	initialize_enemies(t_game *game, t_data *enemies);
+void	initialize_coins(t_game *game, t_data *coins);
+void	initialize_player(t_game *game, t_data *player);
 
 /* move_enemy.c */
 int		enemy_sprite_can_move(t_game *game, t_pos pos_trgt, char code, int i);

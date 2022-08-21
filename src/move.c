@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 11:19:37 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/20 19:53:10 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/21 23:10:05 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	move_all_enemies(t_game *game)
 	t_pos	cell;
 
 	i = 0;
-	while (i < game->enemy_index)
+	while (i < game->enemies->index)
 	{
 		pos = game->enemies[i].pos;
 		cell = game->enemies[i].cell;
@@ -111,5 +111,5 @@ void	move_all_enemies(t_game *game)
 		move_enemy(game, pos, cell, i);
 		i++;
 	}
-	iterate_elements(game->map, game->enemy_index, game->enemies, spawn_enemy);
+	iterate_elements(game->map, game->enemies->index, game->enemies, spawn_enemy);
 }

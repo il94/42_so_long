@@ -24,6 +24,7 @@ SRC = main.c \
 		read_map.c \
 		zoubir.c \
 		entity.c \
+		initialize.c \
 		get_data.c
 
 OBJ = $(SRC:.c=.o)

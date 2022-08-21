@@ -12,10 +12,66 @@
 
 #include "../so_long.h"
 
-int	player_get_coin(int coin_count)
+void	get_player_position(t_data *entity, t_pos pos_trgt)
 {
-	system("cvlc sound/coin.wav &");
-	return (coin_count - 1);
+	entity->pos = pos_trgt;
+	entity->cell.x = (pos_trgt.x * CELL) + (CELL / 2);
+	entity->cell.y = (pos_trgt.y * CELL) + CELL - (CELL / 6);
+}
+
+void	get_position_entities(t_data *entities, t_pos pos_trgt)
+{
+	entities->pos = pos_trgt;
+	entities->cell.x = pos_trgt.x * CELL + CELL / 2;
+	entities->cell.y = pos_trgt.y * CELL + CELL / 2;
+}
+
+int	count_entity(char **map, char *target)
+{
+	int	result;
+	t_pos	pos;
+
+	result = 0;
+	pos.y = 1;
+	while (map[pos.y])
+	{
+		pos.x = 1;
+		while (map[pos.y][pos.x])
+		{
+			if (is(target, map[pos.y][pos.x]))
+				result++;;
+			pos.x++;
+		}
+		pos.y++;
+	}
+	return (result);
+}
+
+int	player_get_coin(t_game *game)
+{
+	int	i;
+
+	i = 0;
+	while (i < game->coins->index)
+	{
+		if (game->coins[i].cell.x >= game->player.cell.x - 20 /* left */
+			&& game->coins[i].cell.x <= game->player.cell.x + 20 /* right */
+			&& game->coins[i].cell.y >= game->player.cell.y - 25 /* up */
+			&& game->coins[i].cell.y <= game->player.cell.y + 25) /* down */
+		{
+			system("cvlc sound/coin.wav &");
+			if (game->coins[i].pos.x != 0)
+				game->map[game->coins[i].pos.y][game->coins[i].pos.x] = '0';
+			game->coins[i].pos.x = 0;
+			game->coins[i].pos.y = 1;
+			game->coins[i].cell.x = 1;
+			game->coins[i].cell.y = 1;
+			game->coins->count--;
+			return (1);
+		}
+		i++;
+	}
+	return (0);
 }
 
 int	is_valid_char(char c, int *cep)

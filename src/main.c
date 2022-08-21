@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 14:32:24 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/20 10:48:20 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/21 22:17:48 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	main(int ac, char **av)
 
 	if (!is_valid_parameter(ac, av[1]) || !is_valid_map(&game, av[1]))
 		exit (0);
-	initialize_mlx(&game, av[1]);
+	initialize_data_game(&game, av[1]);
+	initialize_mlx(&game);
 	destroy_all_elements(&game);
 	return (0);
 }

@@ -35,8 +35,8 @@ int	enemy_sprite_can_move(t_game *game, t_pos pos_trgt, char code, int i)
 void	move_enemy_sprite(t_game *game, t_pos cell_trgt, int i)
 {
 	game->enemies[i].cell = cell_trgt;
-	if (game->state_enemy++ >= game->speed_animation_enemy)
-		game->state_enemy = 0;
+	if (game->enemies->state++ >= game->enemies->speed_animation)
+		game->enemies->state = 0;
 }
 
 int	enemy_position_can_move(t_game *game, t_pos pos_trgt, char code, int i)

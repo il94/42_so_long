@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 13:53:24 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/20 19:28:55 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/21 22:46:34 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,45 @@ int	more_element(t_game *game, t_pos pos)
 	return (1);
 }
 
-int	read_map(t_game *game, char *target, int (*f)(t_game *, t_pos))
+void	read_map_and_array(char **map, t_data *element, char *target, void (*f)(t_data *, t_pos))
 {
+	int		index_element;
 	t_pos	pos;
 
+	index_element = 0;
 	pos.y = 1;
-	while (game->map[pos.y])
+	while (map[pos.y])
 	{
 		pos.x = 1;
-		while (game->map[pos.y][pos.x])
+		while (map[pos.y][pos.x])
 		{
-			if (is(target, game->map[pos.y][pos.x]))
-				return ((*f)(game, pos));
+			if (is(target, map[pos.y][pos.x]))
+			{
+				((*f)(&element[index_element], pos));
+				index_element++;
+			}
 			pos.x++;
 		}
 		pos.y++;
 	}
-	return (0);
+}
+
+void	read_map(char **map, t_data *element, char *target, void (*f)(t_data *, t_pos))
+{
+	t_pos	pos;
+
+	pos.y = 1;
+	while (map[pos.y])
+	{
+		pos.x = 1;
+		while (map[pos.y][pos.x])
+		{
+			if (is(target, map[pos.y][pos.x]))
+				((*f)(element, pos));
+			pos.x++;
+		}
+		pos.y++;
+	}
 }
 
 void	read_all_map(t_game *game, char *target, void (*f)(t_game *, t_pos))
@@ -56,6 +78,24 @@ void	read_all_map(t_game *game, char *target, void (*f)(t_game *, t_pos))
 		{
 			if (is(target, game->map[pos.y][pos.x]))
 				((*f)(game, pos));
+			pos.x++;
+		}
+		pos.y++;
+	}
+}
+
+t_pos	read_map_return_pos(char **map, char *target)
+{
+	t_pos	pos;
+
+	pos.y = 1;
+	while (map[pos.y])
+	{
+		pos.x = 1;
+		while (map[pos.y][pos.x])
+		{
+			if (is(target, map[pos.y][pos.x]))
+				return (pos);
 			pos.x++;
 		}
 		pos.y++;
