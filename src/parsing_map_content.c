@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 17:06:13 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/21 18:42:02 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/22 14:02:41 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,13 @@ void	get_data_map(char *file, char ***map, t_pos *size_map)
 int	is_valid_content(char **map)
 {
 	t_pos	pos;
-	int		cep[3];
+	int		cep[4];
 
 	pos.y = 1;
 	cep[0] = 0;
 	cep[1] = 0;
 	cep[2] = 0;
+	cep[3] = 0;
 	while (map[pos.y])
 	{
 		pos.x = 1;
@@ -46,7 +47,7 @@ int	is_valid_content(char **map)
 		}	
 		pos.y++;
 	}
-	if (cep[0] > 0 && cep[1] > 0 && cep[2] == 1)
+	if (cep[0] > 0 && cep[1] > 0 && cep[2] == 1 && cep[3] <= 1)
 		return (1);
 	return (0);
 }

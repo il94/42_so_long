@@ -16,8 +16,12 @@ void	get_data_elements(t_game *game)
 {
 	initialize_enemies(game, game->enemies);
 	initialize_coins(game, game->coins);
+	initialize_star(game, game->star);
 	initialize_player(game, &game->player);
-	game->star_pos = read_map_return_pos(game->map, STAR);
-	game->star_appeared = FALSE;
+	game->hammer.pos = read_map_return_pos(game->map, HAMMER);
+	if (game->hammer.pos.x == 0 && game->hammer.pos.y == 0)
+		game->map_contain_hammer = FALSE;
+	else
+		game->map_contain_hammer = TRUE;
 	game->get_hammer = FALSE;
 }

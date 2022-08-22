@@ -89,6 +89,8 @@ int	is_valid_char(char c, int *cep)
 				cep[1]++;
 			else if (c == 'P')
 				cep[2]++;
+			else if (c == 'H')
+				cep[3]++;
 			return (VALID_CHAR[i]);
 		}
 		i++;

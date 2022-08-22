@@ -21,7 +21,7 @@ void	initialize_enemies(t_game *game, t_data *enemies)
 	game->enemies->count = count_enemies;
 	game->enemies->index = count_enemies;
 	game->enemies->state = 0;
-	game->enemies->speed_animation = 200;
+	game->enemies->speed_animation = 210;
 	read_map_and_array(game->map, game->enemies, ENEMY, &get_position_entities);
 }
 
@@ -34,8 +34,22 @@ void	initialize_coins(t_game *game, t_data *coins)
 	game->coins->count = count_coins;
 	game->coins->index = count_coins;
 	game->coins->state = 0;
-	game->coins->speed_animation = 200;
+	game->coins->speed_animation = 32;
 	read_map_and_array(game->map, game->coins, COIN, &get_position_entities);
+}
+
+void	initialize_star(t_game *game, t_data *star)
+{
+	int	count_star;
+
+	count_star = count_entity(game->map, STAR);
+	game->star = malloc(count_star * sizeof(t_data));
+	game->star->count = count_star;
+	game->star->index = count_star;
+	game->star->state = 0;
+	game->star->speed_animation = 90;
+	read_map_and_array(game->map, game->star, STAR, &get_position_entities);
+	game->star_appeared = FALSE;
 }
 
 void	initialize_player(t_game *game, t_data *player)

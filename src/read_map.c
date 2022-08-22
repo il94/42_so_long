@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 13:53:24 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/21 22:46:34 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/22 14:10:32 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,9 @@ t_pos	read_map_return_pos(char **map, char *target)
 		}
 		pos.y++;
 	}
+	pos.x = 0;
+	pos.y = 0;
+	return (pos);
 }
 
 void	iterate_elements(char **map, int element_count, t_data *elements, void (*f)(char **, t_data *))
