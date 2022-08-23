@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 00:08:03 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/22 18:56:47 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/23 21:56:21 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,27 +52,35 @@ void	get_all_images(t_game *game)
 	game->sprites_goombas[6].sprite_count = 3;
 	get_images(game->mlx, game->sprites_environnement, 'e', 10);
 	get_images(game->mlx, game->sprites_bar, 'b', 15);
-	get_images(game->mlx, game->sprites_mario, 'm', 44);
-	game->sprites_mario[0].sprite_count = 2;
-	game->sprites_mario[2].sprite_count = 2;
-	game->sprites_mario[4].sprite_count = 2;
-	game->sprites_mario[6].sprite_count = 2;
-	game->sprites_mario[8].sprite_count = 2;
-	game->sprites_mario[10].sprite_count = 2;
-	game->sprites_mario[12].sprite_count = 2;
-	game->sprites_mario[14].sprite_count = 2;
+	get_images(game->mlx, game->sprites_mario, 'm', 52);
+	game->sprites_mario[0].sprite_count = 1;
+	game->sprites_mario[1].sprite_count = 1;
+	game->sprites_mario[2].sprite_count = 1;
+	game->sprites_mario[3].sprite_count = 1;
+	game->sprites_mario[4].sprite_count = 3;
+	game->sprites_mario[7].sprite_count = 3;
+	game->sprites_mario[10].sprite_count = 3;
+	game->sprites_mario[13].sprite_count = 3;
 	game->sprites_mario[16].sprite_count = 1;
 	game->sprites_mario[17].sprite_count = 1;
-	game->sprites_mario[18].sprite_count = 1;
-	game->sprites_mario[19].sprite_count = 1;
-	game->sprites_mario[20].sprite_count = 3;
-	game->sprites_mario[23].sprite_count = 3;
-	game->sprites_mario[26].sprite_count = 3;
-	game->sprites_mario[29].sprite_count = 3;
-	game->sprites_mario[32].sprite_count = 3;
-	game->sprites_mario[35].sprite_count = 3;
-	game->sprites_mario[38].sprite_count = 3;
-	game->sprites_mario[41].sprite_count = 3;
+	game->sprites_mario[18].sprite_count = 2;
+	game->sprites_mario[20].sprite_count = 2;
+	game->sprites_mario[22].sprite_count = 2;
+	game->sprites_mario[24].sprite_count = 2;
+	game->sprites_mario[26].sprite_count = 1;
+	game->sprites_mario[27].sprite_count = 1;
+	game->sprites_mario[28].sprite_count = 1;
+	game->sprites_mario[29].sprite_count = 1;
+	game->sprites_mario[30].sprite_count = 3;
+	game->sprites_mario[33].sprite_count = 3;
+	game->sprites_mario[36].sprite_count = 3;
+	game->sprites_mario[39].sprite_count = 3;
+	game->sprites_mario[42].sprite_count = 1;
+	game->sprites_mario[43].sprite_count = 1;
+	game->sprites_mario[44].sprite_count = 2;
+	game->sprites_mario[46].sprite_count = 2;
+	game->sprites_mario[48].sprite_count = 2;
+	game->sprites_mario[50].sprite_count = 2;
 	game->bar.img = mlx_new_image(game->mlx,
 			game->max.x * CELL, CELL);
 	game->bar.width = game->max.x * CELL;

@@ -12,6 +12,11 @@
 
 #include "../so_long.h"
 
+int		player_is_moving(t_game *game)
+{
+	return (game->move_up || game->move_right || game->move_down || game->move_left);
+}
+
 void	get_player_position(t_data *entity, t_pos pos_trgt)
 {
 	entity->pos = pos_trgt;

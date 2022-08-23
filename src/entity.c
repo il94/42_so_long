@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 17:58:45 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/22 18:18:44 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/23 23:00:40 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	hammer_hit(t_game *game)
     system("cvlc sound/hammer.wav &");
 	while (i < game->enemies->index)
 	{
-		if (game->player_direction == 'l' || game->player_direction == 'r')
+		if (game->player.direction == 'l' || game->player.direction == 'r')
 		{
 			if (game->enemies[i].cell.x >= game->player.cell.x - 24 && game->enemies[i].cell.x <= game->player.cell.x + 24 && game->enemies[i].cell.y >= game->player.cell.y - 50 && game->enemies[i].cell.y <= game->player.cell.y + 10)
 			{
@@ -98,7 +98,7 @@ void	hammer_hit(t_game *game)
 				game->enemies->count--;
 			}
 		}
-		else if (game->player_direction == 'R')
+		else if (game->player.direction == 'R')
 		{
 			if (game->enemies[i].cell.x >= game->player.cell.x - 10 && game->enemies[i].cell.x <= game->player.cell.x + 50 && game->enemies[i].cell.y >= game->player.cell.y - 24 && game->enemies[i].cell.y <= game->player.cell.y + 24)
 			{
@@ -106,7 +106,7 @@ void	hammer_hit(t_game *game)
 				game->enemies->count--;
 			}
 		}
-		else if (game->player_direction == 'L')
+		else if (game->player.direction == 'L')
 		{
 			if (game->enemies[i].cell.x >= game->player.cell.x - 50 && game->enemies[i].cell.x <= game->player.cell.x + 10 && game->enemies[i].cell.y >= game->player.cell.y - 24 && game->enemies[i].cell.y <= game->player.cell.y + 24)
 			{

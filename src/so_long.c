@@ -39,32 +39,32 @@ void	display_bar(t_game *game)
 	}
 }
 
-int	enemy_proximity(t_game *game, t_pos pos)
+int	enemy_proximity(char **map, t_pos player, t_pos pos)
 {
 	t_pos	target;
 
 	target = pos;
-	if (game->map[pos.y][pos.x] == 'D')
+	if (map[pos.y][pos.x] == 'D')
 		target.y++;
-	else if (game->map[pos.y][pos.x] == 'R')
+	else if (map[pos.y][pos.x] == 'R')
 		target.x++;
-	else if (game->map[pos.y][pos.x] == 'U')
+	else if (map[pos.y][pos.x] == 'U')
 		target.y--;
-	else if (game->map[pos.y][pos.x] == 'L')
+	else if (map[pos.y][pos.x] == 'L')
 		target.x--;
-	if (game->player.pos.x == target.x && game->player.pos.y == target.y)
+	if (player.x == target.x && player.y == target.y)
 		return (1);
-	if (is(ENEMY_OBSTACLE, game->map[target.y][target.x]) && is_near(game, pos, PLAYER))
+	if (is(ENEMY_OBSTACLE, map[target.y][target.x]) && is_near(map, pos, PLAYER))
 		return (2);
 	return (0);
 }
 
-int	is_near(t_game *game, t_pos pos, char *str)
+int	is_near(char **map, t_pos pos, char *str)
 {
-	return (is(str, game->map[pos.y + 1][pos.x])
-			|| is(str, game->map[pos.y][pos.x + 1])
-			|| is(str, game->map[pos.y - 1][pos.x])
-			|| is(str, game->map[pos.y][pos.x - 1]));
+	return (is(str, map[pos.y + 1][pos.x])
+			|| is(str, map[pos.y][pos.x + 1])
+			|| is(str, map[pos.y - 1][pos.x])
+			|| is(str, map[pos.y][pos.x - 1]));
 }
 
 

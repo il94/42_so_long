@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 11:14:55 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/21 19:19:35 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/23 16:12:43 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	get_all_addresses(t_game *game)
 	get_addresses(game->sprites_goombas, 9);
 	get_addresses(game->sprites_environnement, 10);
 	get_addresses(game->sprites_bar, 15);
-	get_addresses(game->sprites_mario, 44);
+	get_addresses(game->sprites_mario, 52);
 	game->bar.addr = mlx_get_data_addr(game->bar.img,
 			&game->bar.bpp, &game->bar.line, &game->bar.endian);
 	game->render.addr = mlx_get_data_addr(game->render.img,

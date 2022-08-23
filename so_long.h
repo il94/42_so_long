@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:53:28 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/22 19:19:37 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/23 23:19:24 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct	s_data {
 	int		state;
 	int		speed_animation;
 	int		sprite_count;
+	char	direction;
 }				t_data;
 
 typedef struct	s_game {
@@ -102,6 +103,7 @@ typedef struct	s_game {
 	/* data game */
 	t_bool	bar_displayed;
 	int		keycode;
+	t_bool	environnement_displayed;
 
 	/* data map */
 	char	**map;
@@ -120,12 +122,10 @@ typedef struct	s_game {
 
 	/* data star */
 	t_data	*star;
-	// t_pos	game->star_pos;
 	t_bool	star_appeared;
 
 	/* data mario */
 	t_data	player;
-	char	player_direction;
 	int		player_steps;
 	t_bool	max_player_steps;
 	t_bool	is_hitting;
@@ -173,51 +173,59 @@ typedef struct	s_game {
 	// [12]		bar_3;
 	// [13]		step;
 	// [14]		steps;
-	t_data		sprites_mario[44];
-	// [0]		p_hammer_left;
-	// [1]		p_hammer_left_2;
-	// [2]		p_hammer_left_b;
-	// [3]		p_hammer_left_b_2;
-	// [4]		p_hammer_left_light;
-	// [5]		p_hammer_left_light_2;
-	// [6]		p_hammer_left_light_b;
-	// [7]		p_hammer_left_light_b_2;
-	// [8]		p_hammer_right;
-	// [9]		p_hammer_right_2;
-	// [10]		p_hammer_right_b;
-	// [11]		p_hammer_right_b_2;
-	// [12]		p_hammer_right_light;
-	// [13]		p_hammer_right_light_2;
-	// [14]		p_hammer_right_light_b;
-	// [15]		p_hammer_right_light_b_2;
-	// [16]		p_jump_left;
-	// [17]		p_jump_left_light;
-	// [18]		p_jump_right;
-	// [19]		p_jump_right_light;
-	// [20]		p_walk_left;
-	// [21]		p_walk_left_2;
-	// [22]		p_walk_left_3;
-	// [23]		p_walk_left_b;
-	// [24]		p_walk_left_b_2;
-	// [25]		p_walk_left_b_3;
-	// [26]		p_walk_left_light;
-	// [27]		p_walk_left_light_2;
-	// [28]		p_walk_left_light_3;
-	// [29]		p_walk_left_light_b;
-	// [30]		p_walk_left_light_b_2;
-	// [31]		p_walk_left_light_b_3;
-	// [32]		p_walk_right;
-	// [33]		p_walk_right_2;
-	// [34]		p_walk_right_3;
-	// [35]		p_walk_right_b;
-	// [36]		p_walk_right_b_2;
-	// [37]		p_walk_right_b_3;
-	// [38]		p_walk_right_light;
-	// [39]		p_walk_right_light_2;
-	// [40]		p_walk_right_light_3;
-	// [41]		p_walk_right_light_b;
-	// [42]		p_walk_right_light_b_2;
-	// [43]		p_walk_right_light_b_3;
+	t_data		sprites_mario[52];
+	// [0]		m_static_left;
+	// [1]		m_static_left_b;
+	// [2]		m_static_right;
+	// [3]		m_static_right_b;
+	// [4]		m_walk_left;
+	// [5]		m_walk_left_2;
+	// [6]		m_walk_left_3;
+	// [7]		m_walk_left_b;
+	// [8]		m_walk_left_b_2;
+	// [9]		m_walk_left_b_3;
+	// [10]		m_walk_right;
+	// [11]		m_walk_right_2;
+	// [12]		m_walk_right_3;
+	// [13]		m_walk_right_b;
+	// [14]		m_walk_right_b_2;
+	// [15]		m_walk_right_b_3;
+	// [16]		m_jump_left;
+	// [17]		m_jump_right;
+	// [18]		m_hammer_left;
+	// [19]		m_hammer_left_2;
+	// [20]		m_hammer_left_b;
+	// [21]		m_hammer_left_b_2;
+	// [22]		m_hammer_right;
+	// [23]		m_hammer_right_2;
+	// [24]		m_hammer_right_b;
+	// [25]		m_hammer_right_b_2;
+	// [26]		m_static_left_light;
+	// [27]		m_static_left_b_light;
+	// [28]		m_static_right_light;
+	// [29]		m_static_right_b_light;
+	// [30]		m_walk_left_light;
+	// [31]		m_walk_left_light_2;
+	// [32]		m_walk_left_light_3;
+	// [33]		m_walk_left_light_b;
+	// [34]		m_walk_left_light_b_2;
+	// [35]		m_walk_left_light_b_3;
+	// [36]		m_walk_right_light;
+	// [37]		m_walk_right_light_2;
+	// [38]		m_walk_right_light_3;
+	// [39]		m_walk_right_light_b;
+	// [40]		m_walk_right_light_b_2;
+	// [41]		m_walk_right_light_b_3;
+	// [42]		m_jump_left_light;
+	// [43]		m_jump_right_light;
+	// [44]		m_hammer_left_light;
+	// [45]		m_hammer_left_light_2;
+	// [46]		m_hammer_left_light_b;
+	// [47]		m_hammer_left_light_b_2;
+	// [48]		m_hammer_right_light;
+	// [49]		m_hammer_right_light_2;
+	// [50]		m_hammer_right_light_b;
+	// [51]		m_hammer_right_light_b_2;
 	}				t_game;
 
 /* print.c */
@@ -228,18 +236,19 @@ void	put_moves(t_game *game);
 void	put_bar(t_game *game);
 void	put_jump(t_game *game);
 void	put_hammer_hit(t_game *game);
-void	put_player_base(t_game *game);
-void	put_player(t_game *game, t_data *dst, t_data *src, t_data *sprites, t_shift drawing_pos);
+void	put_player(t_game *game, t_data *dst, t_data *src, t_data *sprites);
+void	put_player_walk(t_data *dst, t_data *src, t_data *sprites);
 void	put_grass(t_game *game, t_pos pos);
 void	put_wall(t_game *game, t_pos pos);
 void	put_collectibless(t_game *game, t_pos pos);
 void	put_collectibles(t_game *game, t_pos pos);
 void	put_wall_to_player(t_game *game);
-void	put_enemies(t_game *game, t_data *dst, t_data *src, t_data *sprites, t_shift drawing_pos);
-void	put_element(t_data *dst, t_data *src, t_data *sprites, t_shift drawing_pos);
-void	put_elements(t_game *game);
+void	put_enemies(t_game *game, t_data *dst, t_data *src, t_data *sprites);
+void	put_all_elements(t_data *dst, t_data *src, t_data *sprites, t_shift drawing_pos);
+void	put_render(t_game *game);
 
 /* zoubir.c */
+int		player_is_moving(t_game *game);
 void	get_player_position(t_data *entity, t_pos pos_trgt);
 void	get_position_entities(t_data *entities, t_pos pos_trgt);
 int		count_entity(char **map, char *target);
@@ -250,8 +259,8 @@ int		is(char *str, char c);
 /* so_long.c */
 int		appearing_star(t_game *game, t_pos pos);
 void	display_bar(t_game *game);
-int		enemy_proximity(t_game *game, t_pos pos);
-int		is_near(t_game *game, t_pos pos, char *str);
+int		enemy_proximity(char **map, t_pos player, t_pos pos);
+int		is_near(char **map, t_pos pos, char *str);
 
 /* run.c */
 void	end_game(t_game *game, t_end condition);

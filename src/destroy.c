@@ -30,7 +30,7 @@ int	destroy_all_elements(t_game *game)
 	destroy_elements(game->mlx, game->sprites_goombas, 9);
 	destroy_elements(game->mlx, game->sprites_environnement, 10);
 	destroy_elements(game->mlx, game->sprites_bar, 15);
-	destroy_elements(game->mlx, game->sprites_mario, 44);
+	destroy_elements(game->mlx, game->sprites_mario, 52);
 	mlx_destroy_image(game->mlx, game->bar.img);
 	mlx_destroy_image(game->mlx, game->render.img);
 	mlx_destroy_window(game->mlx, game->win);

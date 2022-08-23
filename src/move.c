@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 11:19:37 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/21 23:10:05 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/23 23:01:39 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,22 @@ void	get_player_sprite_direction(t_game *game)
 {
 	if (game->move_up)
 	{
-		if (game->player_direction == 'l' || game->player_direction == 'L')
-			game->player_direction = 'l';
+		if (game->player.direction == 'l' || game->player.direction == 'L')
+			game->player.direction = 'l';
 		else
-			game->player_direction = 'r';
+			game->player.direction = 'r';
 	}
 	else if (game->move_right)
-		game->player_direction = 'R';
+		game->player.direction = 'R';
 	else if (game->move_down)
 	{
-		if (game->player_direction == 'l' || game->player_direction == 'L')
-			game->player_direction = 'L';
+		if (game->player.direction == 'l' || game->player.direction == 'L')
+			game->player.direction = 'L';
 		else
-			game->player_direction = 'R';
+			game->player.direction = 'R';
 	}
 	else if (game->move_left)
-		game->player_direction = 'L';
+		game->player.direction = 'L';
 }
 
 void	get_player_direction(t_game *game, t_pos *pos_trgt, t_pos *cell_trgt)
