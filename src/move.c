@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 11:19:37 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/23 23:01:39 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/24 14:09:44 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,23 +38,23 @@ void	get_player_direction(t_game *game, t_pos *pos_trgt, t_pos *cell_trgt)
 {
 	if (game->move_up)
 	{
-		pos_trgt->y -= 1;
-		cell_trgt->y -= 2;
+		pos_trgt->y--;
+		cell_trgt->y--;
 	}
 	else if (game->move_right)
 	{
-		pos_trgt->x += 1;
-		cell_trgt->x += 2;
+		pos_trgt->x++;
+		cell_trgt->x++;
 	}
 	else if (game->move_down)
 	{
-		pos_trgt->y += 1;
-		cell_trgt->y += 2;
+		pos_trgt->y++;
+		cell_trgt->y++;
 	}
 	else if (game->move_left)
 	{
-		pos_trgt->x -= 1;
-		cell_trgt->x -= 2;
+		pos_trgt->x--;
+		cell_trgt->x--;
 	}
 }
 

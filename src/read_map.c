@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 13:53:24 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/22 14:10:32 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/24 18:49:35 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	read_map(char **map, t_data *element, char *target, void (*f)(t_data *, t_p
 	}
 }
 
-void	read_all_map(t_game *game, char *target, void (*f)(t_game *, t_pos))
+void	read_map_with_struct(t_game *game, char *target, void (*f)(t_game *, t_pos))
 {
 	t_pos	pos;
 

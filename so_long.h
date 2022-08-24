@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:53:28 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/23 23:19:24 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/24 19:08:23 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 # define VALID_CHAR "01CEPMH"
 # define COLLECTIBLES "CEeH"
 # define ALL "01CEePMURDLurdlH"
+# define GRASS "0"
+# define WALL "1"
 # define COIN "C"
 # define STAR "Ee"
 # define PLAYER "P"
@@ -158,14 +160,14 @@ typedef struct	s_game {
 	// [8]		gr_3;
 	t_data		sprites_environnement[10];
 	// [0]		e_grass;
-	// [1]		e_grass_shadow;
-	// [2]		e_wall_bot;
-	// [3]		e_wall_bot_shadow;
-	// [4]		e_wall_mid;
-	// [5]		e_wall_mid_shadow;
-	// [6]		e_wall_top;
+	// [1]		e_wall_bot;
+	// [2]		e_wall_top;
+	// [3]		e_wall_mid;
+	// [4]		e_wall_one;
+	// [5]		e_grass_shadow;
+	// [6]		e_wall_bot_shadow;
 	// [7]		e_wall_top_shadow;
-	// [8]		e_wall_one;
+	// [8]		e_wall_mid_shadow;
 	// [9]		e_wall_one_shadow;
 	t_data		sprites_bar[15];
 	// [10]		sprites_bar;
@@ -239,7 +241,7 @@ void	put_hammer_hit(t_game *game);
 void	put_player(t_game *game, t_data *dst, t_data *src, t_data *sprites);
 void	put_player_walk(t_data *dst, t_data *src, t_data *sprites);
 void	put_grass(t_game *game, t_pos pos);
-void	put_wall(t_game *game, t_pos pos);
+void	put_wall(t_game *game, t_data *dst, t_data *sprites, t_pos pos);
 void	put_collectibless(t_game *game, t_pos pos);
 void	put_collectibles(t_game *game, t_pos pos);
 void	put_wall_to_player(t_game *game);
@@ -275,7 +277,7 @@ void	spawn_enemy(char **map, t_data *enemy);
 int		more_element(t_game *game, t_pos pos);
 void	read_map_and_array(char **map, t_data *element, char *target, void (*f)(t_data *, t_pos));
 void	read_map(char **map, t_data *element, char *target, void (*f)(t_data *, t_pos));
-void	read_all_map(t_game *game, char *target, void (*f)(t_game *, t_pos));
+void	read_map_with_struct(t_game *game, char *target, void (*f)(t_game *, t_pos));
 t_pos	read_map_return_pos(char **map, char *target);
 void	iterate_elements(char **map, int element_count, t_data *elements, void (*f)(char **, t_data *));
 
@@ -294,6 +296,7 @@ void	get_data_elements(t_game *game);
 void	initialize_enemies(t_game *game, t_data *enemies);
 void	initialize_coins(t_game *game, t_data *coins);
 void	initialize_star(t_game *game, t_data *star);
+void	initialize_bar(t_game *game, t_data *bar);
 void	initialize_player(t_game *game, t_data *player);
 
 /* move_enemy.c */

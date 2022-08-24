@@ -16,6 +16,7 @@ int	appearing_star(t_game *game, t_pos pos)
 {
 	game->map[pos.y][pos.x] = 'e';
 	game->star_appeared = TRUE;
+	game->environnement_displayed = FALSE;
 	system("pkill vlc");
 	system("cvlc sound/star_appeared.wav &");
 	sleep(3);

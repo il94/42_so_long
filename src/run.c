@@ -125,9 +125,7 @@ void	initialize_data_game(t_game *game, char *file)
 {
 	get_data_map(file, &game->map, &game->max);
 	get_data_elements(game);
-	game->bar_displayed = FALSE;
 	game->environnement_displayed = FALSE;
-	game->max_player_steps = FALSE;
 	system("cvlc sound/march_ahead.wav &");
 }
 

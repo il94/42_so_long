@@ -19,8 +19,8 @@ void	initialize_enemies(t_game *game, t_data *enemies)
 
 	i = 0;
 	count_enemies = count_entity(game->map, ENEMY);
-	game->enemies = malloc(count_enemies * sizeof(t_data));
-	while (i < count_enemies)
+	game->enemies = malloc((count_enemies + 1) * sizeof(t_data));
+	while (i < count_enemies + 1)
 	{
 		game->enemies[i].count = count_enemies;
 		game->enemies[i].index = count_enemies - i;
@@ -58,12 +58,22 @@ void	initialize_star(t_game *game, t_data *star)
 	game->star_appeared = FALSE;
 }
 
+void	initialize_bar(t_game *game, t_data *bar)
+{
+	game->bar.count = 1;
+	game->bar.index = 1;
+	game->bar.state = 0;
+	game->bar.speed_animation = 12;
+	game->bar_displayed = FALSE;
+	game->max_player_steps = FALSE;
+}
+
 void	initialize_player(t_game *game, t_data *player)
 {
 	game->player.count = 1;
 	game->player.index = 1;
 	game->player.state = 0;
-	game->player.speed_animation = 12;
+	game->player.speed_animation = 24;
 	read_map(game->map, &game->player, PLAYER, &get_player_position);
 	game->player.direction = 'L';
 	game->player_steps = 0;

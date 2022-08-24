@@ -246,44 +246,6 @@ void	put_bar(t_game *game)
 	}
 }
 
-void	put_grass(t_game *game, t_pos pos)
-{
-	if (!game->star_appeared)
-		draw(&game->render, &game->sprites_environnement[0], pos, FULL);
-	else
-		draw(&game->render, &game->sprites_environnement[1], pos, FULL);
-}
-
-void	put_wall(t_game *game, t_pos pos)
-{
-	if (!game->star_appeared)
-	{
-		if (pos.y < game->max.y - 1 && pos.y > 0
-			&& game->map[pos.y + 1][pos.x] == '1'
-			&& game->map[pos.y - 1][pos.x] == '1')
-			draw(&game->render, &game->sprites_environnement[4], pos, FULL);
-		else if (pos.y < game->max.y - 1 && game->map[pos.y + 1][pos.x] == '1')
-			draw(&game->render, &game->sprites_environnement[6], pos, FULL);
-		else if (pos.y > 0 && game->map[pos.y - 1][pos.x] == '1')
-			draw(&game->render, &game->sprites_environnement[2], pos, FULL);
-		else
-			draw(&game->render, &game->sprites_environnement[8], pos, FULL);
-	}
-	else
-	{
-		if (pos.y < game->max.y - 1 && pos.y > 0
-			&& game->map[pos.y + 1][pos.x] == '1'
-			&& game->map[pos.y - 1][pos.x] == '1')
-			draw(&game->render, &game->sprites_environnement[5], pos, FULL);
-		else if (pos.y < game->max.y - 1 && game->map[pos.y + 1][pos.x] == '1')
-			draw(&game->render, &game->sprites_environnement[7], pos, FULL);
-		else if (pos.y > 0 && game->map[pos.y - 1][pos.x] == '1')
-			draw(&game->render, &game->sprites_environnement[3], pos, FULL);
-		else
-			draw(&game->render, &game->sprites_environnement[9], pos, FULL);
-	}
-}
-
 void	put_enemies(t_game *game, t_data *dst, t_data *src, t_data *sprites)
 {
 	int	i;
@@ -298,20 +260,6 @@ void	put_enemies(t_game *game, t_data *dst, t_data *src, t_data *sprites)
 		else
 			put_element(dst, &src[i], &sprites[0], CENTER);
 		i++;
-	}
-}
-
-void	put_wall_to_player(t_game *game)
-{
-	t_pos	target;
-
-	target.y = game->player.pos.y + 1;
-	target.x = game->player.pos.x - 1;
-	while (target.x <= game->player.pos.x + 1)
-	{
-		if (game->map[target.y][target.x] == '1')
-			put_wall(game, target);
-		target.x++;
 	}
 }
 
@@ -420,14 +368,122 @@ void	put_player(t_game *game, t_data *dst, t_data *src, t_data *sprites)
 		put_player_static(dst, src, &game->sprites_mario[i]);
 }
 
-void	put_render(t_game *game)
+void	put_wall_to_player(t_game *game)
+{
+	t_pos	pos_trgt;
+	int	i;
+
+	i = 0;
+	if (game->star_appeared)
+		i += 5;
+	pos_trgt.x = game->player.pos.x - 1;
+	pos_trgt.y = game->player.pos.y + 1;
+	while (pos_trgt.x <= game->player.pos.x + 1)
+	{
+		if (is(WALL, game->map[pos_trgt.y][pos_trgt.x]))
+			put_wall(game, &game->render, &game->sprites_environnement[i], pos_trgt);
+		pos_trgt.x++;
+	}
+}
+
+void	put_wall(t_game *game, t_data *dst, t_data *sprites, t_pos pos)
+{
+	int	i;
+
+	i = 0;
+	if (pos.y < game->max.y - 1 && pos.y > 0
+		&& is(WALL, game->map[pos.y + 1][pos.x])
+		&& is(WALL, game->map[pos.y - 1][pos.x]))
+		i += 2;
+	else if (pos.y < game->max.y - 1 && is(WALL, game->map[pos.y + 1][pos.x]))
+		i += 3;
+	else if (pos.y > 0 && is(WALL, game->map[pos.y - 1][pos.x]))
+		i += 1;
+	else
+		i += 4;
+	draw(dst, &sprites[i], pos, FULL);
+}
+
+void	put_environnement(t_game *game, t_pos pos_trgt)
+{
+	int	i;
+
+	i = 0;
+	if (game->star_appeared)
+		i += 5;
+	draw(&game->render, &game->sprites_environnement[i], pos_trgt, FULL);
+	if (is(WALL, game->map[pos_trgt.y][pos_trgt.x]))
+		put_wall(game, &game->render, &game->sprites_environnement[i], pos_trgt);
+}
+
+void	put_around_player(t_game *game, t_pos pos)
+{
+	t_pos	pos_trgt;
+
+	pos_trgt = pos;
+	pos_trgt.y -= 2;
+	if (pos_trgt.y < 0)
+		pos_trgt.y = 0;
+	while (pos_trgt.y <= pos.y + 1)
+	{
+		pos_trgt.x = pos.x - 1;
+		if (pos_trgt.x < 0)
+			pos_trgt.x = 0;
+		while (pos_trgt.x <= pos.x + 1)
+		{
+			put_environnement(game, pos_trgt);
+			pos_trgt.x++;
+		}
+		pos_trgt.y++;
+	}
+}
+
+void	put_around_enemy(t_game *game, t_pos pos)
+{
+	t_pos	pos_trgt;
+
+	pos_trgt = pos;
+	pos_trgt.y--;
+	while (pos_trgt.y <= pos.y + 1)
+	{
+		put_environnement(game, pos_trgt);
+		pos_trgt.y++;
+	}
+	pos_trgt.y = pos.y;
+	pos_trgt.x--;
+	while (pos_trgt.x <= pos.x + 1)
+	{
+		put_environnement(game, pos_trgt);
+		pos_trgt.x++;
+	}
+}
+
+void	put_all_environnement(t_game *game)
 {
 	if (!game->environnement_displayed)
 	{
-		read_all_map(game, ALL, put_grass);
-		read_all_map(game, "1", put_wall);
+		read_map_with_struct(game, ALL, put_environnement);
 		game->environnement_displayed = TRUE;
 	}
+}
+
+void	put_environnement_around_entity(t_game *game)
+{
+	int	i;
+
+	put_around_player(game, game->player.pos);
+	i = 0;
+	while (i < game->enemies->count)
+	{
+		put_around_enemy(game, game->enemies[i].pos);
+		i++;
+	}
+}
+
+void	put_render(t_game *game)
+{
+	put_all_environnement(game);
+	put_environnement_around_entity(game);
 	if (game->map_contain_hammer && !game->get_hammer)
 		draw(&game->render, &game->sprites_collectibles[4], game->hammer.pos, FULL);
 	if (game->star_appeared)
@@ -441,3 +497,4 @@ void	put_render(t_game *game)
 	put_wall_to_player(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->render.img, 0, 0);
 }
+
