@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 11:14:55 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/23 16:12:43 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/25 17:10:23 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	get_all_addresses(t_game *game)
 	get_addresses(game->sprites_environnement, 10);
 	get_addresses(game->sprites_bar, 15);
 	get_addresses(game->sprites_mario, 52);
-	game->bar.addr = mlx_get_data_addr(game->bar.img,
-			&game->bar.bpp, &game->bar.line, &game->bar.endian);
+	game->scrolling_bar.addr = mlx_get_data_addr(game->scrolling_bar.img,
+			&game->scrolling_bar.bpp, &game->scrolling_bar.line, &game->scrolling_bar.endian);
 	game->render.addr = mlx_get_data_addr(game->render.img,
 			&game->render.bpp, &game->render.line, &game->render.endian);
 }

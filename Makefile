@@ -15,6 +15,11 @@ SRC = main.c \
 		images.c \
 		addresses.c \
 		print.c \
+		print_elements.c \
+		print_utils.c \
+		print_utils2.c \
+		print_scrolling_bar.c \
+		print_player.c \
 		so_long.c \
 		destroy.c \
 		run.c \

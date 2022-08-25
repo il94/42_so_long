@@ -58,12 +58,12 @@ void	initialize_star(t_game *game, t_data *star)
 	game->star_appeared = FALSE;
 }
 
-void	initialize_bar(t_game *game, t_data *bar)
+void	initialize_bar(t_game *game, t_data *scrolling_bar)
 {
-	game->bar.count = 1;
-	game->bar.index = 1;
-	game->bar.state = 0;
-	game->bar.speed_animation = 12;
+	game->scrolling_bar.pos.x = 0;
+	game->scrolling_bar.pos.y = 0;
+	game->scrolling_bar.cell.x = 0;
+	game->scrolling_bar.cell.y = 0;
 	game->bar_displayed = FALSE;
 	game->max_player_steps = FALSE;
 }

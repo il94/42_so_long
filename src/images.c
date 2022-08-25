@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 00:08:03 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/23 21:56:21 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/25 17:10:23 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,10 @@ void	get_all_images(t_game *game)
 	game->sprites_mario[46].sprite_count = 2;
 	game->sprites_mario[48].sprite_count = 2;
 	game->sprites_mario[50].sprite_count = 2;
-	game->bar.img = mlx_new_image(game->mlx,
+	game->scrolling_bar.img = mlx_new_image(game->mlx,
 			game->max.x * CELL, CELL);
-	game->bar.width = game->max.x * CELL;
-	game->bar.height = CELL;
+	game->scrolling_bar.width = game->max.x * CELL;
+	game->scrolling_bar.height = CELL;
 	game->render.img = mlx_new_image(game->mlx,
 			game->max.x * CELL, game->max.y * CELL);
 }

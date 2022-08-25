@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:53:28 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/24 19:08:23 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/25 18:54:35 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef enum	e_shift {
 	HAMMER_RIGHT_1,
 	HAMMER_RIGHT_2,
 	MENU,
-	TEST
+	MOVE_COUNTER
 }				t_shift;
 
 typedef enum	e_bool {
@@ -100,7 +100,7 @@ typedef struct	s_game {
 	void	*mlx;
 	void	*win;
 	t_data	render;
-	t_data	bar;
+	t_data	scrolling_bar;
 	
 	/* data game */
 	t_bool	bar_displayed;
@@ -230,24 +230,47 @@ typedef struct	s_game {
 	// [51]		m_hammer_right_light_b_2;
 	}				t_game;
 
+
+
+
+
+
+
 /* print.c */
+void	put_render(t_game *game);
+
+/* print_elements.c */
+void	put_environnement(t_game *game, t_pos pos_trgt);
+void	put_wall(t_game *game, t_data *dst, t_data *sprites, t_pos pos);
+void	put_enemies(t_game *game, t_data *dst, t_data *src, t_data *sprites);
+void	put_player(t_game *game, t_data *dst, t_data *src, t_data *sprites);
+void	put_scrolling_bar(t_game *game);
+
+/* print_player.c */
+void	put_player_hit(t_data *dst, t_data *src, t_data *sprites, t_bool *is_hitting);
+void	put_player_jump(t_data *dst, t_data *src, t_data *sprites, t_bool *is_jumping);
+void	put_player_walk(t_data *dst, t_data *src, t_data *sprites);
+void	put_player_static(t_data *dst, t_data *src, t_data *sprites);
+
+/* print_scrolling_bar.c */
+void	put_bar(t_data *dst, t_data *sprites, int size_bar);
+void	put_move_count(t_game *game);
+void	put_step_on_bar(t_data *dst, t_data *sprites, t_pos pos_trgt, int player_steps);
+void	scroll_bar(t_data *dst, t_data *scrolling_bar, t_bool bar_displayed);
+
+/* print_utils.c */
 int		get_shift_drawing_x(t_pos index, t_pos trgt, t_shift drawing_pos);
 int		get_shift_drawing_y(t_pos index, t_pos trgt, t_shift drawing_pos);
 int		draw(t_data *dst_img, t_data *src_img, t_pos trgt, t_shift drawing_pos);
-void	put_moves(t_game *game);
-void	put_bar(t_game *game);
-void	put_jump(t_game *game);
-void	put_hammer_hit(t_game *game);
-void	put_player(t_game *game, t_data *dst, t_data *src, t_data *sprites);
-void	put_player_walk(t_data *dst, t_data *src, t_data *sprites);
-void	put_grass(t_game *game, t_pos pos);
-void	put_wall(t_game *game, t_data *dst, t_data *sprites, t_pos pos);
-void	put_collectibless(t_game *game, t_pos pos);
-void	put_collectibles(t_game *game, t_pos pos);
-void	put_wall_to_player(t_game *game);
-void	put_enemies(t_game *game, t_data *dst, t_data *src, t_data *sprites);
 void	put_all_elements(t_data *dst, t_data *src, t_data *sprites, t_shift drawing_pos);
-void	put_render(t_game *game);
+void	put_element(t_data *dst, t_data *src, t_data *sprites, t_shift drawing_pos);
+
+/* print_utils2.c */
+void	put_all_environnement(t_game *game);
+void	put_wall_to_player(t_game *game);
+void	put_around_player(t_game *game, t_pos pos_player);
+void	put_around_enemy(t_game *game, t_pos pos_enemy);
+void	put_around_bar(t_game *game, t_pos pos_scrolling_bar);
 
 /* zoubir.c */
 int		player_is_moving(t_game *game);
@@ -296,7 +319,7 @@ void	get_data_elements(t_game *game);
 void	initialize_enemies(t_game *game, t_data *enemies);
 void	initialize_coins(t_game *game, t_data *coins);
 void	initialize_star(t_game *game, t_data *star);
-void	initialize_bar(t_game *game, t_data *bar);
+void	initialize_bar(t_game *game, t_data *scrolling_bar);
 void	initialize_player(t_game *game, t_data *player);
 
 /* move_enemy.c */
