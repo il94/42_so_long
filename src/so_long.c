@@ -16,7 +16,7 @@ int	appearing_star(t_game *game, t_pos pos)
 {
 	game->map[pos.y][pos.x] = 'e';
 	game->star_appeared = TRUE;
-	game->environnement_displayed = FALSE;
+	game->land_displayed = FALSE;
 	system("pkill vlc");
 	system("cvlc sound/star_appeared.wav &");
 	sleep(3);
@@ -28,15 +28,15 @@ int	appearing_star(t_game *game, t_pos pos)
 
 void	display_bar(t_game *game)
 {
-	if (!game->bar_displayed)
+	if (!game->bar_display)
 	{
 		system("cvlc sound/open_bar.wav &");
-		game->bar_displayed = TRUE;
+		game->bar_display = TRUE;
 	}
 	else
 	{
  		system("cvlc sound/close_bar.wav &");
-		game->bar_displayed = FALSE;
+		game->bar_display = FALSE;
 	}
 }
 

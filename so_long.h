@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:53:28 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/25 18:54:35 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/26 20:05:55 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 
 # define CELL 48
 # define VALID_CHAR "01CEPMH"
-# define COLLECTIBLES "CEeH"
+# define items "CEeH"
 # define ALL "01CEePMURDLurdlH"
 # define GRASS "0"
 # define WALL "1"
@@ -78,201 +78,116 @@ typedef struct	s_pos {
 }				t_pos;
 
 typedef struct	s_data {
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		line;
-	int		endian;
-	int		width;
-	int		height;
 	t_pos	pos;
 	t_pos	cell;
 	int		count;
 	int		index;
 	int		state;
 	int		speed_animation;
-	int		sprite_count;
 	char	direction;
 }				t_data;
+
+typedef struct	s_img {
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line;
+	int		end;
+	int		width;
+	int		height;
+	int		sprite_count;
+}				t_img;
 
 typedef struct	s_game {
 	/* data mlx */
 	void	*mlx;
 	void	*win;
-	t_data	render;
-	t_data	scrolling_bar;
-	
-	/* data game */
-	t_bool	bar_displayed;
 	int		keycode;
-	t_bool	environnement_displayed;
 
 	/* data map */
 	char	**map;
 	t_pos	max;
 
+	/* data render */
+	t_data	render;
+	t_data	stepbar;
+	t_bool	bar_display;
+	t_bool	land_displayed;
+
+	/* data mario */
+	t_data	player;
+	int		player_steps;
+	t_bool	max_player_steps;
+	t_bool	hitting;
+	t_bool	jumping;
+	t_bool	move_up;
+	t_bool	move_right;
+	t_bool	move_down;
+	t_bool	move_left;
+
 	/* data enemies */
 	t_data	*enemies;
-
+	
 	/* data coins */
 	t_data	*coins;
+
+	/* data star */
+	t_data	star;
+	t_bool	star_appeared;
 
 	/* data hammer */
 	t_data	hammer;
 	t_bool	map_contain_hammer;
 	t_bool	get_hammer;
 
-	/* data star */
-	t_data	*star;
-	t_bool	star_appeared;
-
-	/* data mario */
-	t_data	player;
-	int		player_steps;
-	t_bool	max_player_steps;
-	t_bool	is_hitting;
-	t_bool	is_jumping;
-	t_bool	move_up;
-	t_bool	move_right;
-	t_bool	move_down;
-	t_bool	move_left;
-
 	/* images */
-
-	t_data		sprites_collectibles[8];
-	// [0]		c;
-	// [1]		c_2;
-	// [2]		c_3;
-	// [3]		c_4;
-	// [4]		hammer;
-	// [5]		s;
-	// [6]		s_2;
-	// [7]		s_3;
-	t_data		sprites_goombas[9];
-	// [0]		g;
-	// [1]		g_2;
-	// [2]		g_3;
-	// [3]		gb;
-	// [4]		gb_2;
-	// [5]		gb_3;
-	// [6]		gr;
-	// [7]		gr_2;
-	// [8]		gr_3;
-	t_data		sprites_environnement[10];
-	// [0]		e_grass;
-	// [1]		e_wall_bot;
-	// [2]		e_wall_top;
-	// [3]		e_wall_mid;
-	// [4]		e_wall_one;
-	// [5]		e_grass_shadow;
-	// [6]		e_wall_bot_shadow;
-	// [7]		e_wall_top_shadow;
-	// [8]		e_wall_mid_shadow;
-	// [9]		e_wall_one_shadow;
-	t_data		sprites_bar[15];
-	// [10]		sprites_bar;
-	// [11]		bar_2;
-	// [12]		bar_3;
-	// [13]		step;
-	// [14]		steps;
-	t_data		sprites_mario[52];
-	// [0]		m_static_left;
-	// [1]		m_static_left_b;
-	// [2]		m_static_right;
-	// [3]		m_static_right_b;
-	// [4]		m_walk_left;
-	// [5]		m_walk_left_2;
-	// [6]		m_walk_left_3;
-	// [7]		m_walk_left_b;
-	// [8]		m_walk_left_b_2;
-	// [9]		m_walk_left_b_3;
-	// [10]		m_walk_right;
-	// [11]		m_walk_right_2;
-	// [12]		m_walk_right_3;
-	// [13]		m_walk_right_b;
-	// [14]		m_walk_right_b_2;
-	// [15]		m_walk_right_b_3;
-	// [16]		m_jump_left;
-	// [17]		m_jump_right;
-	// [18]		m_hammer_left;
-	// [19]		m_hammer_left_2;
-	// [20]		m_hammer_left_b;
-	// [21]		m_hammer_left_b_2;
-	// [22]		m_hammer_right;
-	// [23]		m_hammer_right_2;
-	// [24]		m_hammer_right_b;
-	// [25]		m_hammer_right_b_2;
-	// [26]		m_static_left_light;
-	// [27]		m_static_left_b_light;
-	// [28]		m_static_right_light;
-	// [29]		m_static_right_b_light;
-	// [30]		m_walk_left_light;
-	// [31]		m_walk_left_light_2;
-	// [32]		m_walk_left_light_3;
-	// [33]		m_walk_left_light_b;
-	// [34]		m_walk_left_light_b_2;
-	// [35]		m_walk_left_light_b_3;
-	// [36]		m_walk_right_light;
-	// [37]		m_walk_right_light_2;
-	// [38]		m_walk_right_light_3;
-	// [39]		m_walk_right_light_b;
-	// [40]		m_walk_right_light_b_2;
-	// [41]		m_walk_right_light_b_3;
-	// [42]		m_jump_left_light;
-	// [43]		m_jump_right_light;
-	// [44]		m_hammer_left_light;
-	// [45]		m_hammer_left_light_2;
-	// [46]		m_hammer_left_light_b;
-	// [47]		m_hammer_left_light_b_2;
-	// [48]		m_hammer_right_light;
-	// [49]		m_hammer_right_light_2;
-	// [50]		m_hammer_right_light_b;
-	// [51]		m_hammer_right_light_b_2;
+	t_img		s_render;
+	t_img		s_land[10];
+	t_img		s_stepbar;
+	t_img		s_bar[15];
+	t_img		s_mario[52];
+	t_img		s_goombas[9];
+	t_img		s_items[8];
 	}				t_game;
-
-
-
-
-
-
 
 /* print.c */
 void	put_render(t_game *game);
 
 /* print_elements.c */
-void	put_environnement(t_game *game, t_pos pos_trgt);
-void	put_wall(t_game *game, t_data *dst, t_data *sprites, t_pos pos);
-void	put_enemies(t_game *game, t_data *dst, t_data *src, t_data *sprites);
-void	put_player(t_game *game, t_data *dst, t_data *src, t_data *sprites);
-void	put_scrolling_bar(t_game *game);
+void	put_land(t_game *game, t_pos pos_trgt);
+void	put_wall(t_game *game, t_img *dst, t_img *sprites, t_pos pos);
+void	put_enemies(t_game *game, t_img *dst, t_data *src, t_img *sprites);
+void	put_player(t_game *game, t_img *dst, t_data *src, t_img *sprites);
+void	put_stepbar(t_game *game);
 
 /* print_player.c */
-void	put_player_hit(t_data *dst, t_data *src, t_data *sprites, t_bool *is_hitting);
-void	put_player_jump(t_data *dst, t_data *src, t_data *sprites, t_bool *is_jumping);
-void	put_player_walk(t_data *dst, t_data *src, t_data *sprites);
-void	put_player_static(t_data *dst, t_data *src, t_data *sprites);
+void	put_player_hit(t_img *dst, t_data *src, t_img *sprite, t_bool *hit);
+void	put_player_jump(t_img *dst, t_data *src, t_img *sprite, t_bool *jump);
+void	put_player_walk(t_img *dst, t_data *src, t_img *sprites);
+void	put_player_static(t_img *dst, t_data *src, t_img *sprites);
 
-/* print_scrolling_bar.c */
-void	put_bar(t_data *dst, t_data *sprites, int size_bar);
-void	put_move_count(t_game *game);
-void	put_step_on_bar(t_data *dst, t_data *sprites, t_pos pos_trgt, int player_steps);
-void	scroll_bar(t_data *dst, t_data *scrolling_bar, t_bool bar_displayed);
+/* print_stepbar.c */
+void	put_bar(t_img *dst, t_img *sprites, int size_bar);
+void	put_move_count(t_game *game, t_img *dst, t_img *sprites);
+void	put_step(t_img *dst, t_img *sprites, t_pos pos_trgt, int player_steps);
+void	scroll_bar(t_img *dst, t_data *src, t_img *sprite, t_bool bar_display);
 
 /* print_utils.c */
-int		get_shift_drawing_x(t_pos index, t_pos trgt, t_shift drawing_pos);
-int		get_shift_drawing_y(t_pos index, t_pos trgt, t_shift drawing_pos);
-int		draw(t_data *dst_img, t_data *src_img, t_pos trgt, t_shift drawing_pos);
-void	put_all_elements(t_data *dst, t_data *src, t_data *sprites, t_shift drawing_pos);
-void	put_element(t_data *dst, t_data *src, t_data *sprites, t_shift drawing_pos);
+int		get_shift_drawing_x(t_pos index, t_pos trgt, t_shift shift);
+int		get_shift_drawing_y(t_pos index, t_pos trgt, t_shift shift);
+int		draw(t_img *dst_img, t_img *src_img, t_pos trgt, t_shift shift);
+void	put_all_element(t_img *dst, t_data *src, t_img *sprite, t_shift shift);
+void	put_element(t_img *dst, t_data *src, t_img *sprite, t_shift shift);
 
 /* print_utils2.c */
-void	put_all_environnement(t_game *game);
+void	put_all_land(t_game *game);
 void	put_wall_to_player(t_game *game);
 void	put_around_player(t_game *game, t_pos pos_player);
 void	put_around_enemy(t_game *game, t_pos pos_enemy);
-void	put_around_bar(t_game *game, t_pos pos_scrolling_bar);
+void	put_around_bar(t_game *game, t_pos pos_stepbar);
 
 /* zoubir.c */
+void	swap_entities(t_game *game, t_data *entity);
 int		player_is_moving(t_game *game);
 void	get_player_position(t_data *entity, t_pos pos_trgt);
 void	get_position_entities(t_data *entities, t_pos pos_trgt);
@@ -305,7 +220,7 @@ t_pos	read_map_return_pos(char **map, char *target);
 void	iterate_elements(char **map, int element_count, t_data *elements, void (*f)(char **, t_data *));
 
 /* entity.c */
-void	kill_enemy(char **map, t_data *enemy);
+void	kill_enemy(t_game *game, char **map, t_data *enemy);
 int		collision(t_data entity, t_data player);
 int		collision_player_enemy(t_game *game);
 int		collision_player_coin(t_game *game);
@@ -319,7 +234,7 @@ void	get_data_elements(t_game *game);
 void	initialize_enemies(t_game *game, t_data *enemies);
 void	initialize_coins(t_game *game, t_data *coins);
 void	initialize_star(t_game *game, t_data *star);
-void	initialize_bar(t_game *game, t_data *scrolling_bar);
+void	initialize_bar(t_game *game, t_data *stepbar);
 void	initialize_player(t_game *game, t_data *player);
 
 /* move_enemy.c */
@@ -360,15 +275,15 @@ int		is_valid_border(char **map, t_pos map_pos);
 int		is_rectangular(char **map, int y);
 
 /* addresses.c */
-void	get_addresses(t_data *data, int number_sprite);
+void	get_addresses(t_img *data, int number_sprite);
 void	get_all_addresses(t_game *game);
 
 /* images.c */
-void	get_images(void *mlx, t_data *data, char type, int number_sprite);
+void	get_images(void *mlx, t_img *data, char type, int number_sprite);
 void	get_all_images(t_game *game);
 
 /* destroy.c */
-void	destroy_elements(void *mlx, t_data *data, int number_sprite);
+void	destroy_elements(void *mlx, t_img *data, int number_sprite);
 int		destroy_all_elements(t_game *game);
 
 /* main.c */

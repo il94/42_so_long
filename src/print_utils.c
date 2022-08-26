@@ -6,54 +6,54 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 18:37:40 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/25 18:38:41 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/26 17:47:44 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-int	get_shift_drawing_x(t_pos index, t_pos trgt, t_shift drawing_pos)
+int	get_shift_drawing_x(t_pos index, t_pos trgt, t_shift shift)
 {
-	if (drawing_pos == FULL)
+	if (shift == FULL)
 		return (index.y + (CELL * trgt.x));
-	else if (drawing_pos == BOT || drawing_pos == CENTER)
+	else if (shift == BOT || shift == CENTER)
 		return (index.y + trgt.x - (CELL / 2));
-	else if (drawing_pos == HAMMER_LEFT_1)
+	else if (shift == HAMMER_LEFT_1)
 		return (index.y + trgt.x - (CELL / 3));
-	else if (drawing_pos == HAMMER_LEFT_2)
+	else if (shift == HAMMER_LEFT_2)
 		return (index.y + trgt.x - CELL + (CELL / 6));
-	else if (drawing_pos == HAMMER_RIGHT_1)
+	else if (shift == HAMMER_RIGHT_1)
 		return (index.y + trgt.x - CELL);
-	else if (drawing_pos == HAMMER_RIGHT_2)
+	else if (shift == HAMMER_RIGHT_2)
 		return (index.y + trgt.x - (CELL / 6));
-	else if (drawing_pos == MENU || drawing_pos == MOVE_COUNTER)
+	else if (shift == MENU || shift == MOVE_COUNTER)
 		return (index.y + trgt.x);
 }
 
-int	get_shift_drawing_y(t_pos index, t_pos trgt, t_shift drawing_pos)
+int	get_shift_drawing_y(t_pos index, t_pos trgt, t_shift shift)
 {
-	if (drawing_pos == FULL)
+	if (shift == FULL)
 		return (index.x + (CELL * trgt.y));
-	else if (drawing_pos == BOT)
+	else if (shift == BOT)
 		return (index.x + trgt.y - CELL + (CELL / 6));
-	else if (drawing_pos == CENTER)
+	else if (shift == CENTER)
 		return (index.x + trgt.y - (CELL / 2));
-	else if (drawing_pos == HAMMER_LEFT_1)
+	else if (shift == HAMMER_LEFT_1)
 		return (index.x + trgt.y - (CELL + (CELL / 3)));
-	else if (drawing_pos == HAMMER_LEFT_2)
+	else if (shift == HAMMER_LEFT_2)
 		return (index.x + trgt.y - CELL);
-	else if (drawing_pos == HAMMER_RIGHT_1)
+	else if (shift == HAMMER_RIGHT_1)
 		return (index.x + trgt.y - (CELL + (CELL / 3)));
-	else if (drawing_pos == HAMMER_RIGHT_2 || drawing_pos == MENU)
+	else if (shift == HAMMER_RIGHT_2 || shift == MENU)
 		return (index.x + trgt.y - CELL);
-	else if (drawing_pos == MOVE_COUNTER)
+	else if (shift == MOVE_COUNTER)
 		return (index.x + trgt.y);
 }
 
-int	draw(t_data *dst_img, t_data *src_img, t_pos trgt, t_shift drawing_pos)
+int	draw(t_img *dst_img, t_img *src_img, t_pos trgt, t_shift shift)
 {
 	t_pos	px;
-	char 	*dst;
+	char	*dst;
 	int		x;
 	int		y;
 	int		color;
@@ -64,8 +64,8 @@ int	draw(t_data *dst_img, t_data *src_img, t_pos trgt, t_shift drawing_pos)
 		px.x = 0;
 		while (px.x < src_img->height)
 		{
-			x = get_shift_drawing_x(px, trgt, drawing_pos);
-			y = get_shift_drawing_y(px, trgt, drawing_pos);
+			x = get_shift_drawing_x(px, trgt, shift);
+			y = get_shift_drawing_y(px, trgt, shift);
 			dst = dst_img->addr + y * dst_img->line + x * dst_img->bpp / 8;
 			color = *(int *)(src_img->addr + px.x * src_img->line + px.y * 4);
 			if (color >= -1 && y >= 0 && x >= 0 && color != *(int *)dst)
@@ -77,10 +77,10 @@ int	draw(t_data *dst_img, t_data *src_img, t_pos trgt, t_shift drawing_pos)
 	return (0);
 }
 
-void	put_all_elements(t_data *dst, t_data *src, t_data *sprites, t_shift drawing_pos)
+void	put_all_element(t_img *dst, t_data *src, t_img *sprites, t_shift shift)
 {
 	int	frequency;
-	int	frequency_count;
+	int	scale;
 	int	index_sprite;
 	int	i;
 
@@ -89,32 +89,32 @@ void	put_all_elements(t_data *dst, t_data *src, t_data *sprites, t_shift drawing
 	while (i < src->index)
 	{
 		index_sprite = 0;
-		frequency_count = 0;
+		scale = 0;
 		while (index_sprite < sprites->sprite_count)
 		{
-			if (src->state >= frequency_count && src->state <= frequency_count + frequency)
-				draw(dst, &sprites[index_sprite], src[i].cell, drawing_pos);
+			if (src->state >= scale && src->state <= scale + frequency)
+				draw(dst, &sprites[index_sprite], src[i].cell, shift);
 			index_sprite++;
-			frequency_count += frequency;
+			scale += frequency;
 		}
 		i++;
 	}
 }
 
-void	put_element(t_data *dst, t_data *src, t_data *sprites, t_shift drawing_pos)
+void	put_element(t_img *dst, t_data *src, t_img *sprites, t_shift shift)
 {
-	int	frequency_count;
+	int	scale;
 	int	frequency;
 	int	index_sprite;
 
 	index_sprite = 0;
-	frequency_count = 0;
+	scale = 0;
 	frequency = src->speed_animation / sprites->sprite_count;
 	while (index_sprite < sprites->sprite_count)
 	{
-		if (src->state >= frequency_count && src->state <= frequency_count + frequency)
-			draw(dst, &sprites[index_sprite], src->cell, drawing_pos);
-		frequency_count += frequency;
+		if (src->state >= scale && src->state <= scale + frequency)
+			draw(dst, &sprites[index_sprite], src->cell, shift);
+		scale += frequency;
 		index_sprite++;
 	}
 }

@@ -28,6 +28,10 @@ void	initialize_enemies(t_game *game, t_data *enemies)
 		game->enemies[i].speed_animation = 30;
 		i++;
 	}
+	game->enemies[i].count = 0;
+	game->enemies[i].index = 0;
+	game->enemies[i].state = 0;
+	game->enemies[i].speed_animation = 0;
 	read_map_and_array(game->map, game->enemies, ENEMY, &get_position_entities);
 }
 
@@ -36,7 +40,7 @@ void	initialize_coins(t_game *game, t_data *coins)
 	int	count_coins;
 
 	count_coins = count_entity(game->map, COIN);
-	game->coins = malloc(count_coins * sizeof(t_data));
+	game->coins = malloc((count_coins + 1) * sizeof(t_data));
 	game->coins->count = count_coins;
 	game->coins->index = count_coins;
 	game->coins->state = 0;
@@ -46,25 +50,21 @@ void	initialize_coins(t_game *game, t_data *coins)
 
 void	initialize_star(t_game *game, t_data *star)
 {
-	int	count_star;
-
-	count_star = count_entity(game->map, STAR);
-	game->star = malloc(count_star * sizeof(t_data));
-	game->star->count = count_star;
-	game->star->index = count_star;
-	game->star->state = 0;
-	game->star->speed_animation = 90;
-	read_map_and_array(game->map, game->star, STAR, &get_position_entities);
+	game->star.count = 1;
+	game->star.index = 1;
+	game->star.state = 0;
+	game->star.speed_animation = 90;
+	read_map_and_array(game->map, &game->star, STAR, &get_position_entities);
 	game->star_appeared = FALSE;
 }
 
-void	initialize_bar(t_game *game, t_data *scrolling_bar)
+void	initialize_bar(t_game *game, t_data *stepbar)
 {
-	game->scrolling_bar.pos.x = 0;
-	game->scrolling_bar.pos.y = 0;
-	game->scrolling_bar.cell.x = 0;
-	game->scrolling_bar.cell.y = 0;
-	game->bar_displayed = FALSE;
+	game->stepbar.pos.x = 0;
+	game->stepbar.pos.y = 0;
+	game->stepbar.cell.x = 0;
+	game->stepbar.cell.y = 0;
+	game->bar_display = FALSE;
 	game->max_player_steps = FALSE;
 }
 
@@ -74,11 +74,11 @@ void	initialize_player(t_game *game, t_data *player)
 	game->player.index = 1;
 	game->player.state = 0;
 	game->player.speed_animation = 24;
-	read_map(game->map, &game->player, PLAYER, &get_player_position);
 	game->player.direction = 'L';
+	read_map(game->map, &game->player, PLAYER, &get_player_position);
 	game->player_steps = 0;
-	game->is_hitting = FALSE;
-	game->is_jumping = FALSE;
+	game->hitting = FALSE;
+	game->jumping = FALSE;
 	game->move_up = FALSE;
 	game->move_right = FALSE;
 	game->move_down = FALSE;

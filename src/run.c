@@ -85,12 +85,12 @@ int	run_game(t_game *game)
 	// printf("========\n");
 	// printf("enemies = %d, pos = x: %d y: %d\n", game->enemies->count, game->enemies[0].pos.x, game->enemies[0].pos.y);
 	// printf("coins = %d, pos = x: %d y: %d\n", game->coins->count, game->coins[0].pos.x, game->coins[0].pos.y);
-	// printf("count :%d xpos: %d ypos: %d xcell: %d ycell: %d\n", game->star.count, game->star.pos.x, game->star.pos.y, game->star.cell.x, game->star.cell.y);
+	// printf("count :%d xpos: %d ypos: %d xcell: %d ycell: %d\n", &game->star.count, &game->star.pos.x, &game->star.pos.y, &game->star.cell.x, &game->star.cell.y);
 	put_render(game);
 	if (game->coins->state++ >= game->coins->speed_animation)
 		game->coins->state = 0;
-	if (game->star->state++ >= game->star->speed_animation)
-		game->star->state = 0;
+	if (game->star.state++ >= game->star.speed_animation)
+		game->star.state = 0;
 	move_player(game);
 	move_all_enemies(game);
 	if (collision_player_enemy(game))
@@ -98,7 +98,7 @@ int	run_game(t_game *game)
 	if (collision_player_coin(game))
 		player_get_coin(game);	
 	if (!game->star_appeared && game->coins->count == 0)
-		appearing_star(game, game->star->pos);
+		appearing_star(game, game->star.pos);
 	return (0);
 }
 
@@ -125,7 +125,6 @@ void	initialize_data_game(t_game *game, char *file)
 {
 	get_data_map(file, &game->map, &game->max);
 	get_data_elements(game);
-	game->environnement_displayed = FALSE;
 	system("cvlc sound/march_ahead.wav &");
 }
 

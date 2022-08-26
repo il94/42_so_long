@@ -6,26 +6,25 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 18:54:53 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/25 18:55:06 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/26 18:42:25 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-void	put_environnement(t_game *game, t_pos pos_trgt)
+void	put_land(t_game *game, t_pos pos_trgt)
 {
 	int	i;
 
 	i = 0;
 	if (game->star_appeared)
 		i += 5;
-	draw(&game->render, &game->sprites_environnement[i], pos_trgt, FULL);
+	draw(&game->s_render, &game->s_land[i], pos_trgt, FULL);
 	if (is(WALL, game->map[pos_trgt.y][pos_trgt.x]))
-		put_wall(game, &game->render, &game->sprites_environnement[i], pos_trgt);
+		put_wall(game, &game->s_render, &game->s_land[i], pos_trgt);
 }
 
-
-void	put_wall(t_game *game, t_data *dst, t_data *sprites, t_pos pos)
+void	put_wall(t_game *game, t_img *dst, t_img *sprites, t_pos pos)
 {
 	int	i;
 
@@ -43,7 +42,7 @@ void	put_wall(t_game *game, t_data *dst, t_data *sprites, t_pos pos)
 	draw(dst, &sprites[i], pos, FULL);
 }
 
-void	put_enemies(t_game *game, t_data *dst, t_data *src, t_data *sprites)
+void	put_enemies(t_game *game, t_img *dst, t_data *src, t_img *sprites)
 {
 	int	i;
 
@@ -60,26 +59,27 @@ void	put_enemies(t_game *game, t_data *dst, t_data *src, t_data *sprites)
 	}
 }
 
-void	put_player(t_game *game, t_data *dst, t_data *src, t_data *sprites)
+void	put_player(t_game *game, t_img *dst, t_data *src, t_img *sprites)
 {
 	int	i;
 
 	i = 0;
 	if (game->star_appeared)
 		i += 26;
-	if (game->is_hitting)
-		put_player_hit(dst, src, &game->sprites_mario[i + 18], &game->is_hitting);
-	else if (game->is_jumping)
-		put_player_jump(dst, src, &game->sprites_mario[i + 16], &game->is_jumping);
+	if (game->hitting)
+		put_player_hit(dst, src, &game->s_mario[i + 18], &game->hitting);
+	else if (game->jumping)
+		put_player_jump(dst, src, &game->s_mario[i + 16], &game->jumping);
 	else if (player_is_moving(game))
-		put_player_walk(dst, src, &game->sprites_mario[i + 4]);
+		put_player_walk(dst, src, &game->s_mario[i + 4]);
 	else
-		put_player_static(dst, src, &game->sprites_mario[i]);
+		put_player_static(dst, src, &game->s_mario[i]);
 }
 
-void	put_scrolling_bar(t_game *game)
+void	put_stepbar(t_game *game)
 {
-	put_bar(&game->scrolling_bar, game->sprites_bar, game->max.x - 1);
-	put_move_count(game);
-	scroll_bar(&game->render, &game->scrolling_bar, game->bar_displayed);
+	put_bar(&game->s_stepbar, game->s_bar, game->max.x - 1);
+	put_move_count(game, &game->s_stepbar, game->s_bar);
+	scroll_bar(&game->s_render, &game->stepbar,
+		&game->s_stepbar, game->bar_display);
 }
