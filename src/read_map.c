@@ -6,13 +6,21 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 13:53:24 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/24 18:49:35 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/28 01:07:37 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-void	spawn_enemy(char **map, t_data *enemy)
+// void	spawn_enemy(char **map, t_data *enemy)
+// {
+// 	t_pos	pos;
+	
+// 	pos = enemy->pos;
+// 	map[pos.y][pos.x] = ft_toupper(map[pos.y][pos.x]);
+// }
+
+void	spawn_enemy(char **map, t_llist *enemy)
 {
 	t_pos	pos;
 	
@@ -46,6 +54,30 @@ void	read_map_and_array(char **map, t_data *element, char *target, void (*f)(t_d
 		}
 		pos.y++;
 	}
+}
+
+void	lread_map_and_array(char **map, t_llist **element, char *target, void (*f)(t_llist *, t_pos))
+{
+	t_llist	*start;
+	t_pos	pos;
+
+	start = *element;
+	pos.y = 1;
+	while (map[pos.y])
+	{
+		pos.x = 1;
+		while (map[pos.y][pos.x])
+		{
+			if (is(target, map[pos.y][pos.x]))
+			{
+				((*f)(*element, pos));
+				*element = (*element)->next;
+			}
+			pos.x++;
+		}
+		pos.y++;
+	}
+	*element = start;
 }
 
 void	read_map(char **map, t_data *element, char *target, void (*f)(t_data *, t_pos))
@@ -105,14 +137,27 @@ t_pos	read_map_return_pos(char **map, char *target)
 	return (pos);
 }
 
-void	iterate_elements(char **map, int element_count, t_data *elements, void (*f)(char **, t_data *))
-{
-	int	i;
+// void	iterate_elements(char **map, int element_count, t_data *elements, void (*f)(char **, t_data *))
+// {
+// 	int	i;
 
-	i = 0;
-	while (i < element_count)
+// 	i = 0;
+// 	while (i < element_count)
+// 	{
+// 		(*f)(map, &elements[i]);
+// 		i++;
+// 	}
+// }
+
+void	iterate_elements(char **map, int element_count, t_llist *elements, void (*f)(char **, t_llist *))
+{
+	t_llist	*start;
+
+	start = elements;
+	while (elements)
 	{
-		(*f)(map, &elements[i]);
-		i++;
+		(*f)(map, elements);
+		elements = elements->next;
 	}
+	elements = start;
 }

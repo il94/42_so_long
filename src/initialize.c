@@ -12,27 +12,46 @@
 
 #include "../so_long.h"
 
-void	initialize_enemies(t_game *game, t_data *enemies)
+// void	initialize_enemies(t_game *game, t_data *enemies)
+// {
+// 	int	i;
+// 	int	count_enemies;
+
+// 	i = 0;
+// 	count_enemies = count_entity(game->map, ENEMY);
+// 	game->enemies = malloc((count_enemies) * sizeof(t_data));
+// 	while (i < count_enemies + 1)
+// 	{
+// 		game->enemies[i].count = count_enemies;
+// 		game->enemies[i].index = count_enemies - i;
+// 		game->enemies[i].state = 0;
+// 		game->enemies[i].speed_animation = 30;
+// 		i++;
+// 	}
+// 	game->enemies[i].count = 0;
+// 	game->enemies[i].index = 0;
+// 	game->enemies[i].state = 0;
+// 	game->enemies[i].speed_animation = 0;
+// 	read_map_and_array(game->map, game->enemies, ENEMY, &get_position_entities);
+// }
+
+void	initialize_enemies(t_game *game, t_llist **enemies)
 {
 	int	i;
 	int	count_enemies;
 
 	i = 0;
 	count_enemies = count_entity(game->map, ENEMY);
-	game->enemies = malloc((count_enemies + 1) * sizeof(t_data));
-	while (i < count_enemies + 1)
+	*enemies = ft_lstnew();
+	while (i <= count_enemies)
 	{
-		game->enemies[i].count = count_enemies;
-		game->enemies[i].index = count_enemies - i;
-		game->enemies[i].state = 0;
-		game->enemies[i].speed_animation = 30;
+		ft_lstadd_back(enemies, ft_lstnew());
+		(*enemies)->count = count_enemies;
+		(*enemies)->index = count_enemies - i;
+		(*enemies)->speed_animation = 30;
 		i++;
 	}
-	game->enemies[i].count = 0;
-	game->enemies[i].index = 0;
-	game->enemies[i].state = 0;
-	game->enemies[i].speed_animation = 0;
-	read_map_and_array(game->map, game->enemies, ENEMY, &get_position_entities);
+	lread_map_and_array(game->map, enemies, ENEMY, lget_position_entities);
 }
 
 void	initialize_coins(t_game *game, t_data *coins)
@@ -40,7 +59,7 @@ void	initialize_coins(t_game *game, t_data *coins)
 	int	count_coins;
 
 	count_coins = count_entity(game->map, COIN);
-	game->coins = malloc((count_coins + 1) * sizeof(t_data));
+	game->coins = malloc((count_coins) * sizeof(t_data));
 	game->coins->count = count_coins;
 	game->coins->index = count_coins;
 	game->coins->state = 0;

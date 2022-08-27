@@ -19,7 +19,8 @@ void	put_render(t_game *game)
 		draw(&game->s_render, &game->s_items[4], game->hammer.pos, FULL);
 	if (game->star_appeared)
 		put_element(&game->s_render, &game->star, &game->s_items[5], CENTER);
-	if (game->enemies->count > 0)
+	if (game->enemies)
+		// put_enemies(game, &game->s_render, game->enemies, game->s_goombas);
 		put_enemies(game, &game->s_render, game->enemies, game->s_goombas);
 	if (game->coins->count > 0)
 		put_all_element(&game->s_render, game->coins, game->s_items, CENTER);

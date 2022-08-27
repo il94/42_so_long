@@ -60,8 +60,8 @@ int	key_press(int keycode, t_game *game)
 	}
 	else if (keycode == KEY_TAB)
 		display_bar(game);
-	else if (keycode == KEY_ESC)
-		mlx_loop_end(game->mlx);
+	// else if (keycode == KEY_ESC)
+	// 	mlx_loop_end(game->mlx);
 	game->keycode = keycode;
 	return (0);
 }
@@ -125,6 +125,6 @@ void	initialize_data_game(t_game *game, char *file)
 {
 	get_data_map(file, &game->map, &game->max);
 	get_data_elements(game);
-	system("cvlc sound/march_ahead.wav &");
+	// system("cvlc sound/march_ahead.wav &");
 }
 

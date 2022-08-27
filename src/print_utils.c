@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 18:37:40 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/26 17:47:44 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/28 00:44:32 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,24 @@ void	put_all_element(t_img *dst, t_data *src, t_img *sprites, t_shift shift)
 }
 
 void	put_element(t_img *dst, t_data *src, t_img *sprites, t_shift shift)
+{
+	int	scale;
+	int	frequency;
+	int	index_sprite;
+
+	index_sprite = 0;
+	scale = 0;
+	frequency = src->speed_animation / sprites->sprite_count;
+	while (index_sprite < sprites->sprite_count)
+	{
+		if (src->state >= scale && src->state <= scale + frequency)
+			draw(dst, &sprites[index_sprite], src->cell, shift);
+		scale += frequency;
+		index_sprite++;
+	}
+}
+
+void	put_lelement(t_img *dst, t_llist *src, t_img *sprites, t_shift shift)
 {
 	int	scale;
 	int	frequency;
