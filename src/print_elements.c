@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 18:54:53 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/28 00:45:32 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/29 03:53:02 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,33 +42,17 @@ void	put_wall(t_game *game, t_img *dst, t_img *sprites, t_pos pos)
 	draw(dst, &sprites[i], pos, FULL);
 }
 
-// void	put_enemies(t_game *game, t_img *dst, t_data *src, t_img *sprites)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < src->index)
-// 	{
-// 		if (enemy_proximity(game->map, game->player.pos, src[i].pos) == 1)
-// 			put_element(dst, &src[i], &sprites[6], CENTER);
-// 		else if (enemy_proximity(game->map, game->player.pos, src[i].pos) == 2)
-// 			put_element(dst, &src[i], &sprites[3], CENTER);
-// 		else
-// 			put_element(dst, &src[i], &sprites[0], CENTER);
-// 		i++;
-// 	}
-// }
-
-void	put_enemies(t_game *game, t_img *dst, t_llist *src, t_img *sprites)
+void	put_enemies(t_game *game, t_img *dst, t_list *src, t_img *sprites)
 {
+	int i = 0;
 	while (src)
 	{
 		if (enemy_proximity(game->map, game->player.pos, src->pos) == 1)
-			put_lelement(dst, src, &sprites[6], CENTER);
+			put_lelement(dst, src, &sprites[6], game->i_enemies);
 		else if (enemy_proximity(game->map, game->player.pos, src->pos) == 2)
-			put_lelement(dst, src, &sprites[3], CENTER);
+			put_lelement(dst, src, &sprites[3], game->i_enemies);
 		else
-			put_lelement(dst, src, &sprites[0], CENTER);
+			put_lelement(dst, src, &sprites[0], game->i_enemies);
 		src = src->next;
 	}
 }

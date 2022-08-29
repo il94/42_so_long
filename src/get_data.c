@@ -16,9 +16,8 @@ void	get_data_elements(t_game *game)
 {
 	initialize_bar(game, &game->stepbar);
 	initialize_player(game, &game->player);
-	// initialize_enemies(game, game->enemies);
-	initialize_enemies(game, &game->enemies);
-	initialize_coins(game, game->coins);
+	initialize_enemies(game, &game->enemies, &game->i_enemies);
+	initialize_coins(game, &game->coins, &game->i_coins);
 	initialize_star(game, &game->star);
 	game->hammer.pos = read_map_return_pos(game->map, HAMMER);
 	if (game->hammer.pos.x == 0 && game->hammer.pos.y == 0)

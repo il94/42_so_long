@@ -31,7 +31,7 @@ void	get_position_entities(t_data *entities, t_pos pos_trgt)
 	entities->cell.y = pos_trgt.y * CELL + CELL / 2;
 }
 
-void	lget_position_entities(t_llist *entities, t_pos pos_trgt)
+void	lget_position_entities(t_list *entities, t_pos pos_trgt)
 {
 	entities->pos = pos_trgt;
 	entities->cell.x = pos_trgt.x * CELL + CELL / 2;
@@ -57,33 +57,6 @@ int	count_entity(char **map, char *target)
 		pos.y++;
 	}
 	return (result);
-}
-
-int	player_get_coin(t_game *game)
-{
-	int	i;
-
-	i = 0;
-	while (i < game->coins->index)
-	{
-		if (game->coins[i].cell.x >= game->player.cell.x - 20 /* left */
-			&& game->coins[i].cell.x <= game->player.cell.x + 20 /* right */
-			&& game->coins[i].cell.y >= game->player.cell.y - 25 /* up */
-			&& game->coins[i].cell.y <= game->player.cell.y + 25) /* down */
-		{
-			system("cvlc sound/coin.wav &");
-			if (game->coins[i].pos.x != 0)
-				game->map[game->coins[i].pos.y][game->coins[i].pos.x] = '0';
-			game->coins[i].pos.x = 0;
-			game->coins[i].pos.y = 1;
-			game->coins[i].cell.x = 1;
-			game->coins[i].cell.y = 1;
-			game->coins->count--;
-			return (1);
-		}
-		i++;
-	}
-	return (0);
 }
 
 int	is_valid_char(char c, int *cep)
@@ -122,4 +95,14 @@ int	is(char *str, char c)
 		i++;
 	}
 	return (0);
+}
+
+void	print_lists(t_list *lst)
+{
+	printf("============PRINT LIST============\n");
+	while (lst)
+	{
+		printf("pos.x = %d && pos.y = %d\n", lst->pos.x, lst->pos.y);
+		lst = lst->next;
+	}
 }

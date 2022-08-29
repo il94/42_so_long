@@ -1,7 +1,7 @@
 NAME = so_long
 
 CC = gcc
-CFLAGS = -e_wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 LIBFT = -L libft -lft
 LIBX = -L mlx_linux -lmlx_Linux

@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 20:23:19 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/20 17:52:13 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/28 14:42:38 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	is_not_empty(char *file, int fd, char *buffer)
 {
 	if (read(fd, buffer, 1) <= 0)
 	{
-		printf("Empty file\n");
+		ft_printf("Empty file\n");
 		return (0);
 	}
 	return (1);

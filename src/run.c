@@ -12,6 +12,22 @@
 
 #include "../so_long.h"
 
+// void	print_lists(t_list *lst)
+// {
+// 	printf("============PRINT LIST============\n");
+// 	while (lst)
+// 	{
+// 		printf("pos.x = %d && pos.y = %d\n", lst->pos.x, lst->pos.y);
+// 		lst = lst->next;
+// 	}
+// 	// printf("============PRINT LIST============\n");
+// 	// while (lst)
+// 	// {
+// 	// 	lst = lst->prev;
+// 	// 	printf("pos.x = %d && pos.y = %d\n", lst->pos.x, lst->pos.y);
+// 	// }
+// }
+
 void	end_game(t_game *game, t_end condition)
 {
 	if (condition == WIN)
@@ -60,8 +76,8 @@ int	key_press(int keycode, t_game *game)
 	}
 	else if (keycode == KEY_TAB)
 		display_bar(game);
-	// else if (keycode == KEY_ESC)
-	// 	mlx_loop_end(game->mlx);
+	else if (keycode == KEY_ESC)
+		mlx_loop_end(game->mlx);
 	game->keycode = keycode;
 	return (0);
 }
@@ -83,21 +99,26 @@ int	run_game(t_game *game)
 {
 	// ft_print_array(game->map);
 	// printf("========\n");
+	// print_lists(game->enemies);
+	// printf("========\n");
+	// printf("pos.x = %d && pos.y = %d\n", game->player.pos.x, game->player.pos.y);
+	// printf("========\n");
 	// printf("enemies = %d, pos = x: %d y: %d\n", game->enemies->count, game->enemies[0].pos.x, game->enemies[0].pos.y);
 	// printf("coins = %d, pos = x: %d y: %d\n", game->coins->count, game->coins[0].pos.x, game->coins[0].pos.y);
 	// printf("count :%d xpos: %d ypos: %d xcell: %d ycell: %d\n", &game->star.count, &game->star.pos.x, &game->star.pos.y, &game->star.cell.x, &game->star.cell.y);
+		// printf("pos.x = %d && pos.y = %d\n", src->pos.x, src->pos.y);
+	// usleep(4000);
 	put_render(game);
-	if (game->coins->state++ >= game->coins->speed_animation)
-		game->coins->state = 0;
+	// print_lists(game->enemies);
+	if (game->i_coins.state++ >= game->i_coins.speed_animation)
+		game->i_coins.state = 0;
 	if (game->star.state++ >= game->star.speed_animation)
 		game->star.state = 0;
 	move_player(game);
 	move_all_enemies(game);
-	if (collision_player_enemy(game))
+	if (game->enemies && check_hbox(game->player.cell, game->enemies, H_ENEMY))
 		end_game(game, LOOSE);
-	if (collision_player_coin(game))
-		player_get_coin(game);	
-	if (!game->star_appeared && game->coins->count == 0)
+	if (!game->star_appeared && !game->coins)
 		appearing_star(game, game->star.pos);
 	return (0);
 }
@@ -125,6 +146,6 @@ void	initialize_data_game(t_game *game, char *file)
 {
 	get_data_map(file, &game->map, &game->max);
 	get_data_elements(game);
-	// system("cvlc sound/march_ahead.wav &");
+	system("cvlc sound/march_ahead.wav &");
 }
 

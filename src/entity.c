@@ -6,145 +6,110 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 17:58:45 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/28 01:03:30 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/29 18:55:47 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-// void	kill_enemy(char **map, t_data *enemy)
-// {
-// 	system("cvlc sound/goomba.wav &");
-// 	if (enemy->pos.x != 0)
-// 		map[enemy->pos.y][enemy->pos.x] = '0';
-// 	enemy->pos.x = 0;
-// 	enemy->pos.y = 1;
-// 	enemy->cell.x = 1;
-// 	enemy->cell.y = 1;
-// }
-
-void	kill_enemy(char **map, t_llist *enemy)
+t_hbox	get_hbox_range(t_range range)
 {
-	system("cvlc sound/goomba.wav &");
-	map[enemy->pos.y][enemy->pos.x] = '0';
-	ft_lstdelone(enemy);
+	t_hbox	result;
+
+	result.left = 24;
+	result.right = 24;
+	result.down = 24;
+	result.up = 24;
+	if (range == H_HIT_LEFT)
+		result.left = 48;
+	else if (range == H_COIN || range == H_HIT_RIGHT)
+		result.left = 12;
+	if (range == H_HIT_RIGHT)
+		result.right = 48;
+	else if (range == H_COIN || range == H_HIT_LEFT)
+		result.right = 12;
+	if (range == H_JUMP)
+		result.down = 12;
+	else if (range == H_HIT_B)
+		result.down = 48;
+	if (range == H_HIT_B)
+		result.up = 12;
+	else if (range == H_JUMP)
+		result.up = 48;
+	return (result);
 }
 
-int	collision_player_coin(t_game *game)
+int	check_hbox(t_pos player_cell, t_list *element, t_range range)
 {
-	int	i;
+	t_hbox	size;
 
-	i = 0;
-	while (i < game->coins->index)
+	size = get_hbox_range(range);
+	while (element)
 	{
-		if (game->coins[i].cell.x >= game->player.cell.x - 10 /* left */
-			&& game->coins[i].cell.x <= game->player.cell.x + 10 /* right */
-			&& game->coins[i].cell.y >= game->player.cell.y - 25 /* up */
-			&& game->coins[i].cell.y <= game->player.cell.y + 20) /* down */
+		if (element->cell.x >= player_cell.x - size.left
+			&& element->cell.x <= player_cell.x + size.right
+			&& element->cell.y >= player_cell.y - size.up
+			&& element->cell.y <= player_cell.y + size.down)
 			return (1);
-		i++;
+		element = element->next;
 	}
 	return (0);
 }
 
-// int	collision_player_enemy(t_game *game)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < game->enemies->index)
-// 	{
-// 		if (game->enemies[i].cell.x >= game->player.cell.x - 20 /* left */
-// 			&& game->enemies[i].cell.x <= game->player.cell.x + 20 /* right */
-// 			&& game->enemies[i].cell.y >= game->player.cell.y - 25 /* up */
-// 			&& game->enemies[i].cell.y <= game->player.cell.y + 25) /* down */
-// 			return (1);
-// 		i++;
-// 	}
-// 	return (0);
-// }
-
-int	collision_player_enemy(t_game *game)
+void	remove_element(char **map, t_list *element, t_list **start)
 {
-	t_llist	*start;
-
-	start = game->enemies;
-	while (game->enemies)
+	map[element->pos.y][element->pos.x] = '0';
+	if (element == *start)
 	{
-		if (game->enemies->cell.x >= game->player.cell.x - 20 /* left */
-			&& game->enemies->cell.x <= game->player.cell.x + 20 /* right */
-			&& game->enemies->cell.y >= game->player.cell.y - 25 /* up */
-			&& game->enemies->cell.y <= game->player.cell.y + 25) /* down */
+		*start = element->next;
+		if (*start)
+			(*start)->prev = NULL;
+	}
+	else
+		ft_lstdelone(element);
+	free(element);
+}
+
+void	hbox_remove(char **map, t_pos player, t_list **element, t_range range)
+{
+	t_list	*temp;
+	t_hbox	size;
+
+	temp = *element;
+	size = get_hbox_range(range);
+	while (temp)
+	{
+		if (temp->cell.x >= player.x - size.left
+			&& temp->cell.x <= player.x + size.right
+			&& temp->cell.y >= player.y - size.down
+			&& temp->cell.y <= player.y + size.up)
 		{
-			game->enemies = start;			
-			return (1);
+			if (range == H_COIN)
+				system("cvlc sound/coin.wav &");
+			else
+				system("cvlc sound/goomba.wav &");
+			remove_element(map, temp, element);
 		}
-		game->enemies = game->enemies->next;
+		if (temp)
+			temp = temp->next;
 	}
-	game->enemies = start;
-	return (0);
 }
 
 void	jump(t_game *game)
 {
-	int	i;
-
-	i = 0;
-	game->jumping = TRUE;
     system("cvlc sound/jump.wav &");
-	while (i < game->enemies->index)
-	{
-		if (game->enemies[i].cell.x >= game->player.cell.x - 24 && game->enemies[i].cell.x <= game->player.cell.x + 24 && game->enemies[i].cell.y >= game->player.cell.y - 10 && game->enemies[i].cell.y <= game->player.cell.y + 50)
-		{
-			game->map[game->player.pos.y + 1][game->player.pos.x] = '0';
-			game->enemies[i].cell.x = 1;
-			game->enemies[i].cell.y = 1;
-			game->enemies[i].pos.x = 1;
-			game->enemies[i].pos.y = 1;
-			game->enemies->count--;
-		}
-		i++;
-	}
+	game->jumping = TRUE;
+	hbox_remove(game->map, game->player.cell, &game->enemies, H_JUMP);
 }
 
 void	hammer_hit(t_game *game)
 {
-	int	i;
-	t_pos	trgt;
-	t_pos	death;
-
-	death.x = 0;
-	death.y = 0;
-	i = 0;
-	trgt = game->player.pos;
     system("cvlc sound/hammer.wav &");
-	while (i < game->enemies->index)
-	{
-		if (game->player.direction == 'l' || game->player.direction == 'r')
-		{
-			if (game->enemies[i].cell.x >= game->player.cell.x - 24 && game->enemies[i].cell.x <= game->player.cell.x + 24 && game->enemies[i].cell.y >= game->player.cell.y - 50 && game->enemies[i].cell.y <= game->player.cell.y + 10)
-			{
-				kill_enemy(game->map, &game->enemies[i]);
-				game->enemies->count--;
-			}
-		}
-		else if (game->player.direction == 'R')
-		{
-			if (game->enemies[i].cell.x >= game->player.cell.x - 10 && game->enemies[i].cell.x <= game->player.cell.x + 50 && game->enemies[i].cell.y >= game->player.cell.y - 24 && game->enemies[i].cell.y <= game->player.cell.y + 24)
-			{
-				kill_enemy(game->map, &game->enemies[i]);
-				game->enemies->count--;
-			}
-		}
-		else if (game->player.direction == 'L')
-		{
-			if (game->enemies[i].cell.x >= game->player.cell.x - 50 && game->enemies[i].cell.x <= game->player.cell.x + 10 && game->enemies[i].cell.y >= game->player.cell.y - 24 && game->enemies[i].cell.y <= game->player.cell.y + 24)
-			{
-				kill_enemy(game->map, &game->enemies[i]);
-				game->enemies->count--;
-			}
-	}
-		i++;
-	}
 	game->hitting = TRUE;
+	if (game->player.direction == 'l' || game->player.direction == 'r')
+		hbox_remove(game->map, game->player.cell, &game->enemies, H_HIT_B);
+	else if (game->player.direction == 'R')
+		hbox_remove(game->map, game->player.cell, &game->enemies, H_HIT_RIGHT);
+	else if (game->player.direction == 'L')
+		hbox_remove(game->map, game->player.cell, &game->enemies, H_HIT_LEFT);
 }

@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 13:53:24 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/28 01:07:37 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/29 03:53:20 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 // 	map[pos.y][pos.x] = ft_toupper(map[pos.y][pos.x]);
 // }
 
-void	spawn_enemy(char **map, t_llist *enemy)
+void	spawn_enemy(char **map, t_list *enemy)
 {
 	t_pos	pos;
 	
@@ -56,9 +56,9 @@ void	read_map_and_array(char **map, t_data *element, char *target, void (*f)(t_d
 	}
 }
 
-void	lread_map_and_array(char **map, t_llist **element, char *target, void (*f)(t_llist *, t_pos))
+void	lread_map_and_array(char **map, t_list **element, char *target, void (*f)(t_list *, t_pos))
 {
-	t_llist	*start;
+	t_list	*start;
 	t_pos	pos;
 
 	start = *element;
@@ -137,21 +137,9 @@ t_pos	read_map_return_pos(char **map, char *target)
 	return (pos);
 }
 
-// void	iterate_elements(char **map, int element_count, t_data *elements, void (*f)(char **, t_data *))
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < element_count)
-// 	{
-// 		(*f)(map, &elements[i]);
-// 		i++;
-// 	}
-// }
-
-void	iterate_elements(char **map, int element_count, t_llist *elements, void (*f)(char **, t_llist *))
+void	iterate_elements(char **map, t_list *elements, void (*f)(char **, t_list *))
 {
-	t_llist	*start;
+	t_list	*start;
 
 	start = elements;
 	while (elements)

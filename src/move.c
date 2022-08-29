@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 11:19:37 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/28 00:58:08 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/29 03:54:13 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,77 +58,47 @@ void	get_player_direction(t_game *game, t_pos *pos_trgt, t_pos *cell_trgt)
 	}
 }
 
-// void	change_enemy_direction(t_game *game, char code, int i)
-// {
-// 	if (code == 'D')
-// 		game->map[game->enemies[i].pos.y][game->enemies[i].pos.x] = 'R';
-// 	else if (code == 'R')
-// 		game->map[game->enemies[i].pos.y][game->enemies[i].pos.x] = 'U';
-// 	else if (code == 'U')
-// 		game->map[game->enemies[i].pos.y][game->enemies[i].pos.x] = 'L';
-// 	else if (code == 'L')
-// 		game->map[game->enemies[i].pos.y][game->enemies[i].pos.x] = 'D';
-// }
-
-void	change_enemy_direction(t_game *game, char code, t_llist *enemy)
+void	change_enemy_direction(char **map, char code, t_list *enemy)
 {
 	if (code == 'D')
-		game->map[enemy->pos.y][enemy->pos.x] = 'R';
+		map[enemy->pos.y][enemy->pos.x] = 'R';
 	else if (code == 'R')
-		game->map[enemy->pos.y][enemy->pos.x] = 'U';
+		map[enemy->pos.y][enemy->pos.x] = 'U';
 	else if (code == 'U')
-		game->map[enemy->pos.y][enemy->pos.x] = 'L';
+		map[enemy->pos.y][enemy->pos.x] = 'L';
 	else if (code == 'L')
-		game->map[enemy->pos.y][enemy->pos.x] = 'D';
+		map[enemy->pos.y][enemy->pos.x] = 'D';
 }
 
-void	get_enemy_direction(t_game *game, t_pos *pos, t_pos *cell)
+void	get_enemy_direction(char **map, t_pos *pos, t_pos *cell)
 {
-	if (game->map[pos->y][pos->x] == 'M')
-		game->map[pos->y][pos->x] = 'D';
-	if (game->map[pos->y][pos->x] == 'D')
+	if (map[pos->y][pos->x] == 'M')
+		map[pos->y][pos->x] = 'D';
+	if (map[pos->y][pos->x] == 'D')
 	{
 		pos->y++;
 		cell->y++;
 	}
-	else if (game->map[pos->y][pos->x] == 'R')
+	else if (map[pos->y][pos->x] == 'R')
 	{
 		pos->x++;
 		cell->x++;
 	}
-	else if (game->map[pos->y][pos->x] == 'U')
+	else if (map[pos->y][pos->x] == 'U')
 	{
 		pos->y--;
 		cell->y--;
 	}
-	else if (game->map[pos->y][pos->x] == 'L')
+	else if (map[pos->y][pos->x] == 'L')
 	{
 		pos->x--;
 		cell->x--;
 	}
 }
 
-// void	move_all_enemies(t_game *game)
-// {
-// 	int		i;
-// 	t_pos	pos_trgt;
-// 	t_pos	cell_trgt;
-
-// 	i = 0;
-// 	while (i < game->enemies->index)
-// 	{
-// 		pos_trgt = game->enemies[i].pos_trgt;
-// 		cell_trgt = game->enemies[i].cell_trgt;
-// 		get_enemy_direction(game, &pos_trgt, &cell_trgt);
-// 		move_enemy(game, pos_trgt, cell_trgt, i);
-// 		i++;
-// 	}
-// 	iterate_elements(game->map, game->enemies->index, game->enemies, spawn_enemy);
-// }
-
 void	move_all_enemies(t_game *game)
 {
-	t_llist	*start;
+	t_list	*start;
 	t_pos	pos_trgt;
 	t_pos	cell_trgt;
 
@@ -137,10 +107,10 @@ void	move_all_enemies(t_game *game)
 	{
 		pos_trgt = game->enemies->pos;
 		cell_trgt = game->enemies->cell;
-		get_enemy_direction(game, &pos_trgt, &cell_trgt);
-		move_enemy(game, pos_trgt, cell_trgt, game->enemies);
+		get_enemy_direction(game->map, &pos_trgt, &cell_trgt);
+		move_enemy(game, cell_trgt, pos_trgt, game->enemies);
 		game->enemies = game->enemies->next;
 	}
 	game->enemies = start;
-	iterate_elements(game->map, game->enemies->index, game->enemies, spawn_enemy);
+	iterate_elements(game->map, game->enemies, spawn_enemy);
 }

@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 12:32:24 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/23 23:01:14 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/29 18:55:47 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,14 @@ void	move_player_sprite(t_game *game, t_pos cell_trgt)
 	game->player.cell = cell_trgt;
 	if (game->player.state++ >= game->player.speed_animation)
 		game->player.state = 0;
-	if (!game->max_player_steps)
-		game->player_steps++;
-	else
+	game->player_steps++;
+	if (game->max_player_steps)
 	{
 		game->player_steps = 0;
 		game->max_player_steps = FALSE;
 	}
+	if (game->coins)
+		hbox_remove(game->map, game->player.cell, &game->coins, H_COIN);
 }
 
 int	player_position_can_move(t_game *game, t_pos pos_trgt)

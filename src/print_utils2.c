@@ -6,38 +6,18 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 18:52:31 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/28 01:16:13 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/29 06:26:46 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-// void	put_all_land(t_game *game)
-// {
-// 	int		i;
-// 	if (!game->land_displayed)
-// 	{
-// 		read_map_with_struct(game, ALL, put_land);
-// 		game->land_displayed = TRUE;
-// 	}
-// 	put_around_player(game, game->player.pos);
-// 	i = 0;
-// 	while (game->enemies->count > 0 && i < game->enemies->index)
-// 		put_around_enemy(game, game->enemies[i++].pos);
-// 	i = 0;
-// 	while (game->coins->count > 0 && i < game->coins->index)
-// 		put_land(game, game->coins[i++].pos);
-// 	if (game->stepbar.cell.y > 0 && game->stepbar.cell.y < 48)
-// 		put_around_bar(game, game->stepbar.pos);
-// 	if (game->bar_display)
-// 		draw(&game->s_render, &game->s_stepbar, game->stepbar.cell, MENU);
-// }
-
 void	put_all_land(t_game *game)
 {
 	int		i;
-	t_llist	*start;
+	t_list	*start;
 
+	i = 0;
 	if (!game->land_displayed)
 	{
 		read_map_with_struct(game, ALL, put_land);
@@ -51,8 +31,13 @@ void	put_all_land(t_game *game)
 		game->enemies = game->enemies->next;
 	}
 	game->enemies = start;
-	while (game->coins->count > 0 && i < game->coins->index)
-		put_land(game, game->coins[i++].pos);
+	start = game->coins;
+	while (game->coins)
+	{
+		put_land(game, game->coins->pos);
+		game->coins = game->coins->next;
+	}
+	game->coins = start;	
 	if (game->stepbar.cell.y > 0 && game->stepbar.cell.y < 48)
 		put_around_bar(game, game->stepbar.pos);
 	if (game->bar_display)
@@ -103,7 +88,6 @@ void	put_around_enemy(t_game *game, t_pos pos_enemy)
 {
 	t_pos	pos_trgt;
 
-	printf("pos.x = %d && pos.y = %d\n", pos_enemy.x, pos_enemy.y);
 	pos_trgt = pos_enemy;
 	pos_trgt.y--;
 	while (pos_trgt.y <= pos_enemy.y + 1)

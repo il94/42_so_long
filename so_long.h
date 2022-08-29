@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:53:28 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/28 01:07:46 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/29 18:55:47 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,19 @@
 # define KEY_SPACE 32
 
 /* for QWERTY */
-// # define KEY_W 119
-// # define KEY_D 100
-// # define KEY_S 115
-// # define KEY_A 97
-
-/* for AZERTY */
-# define KEY_W 122
+# define KEY_W 119
 # define KEY_D 100
 # define KEY_S 115
-# define KEY_A 113
+# define KEY_A 97
+
+/* for AZERTY */
+// # define KEY_W 122
+// # define KEY_D 100
+// # define KEY_S 115
+// # define KEY_A 113
 
 # define CELL 48
+# define FPS 60
 # define VALID_CHAR "01CEPMH"
 # define items "CEeH"
 # define ALL "01CEePMURDLurdlH"
@@ -62,32 +63,31 @@ typedef enum	e_shift {
 	MOVE_COUNTER
 }				t_shift;
 
-typedef enum	e_bool {
-	FALSE,
-	TRUE
-}				t_bool;
+typedef struct	s_hbox {
+	int	left;
+	int	right;
+	int	down;
+	int	up;
+}				t_hbox;
+
+typedef enum	e_range {
+	H_COIN,
+	H_ENEMY,
+	H_JUMP,
+	H_HIT_B,
+	H_HIT_RIGHT,
+	H_HIT_LEFT
+}				t_range;
 
 typedef enum	e_end {
 	LOOSE,
 	WIN
 }				t_end;
 
-// typedef struct	s_pos {
-// 	int	x;
-// 	int	y;
-// }				t_pos;
-
-// typedef struct s_llist
-// {
-// 	t_pos	pos;
-// 	t_pos	cell;
-// 	int		count;
-// 	int		index;
-// 	int		state;
-// 	int		speed_animation;
-// 	char	direction;
-// 	struct s_llist	*next;
-// }					t_llist;
+typedef struct	s_info {
+	int		state;
+	int		speed_animation;
+}				t_info;
 
 typedef struct	s_data {
 	t_pos	pos;
@@ -138,12 +138,12 @@ typedef struct	s_game {
 	t_bool	move_left;
 
 	/* data enemies */
-	// t_data	*enemies;
-	t_llist	*enemies;
-	int		count_enemies;
+	t_list	*enemies;
+	t_info	i_enemies;
 	
 	/* data coins */
-	t_data	*coins;
+	t_list	*coins;
+	t_info	i_coins;
 
 	/* data star */
 	t_data	star;
@@ -171,7 +171,7 @@ void	put_render(t_game *game);
 void	put_land(t_game *game, t_pos pos_trgt);
 void	put_wall(t_game *game, t_img *dst, t_img *sprites, t_pos pos);
 // void	put_enemies(t_game *game, t_img *dst, t_data *src, t_img *sprites);
-void	put_enemies(t_game *game, t_img *dst, t_llist *src, t_img *sprites);
+void	put_enemies(t_game *game, t_img *dst, t_list *src, t_img *sprites);
 void	put_player(t_game *game, t_img *dst, t_data *src, t_img *sprites);
 void	put_stepbar(t_game *game);
 
@@ -192,8 +192,9 @@ int		get_shift_drawing_x(t_pos index, t_pos trgt, t_shift shift);
 int		get_shift_drawing_y(t_pos index, t_pos trgt, t_shift shift);
 int		draw(t_img *dst_img, t_img *src_img, t_pos trgt, t_shift shift);
 void	put_all_element(t_img *dst, t_data *src, t_img *sprite, t_shift shift);
-void	put_element(t_img *dst, t_data *src, t_img *sprite, t_shift shift);
-void	put_lelement(t_img *dst, t_llist *src, t_img *sprite, t_shift shift);
+void	put_all_lelement(t_img *dst, t_list *src, t_img *sprites, t_info i_coins);
+void	put_element(t_img *dst, t_data *src, t_img *sprite);
+void	put_lelement(t_img *dst, t_list *src, t_img *sprites, t_info i_enemies);
 
 /* print_utils2.c */
 void	put_all_land(t_game *game);
@@ -206,11 +207,12 @@ void	put_around_bar(t_game *game, t_pos pos_stepbar);
 int		player_is_moving(t_game *game);
 void	get_player_position(t_data *entity, t_pos pos_trgt);
 void	get_position_entities(t_data *entities, t_pos pos_trgt);
-void	lget_position_entities(t_llist *entities, t_pos pos_trgt);
+void	lget_position_entities(t_list *entities, t_pos pos_trgt);
 int		count_entity(char **map, char *target);
 int		player_get_coin(t_game *game);
 int		is_valid_char(char c, int *cep);
 int		is(char *str, char c);
+void	print_lists(t_list *lst);
 
 /* so_long.c */
 int		appearing_star(t_game *game, t_pos pos);
@@ -227,23 +229,21 @@ void	initialize_mlx(t_game *game);
 void	initialize_data_game(t_game *game, char *file);
 
 /* read_map.c */
-// void	spawn_enemy(char **map, t_data *enemy);
-void	spawn_enemy(char **map, t_llist *enemy);
+void	spawn_enemy(char **map, t_list *enemy);
 int		more_element(t_game *game, t_pos pos);
 void	read_map_and_array(char **map, t_data *element, char *target, void (*f)(t_data *, t_pos));
-void	lread_map_and_array(char **map, t_llist **element, char *target, void (*f)(t_llist *, t_pos));
+void	lread_map_and_array(char **map, t_list **element, char *target, void (*f)(t_list *, t_pos));
 void	read_map(char **map, t_data *element, char *target, void (*f)(t_data *, t_pos));
 void	read_map_with_struct(t_game *game, char *target, void (*f)(t_game *, t_pos));
 t_pos	read_map_return_pos(char **map, char *target);
-// void	iterate_elements(char **map, int element_count, t_data *elements, void (*f)(char **, t_data *));
-void	iterate_elements(char **map, int element_count, t_llist *elements, void (*f)(char **, t_llist *));
+void	iterate_elements(char **map, t_list *elements, void (*f)(char **, t_list *));
 
 /* entity.c */
-// void	kill_enemy(char **map, t_data *enemy);
-void	kill_enemy(char **map, t_llist *enemy);
-int		collision(t_data entity, t_data player);
+t_hbox	get_hbox_range(t_range range);
+void	hbox_remove(char **map, t_pos player, t_list **element, t_range range);
+int		check_hbox(t_pos player_cell, t_list *element, t_range range);
+void	remove_element(char **map, t_list *enemy, t_list **start);
 int		collision_player_enemy(t_game *game);
-int		collision_player_coin(t_game *game);
 void	hammer_hit(t_game *game);
 void	jump(t_game *game);
 
@@ -251,24 +251,18 @@ void	jump(t_game *game);
 void	get_data_elements(t_game *game);
 
 /* initialize.c */
-// void	initialize_enemies(t_game *game, t_data *enemies);
-void	initialize_enemies(t_game *game, t_llist **enemies);
-void	initialize_coins(t_game *game, t_data *coins);
+void	initialize_enemies(t_game *game, t_list **enemies, t_info *i_enemies);
+void	initialize_coins(t_game *game, t_list **coins, t_info *i_coins);
 void	initialize_star(t_game *game, t_data *star);
 void	initialize_bar(t_game *game, t_data *stepbar);
 void	initialize_player(t_game *game, t_data *player);
 
 /* move_enemy.c */
-// int		enemy_sprite_can_move(t_game *game, t_pos pos_trgt, char code, int i);
-// void	move_enemy_sprite(t_game *game, t_pos cell_trgt, int i);
-// int		enemy_position_can_move(t_game *game, t_pos pos_trgt, char code, int i);
-// void	move_enemy_position(t_game *game, t_pos trgt, char code, int i);
-// void	move_enemy(t_game *game, t_pos cell_trgt, t_pos pos_trgt, int i);
-int		enemy_sprite_can_move(t_game *game, t_pos pos_trgt, char code, t_llist *enemy);
-void	move_enemy_sprite(t_game *game, t_pos cell_trgt, t_llist *enemy);
-int		enemy_position_can_move(t_game *game, t_pos pos_trgt, char code, t_llist *enemy);
-void	move_enemy_position(t_game *game, t_pos trgt, char code, t_llist *enemy);
-void	move_enemy(t_game *game, t_pos cell_trgt, t_pos pos_trgt, t_llist *enemy);
+int		enemy_sprite_can_move(char **map, t_pos pos_trgt, char code, t_list *enemy);
+void	move_enemy_sprite(t_pos cell_trgt, t_list *enemy, t_info *i_enemies);
+int		enemy_position_can_move(char **map, t_pos pos_trgt, char code, t_list *enemy);
+void	move_enemy_position(char **map, t_pos trgt, char code, t_list *enemy);
+void	move_enemy(t_game *game, t_pos cell_trgt, t_pos pos_trgt, t_list *enemy);
 
 /* move_player.c */
 int		player_sprite_can_move(t_game *game, t_pos pos_trgt);
@@ -280,9 +274,8 @@ void	move_player(t_game *game);
 /* move.c */
 void	get_player_sprite_direction(t_game *game);
 void	get_player_direction(t_game *game, t_pos *pos_trgt, t_pos *cell_trgt);
-// void	change_enemy_direction(t_game *game, char code, int i);
-void	change_enemy_direction(t_game *game, char code, t_llist *enemy);
-void	get_enemy_direction(t_game *game, t_pos *pos, t_pos *cell);
+void	change_enemy_direction(char **map, char code, t_list *enemy);
+void	get_enemy_direction(char **map, t_pos *pos, t_pos *cell);
 void	move_all_enemies(t_game *game);
 
 /* parsing.c */
