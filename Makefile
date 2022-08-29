@@ -12,8 +12,9 @@ SRC = main.c \
 		parsing.c \
 		parsing_map_content.c \
 		parsing_map_file.c \
-		images.c \
-		addresses.c \
+		mlx_images.c \
+		mlx_addresses.c \
+		mlx_destroy.c \
 		print.c \
 		print_elements.c \
 		print_utils.c \
@@ -21,16 +22,16 @@ SRC = main.c \
 		print_scrolling_bar.c \
 		print_player.c \
 		so_long.c \
-		destroy.c \
 		run.c \
-		move_enemy.c \
-		move_player.c \
 		move.c \
+		move_player.c \
+		move_enemy.c \
 		read_map.c \
 		zoubir.c \
-		entity.c \
+		collisions.c \
 		initialize.c \
-		get_data.c
+		initialize_elements.c \
+		action_player.c
 
 OBJ = $(SRC:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 13:53:24 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/29 03:53:20 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/29 20:33:17 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	read_map_and_array(char **map, t_data *element, char *target, void (*f)(t_d
 	}
 }
 
-void	lread_map_and_array(char **map, t_list **element, char *target, void (*f)(t_list *, t_pos))
+void	read_map_and_list(char **map, t_list **element, char *target, void (*f)(t_list *, t_pos))
 {
 	t_list	*start;
 	t_pos	pos;

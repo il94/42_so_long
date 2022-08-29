@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 11:19:37 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/29 03:54:13 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/29 19:52:25 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,15 @@ void	get_player_direction(t_game *game, t_pos *pos_trgt, t_pos *cell_trgt)
 	}
 }
 
-void	change_enemy_direction(char **map, char code, t_list *enemy)
+void	change_enemy_direction(char **map, char direction, t_list *enemy)
 {
-	if (code == 'D')
+	if (direction == 'D')
 		map[enemy->pos.y][enemy->pos.x] = 'R';
-	else if (code == 'R')
+	else if (direction == 'R')
 		map[enemy->pos.y][enemy->pos.x] = 'U';
-	else if (code == 'U')
+	else if (direction == 'U')
 		map[enemy->pos.y][enemy->pos.x] = 'L';
-	else if (code == 'L')
+	else if (direction == 'L')
 		map[enemy->pos.y][enemy->pos.x] = 'D';
 }
 
@@ -108,7 +108,7 @@ void	move_all_enemies(t_game *game)
 		pos_trgt = game->enemies->pos;
 		cell_trgt = game->enemies->cell;
 		get_enemy_direction(game->map, &pos_trgt, &cell_trgt);
-		move_enemy(game, cell_trgt, pos_trgt, game->enemies);
+		e_move(game, cell_trgt, pos_trgt, game->enemies);
 		game->enemies = game->enemies->next;
 	}
 	game->enemies = start;
