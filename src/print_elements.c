@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 18:54:53 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/29 03:53:02 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/30 17:56:03 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	put_enemies(t_game *game, t_img *dst, t_list *src, t_img *sprites)
 	}
 }
 
-void	put_player(t_game *game, t_img *dst, t_data *src, t_img *sprites)
+void	put_player(t_game *game, t_img *dst, t_list *src, t_img *sprites)
 {
 	int	i;
 
@@ -69,7 +69,7 @@ void	put_player(t_game *game, t_img *dst, t_data *src, t_img *sprites)
 	else if (game->jumping)
 		put_player_jump(dst, src, &game->s_mario[i + 16], &game->jumping);
 	else if (player_is_moving(game))
-		put_player_walk(dst, src, &game->s_mario[i + 4]);
+		put_player_walk(dst, src, &game->s_mario[i + 4], game->i_player);
 	else
 		put_player_static(dst, src, &game->s_mario[i]);
 }

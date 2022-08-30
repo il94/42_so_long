@@ -6,19 +6,11 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 13:53:24 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/29 20:33:17 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/30 19:12:44 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
-
-// void	spawn_enemy(char **map, t_data *enemy)
-// {
-// 	t_pos	pos;
-	
-// 	pos = enemy->pos;
-// 	map[pos.y][pos.x] = ft_toupper(map[pos.y][pos.x]);
-// }
 
 void	spawn_enemy(char **map, t_list *enemy)
 {

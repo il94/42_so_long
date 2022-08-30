@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 20:03:36 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/29 20:03:53 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/30 17:33:48 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ void	hammer_hit(t_game *game)
 {
     system("cvlc sound/hammer.wav &");
 	game->hitting = TRUE;
-	if (game->player.direction == 'l' || game->player.direction == 'r')
+	if (game->player.dir == 'l' || game->player.dir == 'r')
 		hbox_remove(game->map, game->player.cell, &game->enemies, H_HIT_B);
-	else if (game->player.direction == 'R')
+	else if (game->player.dir == 'R')
 		hbox_remove(game->map, game->player.cell, &game->enemies, H_HIT_RIGHT);
-	else if (game->player.direction == 'L')
+	else if (game->player.dir == 'L')
 		hbox_remove(game->map, game->player.cell, &game->enemies, H_HIT_LEFT);
 }

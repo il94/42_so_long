@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 12:32:24 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/29 18:55:47 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/30 17:56:28 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ int	player_sprite_can_move(t_game *game, t_pos pos_trgt)
 		return (0);
 }
 
-void	move_player_sprite(t_game *game, t_pos cell_trgt)
+void	move_player_sprite(t_game *game, t_pos cell_trgt, t_info *i_player)
 {
 	game->player.cell = cell_trgt;
-	if (game->player.state++ >= game->player.speed_animation)
-		game->player.state = 0;
+	if (game->i_player.state++ >= game->i_player.speed_animation)
+		game->i_player.state = 0;
 	game->player_steps++;
 	if (game->max_player_steps)
 	{
@@ -89,7 +89,7 @@ void	move_player(t_game *game)
 	cell_trgt = game->player.cell;
 	get_player_direction(game, &pos_trgt, &cell_trgt);
 	if (player_sprite_can_move(game, pos_trgt))
-		move_player_sprite(game, cell_trgt);
+		move_player_sprite(game, cell_trgt, &game->i_player);
 	if (player_position_can_move(game, pos_trgt))
 		move_player_position(game, pos_trgt);
 	get_player_sprite_direction(game);

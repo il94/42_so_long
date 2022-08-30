@@ -44,17 +44,25 @@ void	initialize_coins(t_game *game, t_list **coins, t_info *i_coins)
 	i_coins->speed_animation = 180;
 }
 
-void	initialize_star(t_game *game, t_data *star)
+void	initialize_star(t_game *game, t_list *star, t_info *i_star)
 {
-	game->star.count = 1;
-	game->star.index = 1;
-	game->star.state = 0;
-	game->star.speed_animation = 90;
-	read_map_and_array(game->map, &game->star, STAR, &get_position_entities);
+	read_map_and_list(game->map, &star, STAR, lget_position_entities);
+	i_star->state = 0;
+	i_star->speed_animation = 90;
 	game->star_appeared = FALSE;
 }
 
-void	initialize_bar(t_game *game, t_data *stepbar)
+// void	initialize_bar(t_game *game, t_data *stepbar)
+// {
+// 	game->stepbar.pos.x = 0;
+// 	game->stepbar.pos.y = 0;
+// 	game->stepbar.cell.x = 0;
+// 	game->stepbar.cell.y = 0;
+// 	game->bar_display = FALSE;
+// 	game->max_player_steps = FALSE;
+// }
+
+void	initialize_bar(t_game *game, t_list *stepbar)
 {
 	game->stepbar.pos.x = 0;
 	game->stepbar.pos.y = 0;
@@ -64,30 +72,14 @@ void	initialize_bar(t_game *game, t_data *stepbar)
 	game->max_player_steps = FALSE;
 }
 
-// void	initialize_player(t_game *game, t_data *player)
-// {
-// 	game->player.count = 1;
-// 	game->player.index = 1;
-// 	game->player.state = 0;
-// 	game->player.speed_animation = 24;
-// 	game->player.direction = 'L';
-// 	read_map(game->map, &game->player, PLAYER, &get_player_position);
-// 	game->player_steps = 0;
-// 	game->hitting = FALSE;
-// 	game->jumping = FALSE;
-// 	game->move_up = FALSE;
-// 	game->move_right = FALSE;
-// 	game->move_down = FALSE;
-// 	game->move_left = FALSE;
-// }
-void	initialize_player(t_game *game, t_list **player, t_info *i_player)
+void	initialize_player(t_game *game, t_list *player, t_info *i_player)
 {
-	read_map_and_list(game->map, player, PLAYER, lget_position_entities);
-	game->player.direction = 'L';
-	(*player)->next = NULL;
-	(*player)->prev = NULL;
-	game->player.state = 0;
-	game->player.speed_animation = 24;
+	read_map_and_list(game->map, &player, PLAYER, lget_position_entities);
+	player->dir = 'L';
+	player->next = NULL;
+	player->prev = NULL;
+	game->i_player.state = 0;
+	game->i_player.speed_animation = 24;
 	game->player_steps = 0;
 	game->hitting = FALSE;
 	game->jumping = FALSE;

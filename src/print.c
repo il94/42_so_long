@@ -18,7 +18,7 @@ void	put_render(t_game *game)
 	if (game->map_contain_hammer && !game->get_hammer)
 		draw(&game->s_render, &game->s_items[4], game->hammer.pos, FULL);
 	if (game->star_appeared)
-		put_element(&game->s_render, &game->star, &game->s_items[5]);
+		put_lelement(&game->s_render, &game->star, &game->s_items[5], game->i_star);
 	if (game->enemies)
 		put_enemies(game, &game->s_render, game->enemies, game->s_goombas);
 	if (game->coins)

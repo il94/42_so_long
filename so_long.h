@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:53:28 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/29 20:37:29 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/30 20:04:45 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@
 
 # include <stdlib.h>
 # include <fcntl.h>
+# include <time.h>
 
 typedef enum	e_shift {
 	FULL,
@@ -121,14 +122,13 @@ typedef struct	s_game {
 	t_pos	max;
 
 	/* data render */
-	t_data	render;
-	t_data	stepbar;
+	t_list	render;
+	t_list	stepbar;
 	t_bool	bar_display;
 	t_bool	land_displayed;
 	t_bool	max_player_steps;
 
 	/* data mario */
-	// t_data	player;
 	t_list	player;
 	t_info	i_player;
 	int		player_steps;
@@ -138,6 +138,7 @@ typedef struct	s_game {
 	t_bool	move_right;
 	t_bool	move_down;
 	t_bool	move_left;
+	int		time;
 
 	/* data enemies */
 	t_list	*enemies;
@@ -148,23 +149,24 @@ typedef struct	s_game {
 	t_info	i_coins;
 
 	/* data star */
-	t_data	star;
+	t_list	star;
+	t_info	i_star;
 	t_bool	star_appeared;
 
 	/* data hammer */
-	t_data	hammer;
+	t_list	hammer;
 	t_bool	map_contain_hammer;
 	t_bool	get_hammer;
 
 	/* images */
-	t_img		s_render;
-	t_img		s_land[10];
-	t_img		s_stepbar;
-	t_img		s_bar[15];
-	t_img		s_mario[52];
-	t_img		s_goombas[9];
-	t_img		s_items[8];
-	}				t_game;
+	t_img	s_render;
+	t_img	s_land[10];
+	t_img	s_stepbar;
+	t_img	s_bar[15];
+	t_img	s_mario[52];
+	t_img	s_goombas[9];
+	t_img	s_items[8];
+}				t_game;
 
 
 /* zoubir.c */
@@ -219,7 +221,7 @@ void	get_enemy_direction(char **map, t_pos *pos, t_pos *cell);
 void	move_all_enemies(t_game *game);
 /* move_player.c */
 int		player_sprite_can_move(t_game *game, t_pos pos_trgt);
-void	move_player_sprite(t_game *game, t_pos cell_trgt);
+void	move_player_sprite(t_game *game, t_pos cell_trgt, t_info *i_player);
 int		player_pos_can_move(t_game *game, t_pos pos_trgt);
 void	move_player_pos(t_game *game, t_pos pos_trgt);
 void	move_player(t_game *game);
@@ -236,18 +238,18 @@ void	put_render(t_game *game);
 void	put_land(t_game *game, t_pos pos_trgt);
 void	put_wall(t_game *game, t_img *dst, t_img *sprites, t_pos pos);
 void	put_enemies(t_game *game, t_img *dst, t_list *src, t_img *sprites);
-void	put_player(t_game *game, t_img *dst, t_data *src, t_img *sprites);
+void	put_player(t_game *game, t_img *dst, t_list *src, t_img *sprites);
 void	put_stepbar(t_game *game);
 /* print_player.c */
-void	put_player_hit(t_img *dst, t_data *src, t_img *sprite, t_bool *hit);
-void	put_player_jump(t_img *dst, t_data *src, t_img *sprite, t_bool *jump);
-void	put_player_walk(t_img *dst, t_data *src, t_img *sprites);
-void	put_player_static(t_img *dst, t_data *src, t_img *sprites);
+void	put_player_hit(t_img *dst, t_list *src, t_img *sprite, t_bool *hit);
+void	put_player_jump(t_img *dst, t_list *src, t_img *sprite, t_bool *jump);
+void	put_player_walk(t_img *dst, t_list *src, t_img *sprites, t_info info);
+void	put_player_static(t_img *dst, t_list *src, t_img *sprites);
 /* print_stepbar.c */
 void	put_bar(t_img *dst, t_img *sprites, int size_bar);
 void	put_move_count(t_game *game, t_img *dst, t_img *sprites);
 void	put_step(t_img *dst, t_img *sprites, t_pos pos_trgt, int player_steps);
-void	scroll_bar(t_img *dst, t_data *src, t_img *sprite, t_bool bar_display);
+void	scroll_bar(t_img *dst, t_list *src, t_img *sprite, t_bool bar_display);
 /* print_utils.c */
 int		get_shift_drawing_x(t_pos index, t_pos trgt, t_shift shift);
 int		get_shift_drawing_y(t_pos index, t_pos trgt, t_shift shift);
@@ -278,10 +280,10 @@ void	initialize_elements(t_game *game);
 /* initialize_elements.c */
 void	initialize_enemies(t_game *game, t_list **enemies, t_info *i_enemies);
 void	initialize_coins(t_game *game, t_list **coins, t_info *i_coins);
-void	initialize_star(t_game *game, t_data *star);
-void	initialize_bar(t_game *game, t_data *stepbar);
-// void	initialize_player(t_game *game, t_data *player);
-void	initialize_player(t_game *game, t_list **player, t_info *i_player);
+void	initialize_star(t_game *game, t_list *star, t_info *i_star);
+// void	initialize_bar(t_game *game, t_data *stepbar);
+void	initialize_bar(t_game *game, t_list *stepbar);
+void	initialize_player(t_game *game, t_list *player, t_info *i_player);
 
 /* parsing.c */
 int		is_valid_parameter(int ac, char *file);

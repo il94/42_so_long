@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_stepbar.c                              :+:      :+:    :+:   */
+/*   print_scrolling_bar.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/25 18:39:53 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/26 16:34:22 by ilandols         ###   ########.fr       */
+/*   Created: 2022/08/30 19:27:03 by ilandols          #+#    #+#             */
+/*   Updated: 2022/08/30 19:27:06 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	put_step(t_img *dst, t_img *sprites, t_pos pos_trgt, int player_steps)
 		draw(dst, &sprites[1], pos_trgt, MOVE_COUNTER);
 }
 
-void	scroll_bar(t_img *dst, t_data *src, t_img *sprite, t_bool bar_display)
+void	scroll_bar(t_img *dst, t_list *src, t_img *sprite, t_bool bar_display)
 {
 	if (bar_display && src->cell.y < 48)
 	{

@@ -12,22 +12,6 @@
 
 #include "../so_long.h"
 
-// void	print_lists(t_list *lst)
-// {
-// 	printf("============PRINT LIST============\n");
-// 	while (lst)
-// 	{
-// 		printf("pos.x = %d && pos.y = %d\n", lst->pos.x, lst->pos.y);
-// 		lst = lst->next;
-// 	}
-// 	// printf("============PRINT LIST============\n");
-// 	// while (lst)
-// 	// {
-// 	// 	lst = lst->prev;
-// 	// 	printf("pos.x = %d && pos.y = %d\n", lst->pos.x, lst->pos.y);
-// 	// }
-// }
-
 void	end_game(t_game *game, t_end condition)
 {
 	if (condition == WIN)
@@ -39,6 +23,9 @@ void	end_game(t_game *game, t_end condition)
 
 int	key_press(int keycode, t_game *game)
 {
+	int	time_b;
+
+	time_b = (int)clock();
 	if (keycode == KEY_W)
 	{
 		game->move_up = TRUE;
@@ -67,17 +54,21 @@ int	key_press(int keycode, t_game *game)
 		game->move_right = FALSE;
 		game->move_down = FALSE;
 	}
-	else if (keycode == KEY_SPACE)
+	if (time_b > game->time + 200000)
 	{
-		if (game->move_down)
-			jump(game);
-		else if (game->get_hammer)
-			hammer_hit(game);
+		if (keycode == KEY_SPACE)
+		{
+			if (game->move_down)
+				jump(game);
+			else if (game->get_hammer)
+				hammer_hit(game);
+		}
+		else if (keycode == KEY_TAB)
+			display_bar(game);
+		else if (keycode == KEY_ESC)
+			mlx_loop_end(game->mlx);
+		game->time = (int)clock();
 	}
-	else if (keycode == KEY_TAB)
-		display_bar(game);
-	else if (keycode == KEY_ESC)
-		mlx_loop_end(game->mlx);
 	game->keycode = keycode;
 	return (0);
 }
@@ -112,8 +103,8 @@ int	run_game(t_game *game)
 	// print_lists(game->enemies);
 	if (game->i_coins.state++ >= game->i_coins.speed_animation)
 		game->i_coins.state = 0;
-	if (game->star.state++ >= game->star.speed_animation)
-		game->star.state = 0;
+	if (game->star_appeared && game->i_star.state++ >= game->i_star.speed_animation)
+		game->i_star.state = 0;
 	move_player(game);
 	move_all_enemies(game);
 	if (game->enemies && check_hbox(game->player.cell, game->enemies, H_ENEMY))
@@ -130,7 +121,7 @@ void	initialize_mlx(t_game *game)
 	if (!game->mlx)
 		exit (0);
 	game->win = mlx_new_window(game->mlx,
-			game->max.x * CELL, game->max.y * CELL, "Paper mario");
+			game->max.x * CELL, game->max.y * CELL, "So Long");
 	if (!game->win)
 		exit (0);
 	get_all_images(game);
@@ -146,6 +137,7 @@ void	initialize_data_game(t_game *game, char *file)
 {
 	get_data_map(file, &game->map, &game->max);
 	initialize_elements(game);
+	game->time = (int)clock();
 	system("cvlc sound/march_ahead.wav &");
 }
 
