@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 11:19:37 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/30 17:29:31 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/31 20:13:53 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,5 @@ void	move_all_enemies(t_game *game)
 		game->enemies = game->enemies->next;
 	}
 	game->enemies = start;
-	iterate_elements(game->map, game->enemies, spawn_enemy);
+	spawn_enemies(game->map, game->enemies);
 }

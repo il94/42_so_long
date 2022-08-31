@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 12:32:24 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/30 17:56:28 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/31 22:52:11 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	move_player_sprite(t_game *game, t_pos cell_trgt, t_info *i_player)
 	if (game->max_player_steps)
 	{
 		game->player_steps = 0;
+		system("cvlc sound/1UP.wav &");
 		game->max_player_steps = FALSE;
 	}
 	if (game->coins)

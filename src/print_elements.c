@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 18:54:53 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/30 17:56:03 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/31 19:54:23 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,14 @@ void	put_wall(t_game *game, t_img *dst, t_img *sprites, t_pos pos)
 
 void	put_enemies(t_game *game, t_img *dst, t_list *src, t_img *sprites)
 {
-	int i = 0;
 	while (src)
 	{
 		if (enemy_proximity(game->map, game->player.pos, src->pos) == 1)
-			put_lelement(dst, src, &sprites[6], game->i_enemies);
+			put_element(dst, src, &sprites[6], game->i_enemies);
 		else if (enemy_proximity(game->map, game->player.pos, src->pos) == 2)
-			put_lelement(dst, src, &sprites[3], game->i_enemies);
+			put_element(dst, src, &sprites[3], game->i_enemies);
 		else
-			put_lelement(dst, src, &sprites[0], game->i_enemies);
+			put_element(dst, src, &sprites[0], game->i_enemies);
 		src = src->next;
 	}
 }

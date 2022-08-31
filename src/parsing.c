@@ -34,10 +34,10 @@ int	is_valid_map(t_game *game, char *file)
 	t_pos	size_map;
 
 	get_data_map(file, &map, &size_map);
-	if (size_map.y < 3 || !is_rectangular(map, size_map.y)
-		|| !is_valid_border(map, size_map) || !is_valid_content(map))
+	if (!is_rectangular(map, size_map.y) || !is_valid_border(map, size_map)
+		|| !is_valid_content(map))
 	{
-		ft_printf("Invalid map\n");
+		ft_printf("Error\nInvalid map\n");
 		ft_free_array(map);
 		return (0);
 	}

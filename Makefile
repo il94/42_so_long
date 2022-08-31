@@ -8,30 +8,32 @@ LIBX = -L mlx_linux -lmlx_Linux
 LIBXFLAGS = -lmlx -lXext -lX11
 
 SRCPATH = src/
-SRC = main.c \
-		parsing.c \
-		parsing_map_content.c \
-		parsing_map_file.c \
-		mlx_images.c \
+SRC = action_player.c \
+		collisions.c \
+		initialize_element.c \
+		initialize_list_elements.c \
+		initialize.c \
+		input_keyboard.c \
+		main.c \
 		mlx_addresses.c \
 		mlx_destroy.c \
-		print.c \
-		print_elements.c \
-		print_utils.c \
-		print_utils2.c \
-		print_scrolling_bar.c \
-		print_player.c \
-		so_long.c \
-		run.c \
-		move.c \
-		move_player.c \
+		mlx_images.c \
 		move_enemy.c \
-		read_map.c \
-		zoubir.c \
-		collisions.c \
-		initialize.c \
-		initialize_elements.c \
-		action_player.c
+		move_player.c \
+		move.c \
+		parsing_map_content.c \
+		parsing_map_file.c \
+		parsing.c \
+		print_elements.c \
+		print_land_around_element.c \
+		print_land.c \
+		print_player.c \
+		print_scrolling_bar.c \
+		print_utils.c \
+		print.c \
+		run.c \
+		so_long.c \
+		utils.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -41,11 +43,11 @@ $(NAME): $(OBJ)
 	@$(MAKE) --no-print-directory -C libft
 	@$(MAKE) --no-print-directory -C mlx_linux
 	@echo "\033[36mMaking So Long\033[0m"
-	@$(CC) $(OBJ) $(LIBFT) $(LIBX) $(LIBXFLAGS) -o $(NAME) -g3
+	@$(CC) $(OBJ) $(LIBFT) $(LIBX) $(LIBXFLAGS) -o $(NAME)
 	@echo "\033[32mDone\033[0m"
 
 %.o : $(SRCPATH)%.c
-	@$(CC) -c $^ -g3
+	@$(CC) -c $^
 
 bonus : all
 

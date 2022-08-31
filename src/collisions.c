@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 17:58:45 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/30 18:30:34 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/31 22:55:33 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ void	hbox_remove(char **map, t_pos player, t_list **element, t_range range)
 			else
 				system("cvlc sound/goomba.wav &");
 			remove_element(map, temp, element);
+			break ;
 		}
-		if (temp)
-			temp = temp->next;
+		temp = temp->next;
 	}
 }

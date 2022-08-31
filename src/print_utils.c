@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 18:37:40 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/29 04:16:50 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/31 21:36:22 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,30 +77,12 @@ int	draw(t_img *dst_img, t_img *src_img, t_pos trgt, t_shift shift)
 	return (0);
 }
 
-void	put_all_element(t_img *dst, t_data *src, t_img *sprites, t_shift shift)
+void	put_coins(t_img *dst, t_list *src, t_img *sprites, t_info i_coins)
 {
-	int	frequency;
-	int	scale;
-	int	index_sprite;
-	int	i;
-
-	i = 0;
-	frequency = src->speed_animation / sprites->sprite_count;
-	while (i < src->index)
-	{
-		put_element(dst, src, sprites);
-		i++;
-	}
-}
-
-void	put_all_lelement(t_img *dst, t_list *src, t_img *sprites, t_info i_coins)
-{
-	t_list *start;
 	int		scale;
 	int		frequency;
 	int		index_sprite;
 
-	start = src;
 	frequency = i_coins.speed_animation / sprites->sprite_count;
 	while (src)
 	{
@@ -115,28 +97,9 @@ void	put_all_lelement(t_img *dst, t_list *src, t_img *sprites, t_info i_coins)
 		}
 		src = src->next;
 	}
-	src = start;
 }
 
-void	put_element(t_img *dst, t_data *src, t_img *sprites)
-{
-	int	scale;
-	int	frequency;
-	int	index_sprite;
-
-	index_sprite = 0;
-	scale = 0;
-	frequency = src->speed_animation / sprites->sprite_count;
-	while (index_sprite < sprites->sprite_count)
-	{
-		if (src->state >= scale && src->state <= scale + frequency)
-			draw(dst, &sprites[index_sprite], src->cell, CENTER);
-		scale += frequency;
-		index_sprite++;
-	}
-}
-
-void	put_lelement(t_img *dst, t_list *src, t_img *sprites, t_info i_enemies)
+void	put_element(t_img *dst, t_list *src, t_img *sprites, t_info i_enemies)
 {
 	int	scale;
 	int	frequency;

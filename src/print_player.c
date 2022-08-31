@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 18:41:22 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/30 17:59:08 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/31 19:59:36 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ void	put_player_hit(t_img *dst, t_list *src, t_img *sprite, t_bool *hit)
 		draw(dst, &sprite[6], src->cell, HAMMER_RIGHT_1);
 	else if (src->dir == 'r')
 		draw(dst, &sprite[7], src->cell, HAMMER_RIGHT_2);
-	state++;
-	if (state > hit_time)
+	if (state++ > hit_time)
 	{
 		*hit = FALSE;
 		state = 0;

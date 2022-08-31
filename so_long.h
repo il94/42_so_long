@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:53:28 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/30 20:04:45 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/08/31 23:49:36 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,26 @@
 # define KEY_SPACE 32
 
 /* for QWERTY */
-# define KEY_W 119
-# define KEY_D 100
-# define KEY_S 115
-# define KEY_A 97
-
-/* for AZERTY */
-// # define KEY_W 122
+// # define KEY_W 119
 // # define KEY_D 100
 // # define KEY_S 115
-// # define KEY_A 113
+// # define KEY_A 97
+
+/* for AZERTY */
+// # define KEY_W 122 || 65362
+// # define KEY_D 100 || 65363
+// # define KEY_S 115 || 65364
+// # define KEY_A 113 || 65361
+
+# define KEY_W 122
+# define KEY_D 100
+# define KEY_S 115
+# define KEY_A 113
 
 # define CELL 48
-# define FPS 60
+# define DELAY_MIN 100000
 # define VALID_CHAR "01CEPMH"
-# define items "CEeH"
+# define ITEMS "CEeH"
 # define ALL "01CEePMURDLurdlH"
 # define GRASS "0"
 # define WALL "1"
@@ -51,7 +56,7 @@
 # include <fcntl.h>
 # include <time.h>
 
-typedef enum	e_shift {
+typedef enum e_shift {
 	FULL,
 	BOT,
 	CENTER,
@@ -64,14 +69,14 @@ typedef enum	e_shift {
 	MOVE_COUNTER
 }				t_shift;
 
-typedef struct	s_hbox {
+typedef struct s_hbox {
 	int	left;
 	int	right;
 	int	down;
 	int	up;
 }				t_hbox;
 
-typedef enum	e_range {
+typedef enum e_range {
 	H_COIN,
 	H_ENEMY,
 	H_JUMP,
@@ -80,27 +85,17 @@ typedef enum	e_range {
 	H_HIT_LEFT
 }				t_range;
 
-typedef enum	e_end {
+typedef enum e_end {
 	LOOSE,
 	WIN
 }				t_end;
 
-typedef struct	s_info {
+typedef struct s_info {
 	int		state;
 	int		speed_animation;
 }				t_info;
 
-typedef struct	s_data {
-	t_pos	pos;
-	t_pos	cell;
-	int		count;
-	int		index;
-	int		state;
-	int		speed_animation;
-	char	direction;
-}				t_data;
-
-typedef struct	s_img {
+typedef struct s_img {
 	void	*img;
 	char	*addr;
 	int		bpp;
@@ -111,24 +106,16 @@ typedef struct	s_img {
 	int		sprite_count;
 }				t_img;
 
-typedef struct	s_game {
-	/* data mlx */
+typedef struct s_game {
 	void	*mlx;
 	void	*win;
-	int		keycode;
-
-	/* data map */
 	char	**map;
 	t_pos	max;
-
-	/* data render */
 	t_list	render;
 	t_list	stepbar;
 	t_bool	bar_display;
 	t_bool	land_displayed;
 	t_bool	max_player_steps;
-
-	/* data mario */
 	t_list	player;
 	t_info	i_player;
 	int		player_steps;
@@ -138,27 +125,17 @@ typedef struct	s_game {
 	t_bool	move_right;
 	t_bool	move_down;
 	t_bool	move_left;
-	int		time;
-
-	/* data enemies */
+	int		start_delay;
 	t_list	*enemies;
 	t_info	i_enemies;
-	
-	/* data coins */
 	t_list	*coins;
 	t_info	i_coins;
-
-	/* data star */
 	t_list	star;
 	t_info	i_star;
 	t_bool	star_appeared;
-
-	/* data hammer */
 	t_list	hammer;
 	t_bool	map_contain_hammer;
 	t_bool	get_hammer;
-
-	/* images */
 	t_img	s_render;
 	t_img	s_land[10];
 	t_img	s_stepbar;
@@ -168,51 +145,12 @@ typedef struct	s_game {
 	t_img	s_items[8];
 }				t_game;
 
-
-/* zoubir.c */
-int		player_is_moving(t_game *game);
-void	get_player_position(t_data *entity, t_pos pos_trgt);
-void	get_position_entities(t_data *entities, t_pos pos_trgt);
-void	lget_position_entities(t_list *entities, t_pos pos_trgt);
-int		count_entity(char **map, char *target);
-int		player_get_coin(t_game *game);
-int		is_valid_char(char c, int *cep);
-int		is(char *str, char c);
-void	print_lists(t_list *lst);
-
-/* so_long.c */
-int		appearing_star(t_game *game, t_pos pos);
-void	display_bar(t_game *game);
-int		enemy_proximity(char **map, t_pos player, t_pos pos);
-int		is_near(char **map, t_pos pos, char *str);
-
-/* run.c */
-void	end_game(t_game *game, t_end condition);
-int		key_release(int keycode, t_game *game);
-int		key_press(int keycode, t_game *game);
-int		run_game(t_game *game);
-void	initialize_mlx(t_game *game);
-void	initialize_data_game(t_game *game, char *file);
-
-/* read_map.c */
-void	spawn_enemy(char **map, t_list *enemy);
-int		more_element(t_game *game, t_pos pos);
-void	read_map_and_array(char **map, t_data *element, char *target, void (*f)(t_data *, t_pos));
-void	read_map_and_list(char **map, t_list **element, char *target, void (*f)(t_list *, t_pos));
-void	read_map(char **map, t_data *element, char *target, void (*f)(t_data *, t_pos));
-void	read_map_with_struct(t_game *game, char *target, void (*f)(t_game *, t_pos));
-t_pos	read_map_return_pos(char **map, char *target);
-void	iterate_elements(char **map, t_list *elements, void (*f)(char **, t_list *));
-
 /* collisions.c */
 t_hbox	get_hbox_range(t_range range);
 void	hbox_remove(char **map, t_pos player, t_list **element, t_range range);
 int		check_hbox(t_pos player_cell, t_list *element, t_range range);
 void	remove_element(char **map, t_list *enemy, t_list **start);
 
-/* action_player.c */
-void	jump(t_game *game);
-void	hammer_hit(t_game *game);
 /* move.c */
 void	get_player_sprite_direction(t_game *game);
 void	get_player_direction(t_game *game, t_pos *pos_trgt, t_pos *cell_trgt);
@@ -232,6 +170,16 @@ int		e_pos_can_move(char **map, t_pos pos_trgt, char dir, t_list *enemy);
 void	e_move_pos(char **map, t_pos trgt, char dir, t_list *enemy);
 void	e_move(t_game *game, t_pos cell_trgt, t_pos pos_trgt, t_list *enemy);
 
+/* action_player.c */
+void	jump(t_game *game);
+void	hammer_hit(t_game *game);
+void	display_bar(t_game *game);
+/* input_keyboard.c */
+int		key_press(int keycode, t_game *game);
+int		key_press_move(int keycode, t_game *game);
+int		key_press_action(int keycode, t_game *game);
+int		key_release(int keycode, t_game *game);
+
 /* print.c */
 void	put_render(t_game *game);
 /* print_elements.c */
@@ -240,6 +188,15 @@ void	put_wall(t_game *game, t_img *dst, t_img *sprites, t_pos pos);
 void	put_enemies(t_game *game, t_img *dst, t_list *src, t_img *sprites);
 void	put_player(t_game *game, t_img *dst, t_list *src, t_img *sprites);
 void	put_stepbar(t_game *game);
+/* print_land.c */
+void	put_all_land(t_game *game);
+void	put_land_everywhere(t_game *game);
+void	put_wall_to_player(t_game *game);
+/* print_land_around_element.c */
+void	put_land_around_player(t_game *game, t_pos pos_player);
+void	put_land_around_enemies(t_game *game, t_list *enemies);
+void	put_land_on_coins(t_game *game, t_list *coins);
+void	put_land_around_bar(t_game *game, t_pos pos_stepbar);
 /* print_player.c */
 void	put_player_hit(t_img *dst, t_list *src, t_img *sprite, t_bool *hit);
 void	put_player_jump(t_img *dst, t_list *src, t_img *sprite, t_bool *jump);
@@ -254,36 +211,50 @@ void	scroll_bar(t_img *dst, t_list *src, t_img *sprite, t_bool bar_display);
 int		get_shift_drawing_x(t_pos index, t_pos trgt, t_shift shift);
 int		get_shift_drawing_y(t_pos index, t_pos trgt, t_shift shift);
 int		draw(t_img *dst_img, t_img *src_img, t_pos trgt, t_shift shift);
-void	put_all_element(t_img *dst, t_data *src, t_img *sprite, t_shift shift);
-void	put_all_lelement(t_img *dst, t_list *src, t_img *sprites, t_info i_coins);
-void	put_element(t_img *dst, t_data *src, t_img *sprite);
-void	put_lelement(t_img *dst, t_list *src, t_img *sprites, t_info i_enemies);
-/* print_utils2.c */
-void	put_all_land(t_game *game);
-void	put_wall_to_player(t_game *game);
-void	put_around_player(t_game *game, t_pos pos_player);
-void	put_around_enemy(t_game *game, t_pos pos_enemy);
-void	put_around_bar(t_game *game, t_pos pos_stepbar);
+void	put_coins(t_img *dst, t_list *src, t_img *sprites, t_info i_coins);
+void	put_element(t_img *dst, t_list *src, t_img *sprites, t_info i_enemies);
+
+/* so_long.c */
+void	increment_element_states(t_game *game);
+int		appearing_star(t_game *game, t_pos pos);
+int		enemy_proximity(char **map, t_pos player, t_pos pos);
+void	spawn_enemies(char **map, t_list *elements);
+int		player_is_moving(t_game *game);
+
+/* utils.c */
+int		is(char *str, char c);
+int		is_near(char **map, t_pos pos, char *str);
+int		is_valid_char(char c, int *cep);
+
+/* run.c */
+void	end_game(t_game *game, t_end condition);
+int		run_game(t_game *game);
 
 /* mlx_addresses.c */
 void	get_addresses(t_img *data, int number_sprite);
 void	get_all_addresses(t_game *game);
 /* mlx_images.c */
 void	get_images(void *mlx, t_img *data, char type, int number_sprite);
+void	get_sprites_count(t_game *game);
 void	get_all_images(t_game *game);
 /* mlx_destroy.c */
 void	destroy_elements(void *mlx, t_img *data, int number_sprite);
 int		destroy_all_elements(t_game *game);
 
 /* initialize.c */
-void	initialize_elements(t_game *game);
-/* initialize_elements.c */
-void	initialize_enemies(t_game *game, t_list **enemies, t_info *i_enemies);
-void	initialize_coins(t_game *game, t_list **coins, t_info *i_coins);
-void	initialize_star(t_game *game, t_list *star, t_info *i_star);
-// void	initialize_bar(t_game *game, t_data *stepbar);
-void	initialize_bar(t_game *game, t_list *stepbar);
+void	initialize_mlx(t_game *game);
+void	initialize_data_game(t_game *game, char *file);
+void	initialize_all_elements(t_game *game);
+int		count_entity(char **map, char *target);
+void	get_position_entities(char **map, t_list **element, char *target);
+/* initialize_element.c */
 void	initialize_player(t_game *game, t_list *player, t_info *i_player);
+void	initialize_star(t_game *game, t_list *star, t_info *i_star);
+void	initialize_hammer(t_game *game, t_list *hammer);
+void	initialize_bar(t_game *game, t_list *stepbar);
+/* initialize_list_elements.c */
+void	initialize_coins(t_game *game, t_list **coins, t_info *i_coins);
+void	initialize_enemies(t_game *game, t_list **enemies, t_info *i_enemies);
 
 /* parsing.c */
 int		is_valid_parameter(int ac, char *file);
