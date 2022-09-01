@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstcorrect.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/02 14:32:24 by ilandols          #+#    #+#             */
-/*   Updated: 2022/09/01 17:28:34 by ilandols         ###   ########.fr       */
+/*   Created: 2022/09/01 18:20:58 by ilandols          #+#    #+#             */
+/*   Updated: 2022/09/01 18:39:06 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
+#include "linked_lists.h"
 
-int	main(int ac, char **av)
+int	ft_lstcorrect(t_list *lst, int size)
 {
-	t_game	game;
+	int	i;
 
-	if (!is_valid_parameter(ac, av[1]) || !is_valid_map(av[1]))
-		exit (0);
-	initialize_data_game(&game, av[1]);
-	initialize_mlx(&game);
-	destroy_all_elements(&game);
+	i = 0;
+	while (lst)
+	{
+		lst = lst->next;
+		i++;
+	}
+	if (i == size)
+		return (1);
 	return (0);
 }

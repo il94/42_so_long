@@ -27,8 +27,7 @@ int	appearing_star(t_game *game, t_pos pos)
 	game->star_appeared = TRUE;
 	game->land_displayed = FALSE;
 	system("pkill vlc");
-	system("cvlc sound/star_spawn.wav &");
-	sleep(13);
+	usleep(1500000);
 	ft_lstclear(&game->enemies);
 	system("cvlc sound/star_way.wav &");
 	return (1);

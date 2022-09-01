@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:53:28 by ilandols          #+#    #+#             */
-/*   Updated: 2022/09/01 01:13:44 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/09/01 20:04:14 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,16 @@
 # define KEY_SPACE 32
 
 /* for QWERTY */
-// # define KEY_W 119
-// # define KEY_D 100
-// # define KEY_S 115
-// # define KEY_A 97
-
-/* for AZERTY */
-// # define KEY_W 122 || 65362
-// # define KEY_D 100 || 65363
-// # define KEY_S 115 || 65364
-// # define KEY_A 113 || 65361
-
-# define KEY_W 122
+# define KEY_W 119
 # define KEY_D 100
 # define KEY_S 115
-# define KEY_A 113
+# define KEY_A 97
+
+/* for AZERTY */
+// # define KEY_W 122
+// # define KEY_D 100
+// # define KEY_S 115
+// # define KEY_A 113
 
 # define CELL 48
 # define DELAY_MIN 100000
@@ -231,14 +226,16 @@ void	end_game(t_game *game, t_end condition);
 int		run_game(t_game *game);
 
 /* mlx_addresses.c */
-void	get_addresses(t_img *data, int number_sprite);
+void	get_addresses(t_game *game, t_img *data, int number_sprite);
 void	get_all_addresses(t_game *game);
 /* mlx_images.c */
-void	get_images(void *mlx, t_img *data, char type, int number_sprite);
+void	get_images(t_game *game, t_img *data, char type, int number_sprite);
 void	get_sprites_count(t_game *game);
 void	get_all_images(t_game *game);
 /* mlx_destroy.c */
+void	verify_alloc(t_game *game, void *ptr);
 void	destroy_elements(void *mlx, t_img *data, int number_sprite);
+void	destroy_lists(t_game *game);
 void	destroy_all_elements(t_game *game);
 
 /* initialize.c */
@@ -253,8 +250,8 @@ void	initialize_star(t_game *game, t_list *star, t_info *i_star);
 void	initialize_hammer(t_game *game, t_list *hammer);
 void	initialize_bar(t_game *game, t_list *stepbar);
 /* initialize_list_elements.c */
-void	initialize_coins(t_game *game, t_list **coins, t_info *i_coins);
-void	initialize_enemies(t_game *game, t_list **enemies, t_info *i_enemies);
+int		initialize_coins(t_game *game, t_list **coins, t_info *i_coins);
+int		initialize_enemies(t_game *game, t_list **enemies, t_info *i_enemies);
 
 /* parsing.c */
 int		is_valid_parameter(int ac, char *file);

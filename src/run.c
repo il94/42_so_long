@@ -23,7 +23,7 @@ void	end_game(t_game *game, t_end condition)
 
 int	run_game(t_game *game)
 {
-	// usleep(4000);
+	usleep(3500);
 	put_render(game);
 	increment_element_states(game);
 	if (player_is_moving(game))

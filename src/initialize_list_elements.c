@@ -12,7 +12,7 @@
 
 #include "../so_long.h"
 
-void	initialize_coins(t_game *game, t_list **coins, t_info *i_coins)
+int	initialize_coins(t_game *game, t_list **coins, t_info *i_coins)
 {
 	int	i;
 	int	count_coins;
@@ -25,9 +25,10 @@ void	initialize_coins(t_game *game, t_list **coins, t_info *i_coins)
 	get_position_entities(game->map, coins, COIN);
 	i_coins->state = 0;
 	i_coins->speed_animation = 180;
+	return (ft_lstcorrect(game->coins, count_coins));
 }
 
-void	initialize_enemies(t_game *game, t_list **enemies, t_info *i_enemies)
+int	initialize_enemies(t_game *game, t_list **enemies, t_info *i_enemies)
 {
 	int	i;
 	int	count_enemies;
@@ -42,4 +43,5 @@ void	initialize_enemies(t_game *game, t_list **enemies, t_info *i_enemies)
 	get_position_entities(game->map, enemies, ENEMY);
 	i_enemies->state = 0;
 	i_enemies->speed_animation = 180;
+	return (ft_lstcorrect(game->enemies, count_enemies));
 }

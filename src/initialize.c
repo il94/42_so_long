@@ -15,12 +15,10 @@
 void	initialize_mlx(t_game *game)
 {
 	game->mlx = mlx_init();
-	if (!game->mlx)
-		exit (0);
+	verify_alloc(game, game->mlx);
 	game->win = mlx_new_window(game->mlx,
 			game->max.x * CELL, game->max.y * CELL, "So Long");
-	if (!game->win)
-		exit (0);
+	verify_alloc(game, game->win);
 	get_all_images(game);
 	get_all_addresses(game);
 	mlx_hook(game->win, 2, 1L << 0, key_press, game);
@@ -35,7 +33,7 @@ void	initialize_data_game(t_game *game, char *file)
 	get_data_map(file, &game->map, &game->max);
 	initialize_all_elements(game);
 	game->start_delay = (int)clock();
-	// system("cvlc sound/march_ahead.wav &");
+	system("cvlc sound/march_ahead.wav &");
 }
 
 void	initialize_all_elements(t_game *game)
@@ -44,8 +42,13 @@ void	initialize_all_elements(t_game *game)
 	initialize_star(game, &game->star, &game->i_star);
 	initialize_hammer(game, &game->hammer);
 	initialize_bar(game, &game->stepbar);
-	initialize_coins(game, &game->coins, &game->i_coins);
-	initialize_enemies(game, &game->enemies, &game->i_enemies);
+	if (initialize_coins(game, &game->coins, &game->i_coins) == 0
+		|| initialize_enemies(game, &game->enemies, &game->i_enemies) == 0
+		|| !game->map)
+	{
+		destroy_lists(game);
+		exit (1);
+	}
 }
 
 int	count_entity(char **map, char *target)

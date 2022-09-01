@@ -17,11 +17,13 @@ int	is_valid_parameter(int ac, char *file)
 	int		fd;
 	char	buffer[1];
 
-	fd = open(file, O_RDONLY);
+	if (ac > 1)
+		fd = open(file, O_RDONLY);
 	if (!is_only_one_parameter(ac) || !file_exist(fd)
 		|| !is_ber_file(file) || !is_not_empty(fd, buffer))
 	{
-		close(fd);
+		if (ac > 1)
+			close(fd);
 		exit (1);
 	}
 	close(fd);
