@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 12:32:24 by ilandols          #+#    #+#             */
-/*   Updated: 2022/09/01 01:07:28 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/09/01 03:59:37 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,10 @@ void	move_player_position(t_game *game, t_pos pos_trgt)
 	if (game->map[pos_trgt.y][pos_trgt.x] == 'e')
 		end_game(game, WIN);
 	else if (game->map[pos_trgt.y][pos_trgt.x] == 'H')
+	{
 		game->get_hammer = TRUE;
+		system("cvlc sound/get_item.wav &");
+	}
 	if (!is(ENEMY, game->map[game->player.pos.y][game->player.pos.x]))
 		game->map[game->player.pos.y][game->player.pos.x] = '0';
 	game->player.pos = pos_trgt;

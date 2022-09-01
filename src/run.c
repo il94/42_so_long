@@ -26,7 +26,8 @@ int	run_game(t_game *game)
 	// usleep(4000);
 	put_render(game);
 	increment_element_states(game);
-	move_player(game);
+	if (player_is_moving(game))
+		move_player(game);
 	move_all_enemies(game);
 	if (game->enemies && check_hbox(game->player.cell, game->enemies, H_ENEMY))
 		end_game(game, LOOSE);
