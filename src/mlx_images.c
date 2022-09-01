@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 00:08:03 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/31 23:06:04 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/09/01 01:03:50 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ void	get_images(void *mlx, t_img *data, char type, int number_sprite)
 
 void	get_sprites_count(t_game *game)
 {
-	int	i;
-	int	j;
+	// int	i;
+	// int	j;
 
-	i = 0;
-	j = 0;
+	// i = 0;
+	// j = 0;
 	// while (i <= 25)
 	// {
 	// 	game->s_mario[i].sprite_count = j;

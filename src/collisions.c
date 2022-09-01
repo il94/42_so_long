@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 17:58:45 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/31 22:55:33 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/09/01 00:41:19 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ void	remove_element(char **map, t_list *element, t_list **start)
 		*start = element->next;
 		if (*start)
 			(*start)->prev = NULL;
+		free(element);
 	}
 	else
 		ft_lstdelone(element);
-	free(element);
 }
 
 void	hbox_remove(char **map, t_pos player, t_list **element, t_range range)

@@ -24,7 +24,7 @@ void	destroy_elements(void *mlx, t_img *data, int number_sprite)
 	}
 }
 
-int	destroy_all_elements(t_game *game)
+void	destroy_all_elements(t_game *game)
 {
 	destroy_elements(game->mlx, game->s_items, 8);
 	destroy_elements(game->mlx, game->s_goombas, 9);

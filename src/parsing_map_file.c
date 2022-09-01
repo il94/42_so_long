@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 20:23:19 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/31 23:52:19 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/09/01 01:08:13 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	is_only_one_parameter(int ac)
 	return (1);
 }
 
-int	file_exist(char *file, int fd)
+int	file_exist(int fd)
 {
 	if (fd < 0)
 	{
@@ -42,7 +42,7 @@ int	is_ber_file(char *file)
 	return (1);
 }
 
-int	is_not_empty(char *file, int fd, char *buffer)
+int	is_not_empty(int fd, char *buffer)
 {
 	if (read(fd, buffer, 1) <= 0)
 	{

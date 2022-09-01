@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 18:54:53 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/31 19:54:23 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/09/01 01:12:52 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@ void	put_player(t_game *game, t_img *dst, t_list *src, t_img *sprites)
 	if (game->star_appeared)
 		i += 26;
 	if (game->hitting)
-		put_player_hit(dst, src, &game->s_mario[i + 18], &game->hitting);
+		put_player_hit(dst, src, &sprites[i + 18], &game->hitting);
 	else if (game->jumping)
-		put_player_jump(dst, src, &game->s_mario[i + 16], &game->jumping);
+		put_player_jump(dst, src, &sprites[i + 16], &game->jumping);
 	else if (player_is_moving(game))
-		put_player_walk(dst, src, &game->s_mario[i + 4], game->i_player);
+		put_player_walk(dst, src, &sprites[i + 4], game->i_player);
 	else
-		put_player_static(dst, src, &game->s_mario[i]);
+		put_player_static(dst, src, &sprites[i]);
 }
 
 void	put_stepbar(t_game *game)

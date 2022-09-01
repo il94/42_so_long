@@ -18,8 +18,8 @@ int	is_valid_parameter(int ac, char *file)
 	char	buffer[1];
 
 	fd = open(file, O_RDONLY);
-	if (!is_only_one_parameter(ac) || !file_exist(file, fd)
-		|| !is_ber_file(file) || !is_not_empty(file, fd, buffer))
+	if (!is_only_one_parameter(ac) || !file_exist(fd)
+		|| !is_ber_file(file) || !is_not_empty(fd, buffer))
 	{
 		close(fd);
 		exit (1);
@@ -28,7 +28,7 @@ int	is_valid_parameter(int ac, char *file)
 	return (1);
 }
 
-int	is_valid_map(t_game *game, char *file)
+int	is_valid_map(char *file)
 {
 	char	**map;
 	t_pos	size_map;

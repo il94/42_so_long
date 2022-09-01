@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:53:28 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/31 23:49:36 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/09/01 01:13:44 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,8 +176,8 @@ void	hammer_hit(t_game *game);
 void	display_bar(t_game *game);
 /* input_keyboard.c */
 int		key_press(int keycode, t_game *game);
-int		key_press_move(int keycode, t_game *game);
-int		key_press_action(int keycode, t_game *game);
+void	key_press_move(int keycode, t_game *game);
+void	key_press_action(int keycode, t_game *game);
 int		key_release(int keycode, t_game *game);
 
 /* print.c */
@@ -239,7 +239,7 @@ void	get_sprites_count(t_game *game);
 void	get_all_images(t_game *game);
 /* mlx_destroy.c */
 void	destroy_elements(void *mlx, t_img *data, int number_sprite);
-int		destroy_all_elements(t_game *game);
+void	destroy_all_elements(t_game *game);
 
 /* initialize.c */
 void	initialize_mlx(t_game *game);
@@ -258,12 +258,12 @@ void	initialize_enemies(t_game *game, t_list **enemies, t_info *i_enemies);
 
 /* parsing.c */
 int		is_valid_parameter(int ac, char *file);
-int		is_valid_map(t_game *game, char *file);
+int		is_valid_map(char *file);
 /* parsing_map_file.c */
 int		is_only_one_parameter(int ac);
-int		file_exist(char *file, int fd);
+int		file_exist(int fd);
 int		is_ber_file(char *file);
-int		is_not_empty(char *file, int fd, char *buffer);
+int		is_not_empty(int fd, char *buffer);
 /* parsing_map_content.c */
 void	get_data_map(char *file, char ***map, t_pos *size_map);
 int		is_valid_content(char **map);

@@ -19,8 +19,8 @@ void	initialize_player(t_game *game, t_list *player, t_info *i_player)
 	player->dir = 'L';
 	player->next = NULL;
 	player->prev = NULL;
-	game->i_player.state = 0;
-	game->i_player.speed_animation = 24;
+	i_player->state = 0;
+	i_player->speed_animation = 24;
 	game->player_steps = 0;
 	game->hitting = FALSE;
 	game->jumping = FALSE;
@@ -53,10 +53,10 @@ void	initialize_hammer(t_game *game, t_list *hammer)
 
 void	initialize_bar(t_game *game, t_list *stepbar)
 {
-	game->stepbar.pos.x = 0;
-	game->stepbar.pos.y = 0;
-	game->stepbar.cell.x = 0;
-	game->stepbar.cell.y = 0;
+	stepbar->pos.x = 0;
+	stepbar->pos.y = 0;
+	stepbar->cell.x = 0;
+	stepbar->cell.y = 0;
 	game->bar_display = FALSE;
 	game->max_player_steps = FALSE;
 }

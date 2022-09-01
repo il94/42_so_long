@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 12:32:24 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/31 22:52:11 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/09/01 01:07:28 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ int	player_sprite_can_move(t_game *game, t_pos pos_trgt)
 void	move_player_sprite(t_game *game, t_pos cell_trgt, t_info *i_player)
 {
 	game->player.cell = cell_trgt;
-	if (game->i_player.state++ >= game->i_player.speed_animation)
-		game->i_player.state = 0;
+	if (i_player->state++ >= i_player->speed_animation)
+		i_player->state = 0;
 	game->player_steps++;
 	if (game->max_player_steps)
 	{

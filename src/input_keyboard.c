@@ -22,7 +22,7 @@ int	key_press(int keycode, t_game *game)
 	return (0);
 }
 
-int	key_press_move(int keycode, t_game *game)
+void	key_press_move(int keycode, t_game *game)
 {
 	game->move_up = FALSE;
 	game->move_right = FALSE;
@@ -38,7 +38,7 @@ int	key_press_move(int keycode, t_game *game)
 		game->move_left = TRUE;
 }
 
-int	key_press_action(int keycode, t_game *game)
+void	key_press_action(int keycode, t_game *game)
 {
 	int	end_delay;
 

@@ -35,7 +35,7 @@ void	initialize_data_game(t_game *game, char *file)
 	get_data_map(file, &game->map, &game->max);
 	initialize_all_elements(game);
 	game->start_delay = (int)clock();
-	system("cvlc sound/march_ahead.wav &");
+	// system("cvlc sound/march_ahead.wav &");
 }
 
 void	initialize_all_elements(t_game *game)

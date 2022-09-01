@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 18:37:40 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/31 21:36:22 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/09/01 01:15:29 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 int	get_shift_drawing_x(t_pos index, t_pos trgt, t_shift shift)
 {
-	if (shift == FULL)
-		return (index.y + (CELL * trgt.x));
-	else if (shift == BOT || shift == CENTER)
+	if (shift == BOT || shift == CENTER)
 		return (index.y + trgt.x - (CELL / 2));
 	else if (shift == HAMMER_LEFT_1)
 		return (index.y + trgt.x - (CELL / 3));
@@ -28,13 +26,13 @@ int	get_shift_drawing_x(t_pos index, t_pos trgt, t_shift shift)
 		return (index.y + trgt.x - (CELL / 6));
 	else if (shift == MENU || shift == MOVE_COUNTER)
 		return (index.y + trgt.x);
+	else
+		return (index.y + (CELL * trgt.x));
 }
 
 int	get_shift_drawing_y(t_pos index, t_pos trgt, t_shift shift)
 {
-	if (shift == FULL)
-		return (index.x + (CELL * trgt.y));
-	else if (shift == BOT)
+	if (shift == BOT)
 		return (index.x + trgt.y - CELL + (CELL / 6));
 	else if (shift == CENTER)
 		return (index.x + trgt.y - (CELL / 2));
@@ -48,6 +46,8 @@ int	get_shift_drawing_y(t_pos index, t_pos trgt, t_shift shift)
 		return (index.x + trgt.y - CELL);
 	else if (shift == MOVE_COUNTER)
 		return (index.x + trgt.y);
+	else
+		return (index.x + (CELL * trgt.y));
 }
 
 int	draw(t_img *dst_img, t_img *src_img, t_pos trgt, t_shift shift)

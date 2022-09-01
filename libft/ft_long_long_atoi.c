@@ -6,9 +6,11 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 00:44:08 by ilandols          #+#    #+#             */
-/*   Updated: 2022/07/06 13:34:17 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/09/01 00:18:05 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 long long	ft_long_long_atoi(const char *nptr)
 {

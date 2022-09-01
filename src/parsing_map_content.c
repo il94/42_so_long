@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 17:06:13 by ilandols          #+#    #+#             */
-/*   Updated: 2022/08/28 01:09:49 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/09/01 01:09:05 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ int	is_valid_border(char **map, t_pos map_pos)
 
 int	is_rectangular(char **map, int y)
 {
-	int	size_line;
-	int	i;
+	size_t	size_line;
+	int		i;
 
 	size_line = ft_strlen(map[0]);
 	i = 1;

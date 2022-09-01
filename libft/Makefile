@@ -37,15 +37,6 @@ SRC = ft_atoi.c \
 	ft_substr.c \
 	ft_tolower.c \
 	ft_toupper.c \
-	ft_lstnew.c \
-	ft_lstadd_front.c \
-	ft_lstsize.c \
-	ft_lstlast.c \
-	ft_lstadd_back.c\
-	ft_lstdelone.c \
-	ft_lstclear.c \
-	ft_lstiter.c \
-	ft_lstmap.c	\
 	ft_long_long_atoi.c \
 	ft_delete_content.c \
 	ft_print_array.c \
@@ -59,9 +50,14 @@ SRC = ft_atoi.c \
 
 OBJ = $(SRC:.c=.o)
 
-ADD_SRC = #Ajouter les fichiers specifiques au projet en cours\
+LISTS_PATH = linked_lists/
+LISTS_SRC = ft_lstnew.c \
+			ft_lstadd_front.c \
+			ft_lstadd_back.c\
+			ft_lstdelone.c \
+			ft_lstclear.c \
 
-ADD_OBJ = $(ADD_SRC:.c=.o)
+LISTS_OBJ = $(LISTS_SRC:.c=.o)
 
 LIBFT_BASE = libft_base.a
 PRINTF = ft_printf/libftprintf.a
@@ -69,7 +65,7 @@ GNL = ft_get_next_line/libftgnl.a
 
 all : $(NAME)
 
-$(NAME) : $(OBJ) $(ADD_OBJ)
+$(NAME) : $(OBJ) $(LISTS_OBJ)
 	@$(MAKE) --no-print-directory -C ft_printf
 	@$(MAKE) --no-print-directory -C ft_get_next_line
 	@echo "\033[33mMaking Libft\033[0m"
@@ -77,14 +73,14 @@ $(NAME) : $(OBJ) $(ADD_OBJ)
 	@ar -rcT $(NAME) $(LIBFT_BASE) $(PRINTF) $(GNL)
 	@echo "\033[32mDone\033[0m"
 
-%.o : %.c
+%.o : $(LISTS_PATH)%.c
 	@$(CC) $(CFLAGS) -c $^
 
 clean :
 	@$(MAKE) --no-print-directory fclean -C ft_printf
 	@$(MAKE) --no-print-directory fclean -C ft_get_next_line
 	@echo "\033[35mCleaning Libft's objects...\033[0m"
-	@rm -f $(OBJ) $(ADD_OBJ)
+	@rm -f $(OBJ) $(LISTS_OBJ)
 	@echo "\033[32mDone\033[0m"
 
 fclean : clean
