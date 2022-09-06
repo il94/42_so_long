@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 17:58:45 by ilandols          #+#    #+#             */
-/*   Updated: 2022/09/01 00:41:19 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/09/06 21:07:08 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,9 @@ void	hbox_remove(char **map, t_pos player, t_list **element, t_range range)
 			&& temp->cell.y <= player.y + size.up)
 		{
 			if (range == H_COIN)
-				system("cvlc sound/coin.wav &");
+				system("cvlc sounds/coin.wav &");
 			else
-				system("cvlc sound/goomba.wav &");
+				system("cvlc sounds/goomba.wav &");
 			remove_element(map, temp, element);
 			break ;
 		}

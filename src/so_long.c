@@ -29,7 +29,7 @@ int	appearing_star(t_game *game, t_pos pos)
 	system("pkill vlc");
 	usleep(1500000);
 	ft_lstclear(&game->enemies);
-	system("cvlc sound/star_way.wav &");
+	system("cvlc sounds/star_way.wav &");
 	return (1);
 }
 

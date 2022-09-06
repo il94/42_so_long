@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 12:32:24 by ilandols          #+#    #+#             */
-/*   Updated: 2022/09/01 03:59:37 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/09/06 21:07:08 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	move_player_sprite(t_game *game, t_pos cell_trgt, t_info *i_player)
 	if (game->max_player_steps)
 	{
 		game->player_steps = 0;
-		system("cvlc sound/1UP.wav &");
+		system("cvlc sounds/1UP.wav &");
 		game->max_player_steps = FALSE;
 	}
 	if (game->coins)
@@ -76,7 +76,7 @@ void	move_player_position(t_game *game, t_pos pos_trgt)
 	else if (game->map[pos_trgt.y][pos_trgt.x] == 'H')
 	{
 		game->get_hammer = TRUE;
-		system("cvlc sound/get_item.wav &");
+		system("cvlc sounds/get_item.wav &");
 	}
 	if (!is(ENEMY, game->map[game->player.pos.y][game->player.pos.x]))
 		game->map[game->player.pos.y][game->player.pos.x] = '0';
