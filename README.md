@@ -6,14 +6,14 @@
 	Description
 </h1>
 <p align="center">
-	This is a 42 School's project. The project consist to create a little 2D game with the MiniLibX, the school graphic library.
+	This is a 42 School's project. The project consists in creating a little 2D game with the MiniLibX, the school's graphic library.
 </p>
 
 <h2 align="center">
 	The Game
 </h2>
 <p align="center">
-	The purpose of the game is to collect all collectibles of the level, while avoiding ennemy attacks. You can beat them by jumping on them, or hitting them with your hammer losted in map. The least contact can loose you the game, so be careful !
+	The purpose of the game is to obtain all collectibles of the level, while avoiding ennemy attacks. You can beat them by jumping on them, or hitting them with your hammer losted in map. The least contact can loose you the game, so be careful !
 </p>
 
 <h2 align="center">
