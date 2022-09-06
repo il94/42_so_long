@@ -24,7 +24,7 @@ int	initialize_coins(t_game *game, t_list **coins, t_info *i_coins)
 		ft_lstadd_back(coins, ft_lstnew());
 	get_position_entities(game->map, coins, COIN);
 	i_coins->state = 0;
-	i_coins->speed_animation = 180;
+	i_coins->speed_animation = 60;
 	return (ft_lstcorrect(game->coins, count_coins));
 }
 
