@@ -1,19 +1,19 @@
 <p align="center">
-	<img src="https://zupimages.net/up/22/36/mqgn.png">
+	<img src="https://i.goopics.net/34onfv.gif">
 </p>
 
 <h1 align="center">
 	Description
 </h1>
 <p align="center">
-	This is a 42 School's project. The project consists in creating a little 2D game with the MiniLibX, the school's graphic library.
+	This is a 42 School project. It consists in creating a little 2D game with the MiniLibX, the school's graphic library.
 </p>
 
 <h2 align="center">
-	The Game
+	The game
 </h2>
 <p align="center">
-	The purpose of the game is to obtain all collectibles of the level, while avoiding ennemy attacks. You can beat them by jumping on them, or hitting them with your hammer losted in map. The least contact can loose you the game, so be careful !
+	The purpose of the game is to obtain every collectible of the level, while avoiding ennemy attacks. You can beat the ennemies either by jumping on them or by hitting them with your hammer lost in the map. The tiniest contact can loose you the game, so be careful !
 </p>
 
 <h2 align="center">
@@ -21,14 +21,14 @@
 </h2>
 <table>
 	<tr>
-		<td align="center"><code>W</code><br>Moving up</td>
-		<td align="center"><code>A</code><br>Moving left</td>
-		<td align="center"><code>S</code><br>Moving down</td>
-		<td align="center"><code>D</code><br>Moving right</td>
-		<td align="center"><code>SPACE</code><br>Hammer blow in the direction of the player (bottom excluded)</td>
+		<td align="center"><code>W</code><br>Move up</td>
+		<td align="center"><code>A</code><br>Move left</td>
+		<td align="center"><code>S</code><br>Move down</td>
+		<td align="center"><code>D</code><br>Move right</td>
+		<td align="center"><code>SPACE</code><br>Hammer blow (bottom excluded)</td>
 		<td align="center"><code>SPACE+S</code><br>Jump</td>
 		<td align="center"><code>TAB</code><br>Display step counter</td>
-		<td align="center"><code>ESC</code><br>Close the game</td>
+		<td align="center"><code>ESC</code><br>Close game</td>
 	</tr>
 </table>
 
@@ -44,7 +44,7 @@ cd so_long && make -j
 ```
 
 <h2 align="center">
-	Running Game
+	Running game
 </h2>
 
 ```bash
@@ -52,11 +52,11 @@ cd so_long && make -j
 ```
 
 <p align="center">
-	A map set is provided in "maps" folder. I challenge you to complete my levels (the world 4 in particular :) ).
+	A map set is provided in the "maps" folder. I challenge you to complete my levels (the world 4 in particular :) ).
 </p>
 
 <h2 align="center">
-	Map Composition
+	Map composition
 </h2>
 <table align="center">
 	<tr>
@@ -78,10 +78,10 @@ cd so_long && make -j
 					<td align="center"><code>C</code></td><td align="center">Collectible</td>
 				</tr>
 				<tr>
-					<td align="center"><code>E</code></td><td align="center">Exit Door</td>
+					<td align="center"><code>E</code></td><td align="center">Exit</td>
 				</tr>
 				<tr>
-					<td align="center"><code>P</code></td><td align="center">Starting Position</td>
+					<td align="center"><code>P</code></td><td align="center">Starting position</td>
 				</tr>
 				<tr>
 					<td align="center"><code>M</code></td><td align="center">Enemy</td>
@@ -94,7 +94,7 @@ cd so_long && make -j
 		<td>
 			<table align="center">
 				<h3 align="center">
-					Map Example
+					Map example
 				</h3>
 				<tr>
 					<td><br><br>
@@ -109,7 +109,7 @@ cd so_long && make -j
 						</p>
 					</td>
 					<td>
-						<img src="https://zupimages.net/up/22/36/wp6g.png">
+						<img src="https://i.goopics.net/uc1ily.png">
 						<p align="center">
 							<i>Render in game</i>
 						</p>
@@ -123,14 +123,14 @@ cd so_long && make -j
 <p>
 	To be valid, a map must meet the following conditions :
 	<ul>
-		<li>be rectangular</li>
-		<li>surrounded by walls</li>
-		<li>contain only one starting position</li>
-		<li>contain only one exit door</li>
-		<li>contain at least one collectible</li>
-		<li>contain a maximum of one hammer</li>
-		<libe composed by only valid characters</li>
-		<li>the file contain map must be at .ber format</li>
+		<li>being rectangular</li>
+		<li>being surrounded by walls</li>
+		<li>containing only one starting position</li>
+		<li>containing only one exit</li>
+		<li>containing at least one collectible</li>
+		<li>containing a maximum of one hammer</li>
+		<li>being composed only by valid characters</li>
+		<li>the file containing map must be .ber</li>
 	</ul>
 </p>
 <p>
@@ -141,5 +141,5 @@ cd so_long && make -j
 	Informations
 </h2>
 <p align="center">
-	Being free to choose game's sprites, I chose to use the ones from the games I grew up with, namely the Mario licence during the years 90s and 2000s, especially Paper Mario 64. It's the same for sounds, added as a bonus and the little references hidden everywhere in game. Being my first game, and my first graphical project, it seemed natural to me to make this game a tribute to these games that made me love the world of video games, and which gave me the desire to create some in my turn.
+	Being free to choose my own sprites, I used the ones from games I grew up with, namely the Mario license from the 90s and 2000s, and especially here Paper Mario 64. The same goes for sounds, added as a bonus, and the Easter eggs that can be found in the different levels. With it being my first game as well as my first graphical project, it seemed natural to me to make it a tribute to the ones that made me love the world of video games and gave me the desire to create some of my own.
 </p>
